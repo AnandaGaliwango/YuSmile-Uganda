@@ -779,11 +779,11 @@ nav a {
             <p>Your donation helps us continue our work in education, healthcare, and community development across Uganda.</p>
             
             <div class="donation-options">
-                <div class="donation-amount" data-amount="10">$10</div>
-                <div class="donation-amount" data-amount="25">$25</div>
-                <div class="donation-amount active" data-amount="50">$50</div>
-                <div class="donation-amount" data-amount="100">$100</div>
-                <div class="donation-amount" data-amount="250">$250</div>
+                <div class="donation-amount" data-amount="10">UGX5000</div>
+                <div class="donation-amount" data-amount="25">UGX10,000</div>
+                <div class="donation-amount active" data-amount="50">UGX20,OOO</div>
+                <div class="donation-amount" data-amount="100">UGX30,000</div>
+                <div class="donation-amount" data-amount="250">UGX50,000</div>
             </div>
             
             <div class="custom-amount">
@@ -791,7 +791,7 @@ nav a {
                 <button id="set-custom-amount">Set</button>
             </div>
             
-            <a href="#" class="btn btn-donate" id="donate-button" style="margin-top: 20px;">Donate $50 Now</a>
+            <a href="#" class="btn btn-donate" id="donate-button" style="margin-top: 20px;">Donate UGX5000 Now</a>
             
             <p style="margin-top: 20px; font-size: 0.9rem;">
                 <i class="fas fa-lock"></i> Secure payment processed by Pesapal
@@ -892,7 +892,7 @@ nav a {
                 </div>
                 
                 <div class="form-group">
-                    <label for="donation-amount-final">Donation Amount ($)</label>
+                    <label for="donation-amount-final">Donation Amount (UGX)</label>
                     <input type="number" id="donation-amount-final" required>
                 </div>
                 
@@ -901,80 +901,153 @@ nav a {
         </div>
     </div>
 
-    <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('active');
+<script>
+    // Mobile menu toggle
+    document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+        document.querySelector('nav ul').classList.toggle('active');
+    });
+
+    // Donation amount selection
+    const donationAmounts = document.querySelectorAll('.donation-amount');
+    const customAmountInput = document.getElementById('custom-amount');
+    const setCustomAmountBtn = document.getElementById('set-custom-amount');
+    const donateButton = document.getElementById('donate-button');
+    const donationAmountFinal = document.getElementById('donation-amount-final');
+    const displayAmount = document.getElementById('display-amount');
+    const paymentMethod = document.getElementById('payment-method');
+    const mobileMoneyFields = document.getElementById('mobile-money-fields');
+    let selectedAmount = 50000;
+
+    // Format UGX currency
+    function formatUGX(amount) {
+        return 'UGX ' + parseInt(amount).toLocaleString('en-UG');
+    }
+
+    donationAmounts.forEach(amount => {
+        amount.addEventListener('click', function() {
+            donationAmounts.forEach(a => a.classList.remove('active'));
+            this.classList.add('active');
+            selectedAmount = this.getAttribute('data-amount');
+            updateDonateButton();
         });
+    });
 
-        // Donation amount selection
-        const donationAmounts = document.querySelectorAll('.donation-amount');
-        const customAmountInput = document.getElementById('custom-amount');
-        const setCustomAmountBtn = document.getElementById('set-custom-amount');
-        const donateButton = document.getElementById('donate-button');
-        const donationAmountFinal = document.getElementById('donation-amount-final');
-        let selectedAmount = 50;
-
-        donationAmounts.forEach(amount => {
-            amount.addEventListener('click', function() {
-                donationAmounts.forEach(a => a.classList.remove('active'));
-                this.classList.add('active');
-                selectedAmount = this.getAttribute('data-amount');
-                updateDonateButton();
-            });
-        });
-
-        setCustomAmountBtn.addEventListener('click', function() {
-            const customAmount = customAmountInput.value;
-            if (customAmount && customAmount > 0) {
-                selectedAmount = customAmount;
-                donationAmounts.forEach(a => a.classList.remove('active'));
-                updateDonateButton();
-            }
-        });
-
-        function updateDonateButton() {
-            donateButton.textContent = `Donate $${selectedAmount} Now`;
+    setCustomAmountBtn.addEventListener('click', function() {
+        const customAmount = customAmountInput.value;
+        if (customAmount && customAmount > 0) {
+            selectedAmount = customAmount;
+            donationAmounts.forEach(a => a.classList.remove('active'));
+            updateDonateButton();
         }
+    });
 
-        // Modal functionality
-        const modal = document.getElementById('donation-modal');
-        const closeModal = document.querySelector('.close-modal');
-        const donationForm = document.getElementById('donation-form');
+    function updateDonateButton() {
+        donateButton.textContent = `Donate ${formatUGX(selectedAmount)} Now`;
+    }
 
-        // Open modal when donate button is clicked
-        document.querySelectorAll('.btn-donate').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                donationAmountFinal.value = selectedAmount;
-                modal.style.display = 'flex';
-            });
-        });
+    // Payment method toggle
+    paymentMethod.addEventListener('change', function() {
+        if (this.value === 'mobile_money') {
+            mobileMoneyFields.style.display = 'block';
+        } else {
+            mobileMoneyFields.style.display = 'none';
+        }
+    });
 
-        // Close modal
-        closeModal.addEventListener('click', function() {
-            modal.style.display = 'none';
-        });
+    // Modal functionality
+    const modal = document.getElementById('donation-modal');
+    const closeModal = document.querySelector('.close-modal');
+    const donationForm = document.getElementById('donation-form');
 
-        // Close modal when clicking outside
-        window.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-
-        // Form submission (would integrate with Pesapal in a real implementation)
-        donationForm.addEventListener('submit', function(e) {
+    // Open modal when donate button is clicked
+    document.querySelectorAll('.btn-donate').forEach(button => {
+        button.addEventListener('click', function(e) {
             e.preventDefault();
+            donationAmountFinal.value = selectedAmount;
+            displayAmount.textContent = formatUGX(selectedAmount);
+            modal.style.display = 'flex';
+        });
+    });
+
+    // Close modal
+    closeModal.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+
+    // Close modal when clicking outside
+    window.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    // Form submission - Integration with Pesapal
+    donationForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Basic validation
+        const name = document.getElementById('donor-name').value;
+        const email = document.getElementById('donor-email').value;
+        const phone = document.getElementById('donor-phone').value;
+        const paymentMethod = document.getElementById('payment-method').value;
+        
+        if (!name || !email || !phone || !paymentMethod) {
+            alert('Please fill in all required fields');
+            return;
+        }
+        
+        if (paymentMethod === 'mobile_money') {
+            const provider = document.getElementById('mobile-provider').value;
+            const mobileNumber = document.getElementById('mobile-number').value;
             
-            // In a real implementation, this would redirect to Pesapal payment gateway
-            // For demonstration, we'll just show an alert
-            alert(`Thank you for your donation of $${selectedAmount}! In a real implementation, you would now be redirected to Pesapal to complete your payment.`);
+            if (!provider || !mobileNumber) {
+                alert('Please fill in mobile money details');
+                return;
+            }
+        }
+        
+        // Prepare donation data
+        const donationData = {
+            amount: selectedAmount,
+            currency: 'UGX',
+            donor_name: name,
+            donor_email: email,
+            donor_phone: phone,
+            payment_method: paymentMethod
+        };
+        
+        // For demonstration - in production, this would integrate with Pesapal API
+        processDonation(donationData);
+    });
+
+    // Function to process donation (Replace with actual Pesapal integration)
+    function processDonation(donationData) {
+        // Show processing message
+        const submitBtn = donationForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+        submitBtn.disabled = true;
+        
+        // Simulate API call to your server
+        setTimeout(() => {
+            // In production, this would:
+            // 1. Send data to your server
+            // 2. Your server would create Pesapal order
+            // 3. Redirect to Pesapal payment page
             
-            // Reset form and close modal
+            alert(`Thank you for your donation of ${formatUGX(donationData.amount)}!\n\nIn production, you would now be redirected to Pesapal to complete your ${donationData.payment_method} payment.`);
+            
+            // Reset form
             donationForm.reset();
             modal.style.display = 'none';
-        });
-    </script>
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            
+        }, 2000);
+    }
+
+    // Initialize
+    updateDonateButton();
+</script>
 </body>
 </html>
