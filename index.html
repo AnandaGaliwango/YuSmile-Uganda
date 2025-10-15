@@ -976,14 +976,25 @@ nav a {
         });
     });
 
-    setCustomAmountBtn.addEventListener('click', function() {
-        const customAmount = customAmountInput.value;
-        if (customAmount && customAmount > 0) {
-            selectedAmount = customAmount;
-            donationAmounts.forEach(a => a.classList.remove('active'));
-            updateDonateButton();
-        }
-    });
+   // Custom amount handler - ADD THIS
+setCustomAmountBtn.addEventListener('click', function() {
+    const customAmount = customAmountInput.value;
+    if (customAmount && customAmount > 0) {
+        selectedAmount = customAmount;
+        donationAmounts.forEach(a => a.classList.remove('active'));
+        updateDonateButton();
+    } else {
+        alert('Please enter a valid amount');
+    }
+});
+
+// Also allow Enter key for custom amount - ADD THIS
+customAmountInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        setCustomAmountBtn.click();
+    }
+});
 
     // Payment method toggle
     paymentMethod.addEventListener('change', function() {
@@ -1083,6 +1094,7 @@ nav a {
 </body>
 
 </html>
+
 
 
 
