@@ -781,7 +781,7 @@ nav a {
             <div class="donation-options">
                 <div class="donation-amount active" data-amount="">UGX5000</div>
                 <div class="donation-amount" data-amount="">UGX10,000</div>
-                <div class="donation-amount " data-amount="">UGX20,OOO</div>
+                <div class="donation-amount " data-amount="">UGX20,000</div>
                 <div class="donation-amount" data-amount="">UGX30,000</div>
                 <div class="donation-amount" data-amount="">UGX50,000</div>
             </div>
@@ -869,37 +869,68 @@ nav a {
     </footer>
 
     <!-- Donation Modal -->
-    <div class="modal" id="donation-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h3>Make a Donation</h3>
-            <p>Thank you for supporting YuSmile Uganda. Your donation will help us create sustainable impact in communities across Uganda.</p>
-            
-            <form id="donation-form">
-                <div class="form-group">
-                    <label for="donor-name">Full Name</label>
-                    <input type="text" id="donor-name" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="donor-email">Email Address</label>
-                    <input type="email" id="donor-email" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="donor-phone">Phone Number</label>
-                    <input type="tel" id="donor-phone">
-                </div>
-                
-                <div class="form-group">
-                    <label for="donation-amount-final">Donation Amount (UGX)</label>
-                    <input type="number" id="donation-amount-final" required>
-                </div>
-                
-                <button type="submit" class="btn btn-donate" style="width: 100%;">Proceed to Payment with Pesapal</button>
-            </form>
+<!-- Donation Modal -->
+<div class="modal" id="donation-modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3>Make a Donation</h3>
+        <p>Thank you for supporting YuSmile Uganda. Your donation will help us create sustainable impact in communities across Uganda.</p>
+        
+        <div style="background: #f0f7ff; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+            <h4 style="margin: 0; color: var(--primary);">Donation Amount: <span id="display-amount">UGX 50,000</span></h4>
         </div>
+        
+        <form id="donation-form">
+            <div class="form-group">
+                <label for="donor-name">Full Name *</label>
+                <input type="text" id="donor-name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="donor-email">Email Address *</label>
+                <input type="email" id="donor-email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="donor-phone">Phone Number *</label>
+                <input type="tel" id="donor-phone" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="payment-method">Payment Method *</label>
+                <select id="payment-method" required>
+                    <option value="">Select payment method</option>
+                    <option value="mobile_money">Mobile Money</option>
+                    <option value="card">Credit/Debit Card</option>
+                    <option value="bank">Bank Transfer</option>
+                </select>
+            </div>
+            
+            <div id="mobile-money-fields" style="display: none;">
+                <div class="form-group">
+                    <label for="mobile-provider">Mobile Provider *</label>
+                    <select id="mobile-provider">
+                        <option value="">Select provider</option>
+                        <option value="mtn">MTN Mobile Money</option>
+                        <option value="airtel">Airtel Money</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="mobile-number">Mobile Number *</label>
+                    <input type="tel" id="mobile-number" placeholder="e.g., 0758927639">
+                </div>
+            </div>
+            
+            <input type="hidden" id="donation-amount-final" value="50000">
+            
+            <button type="submit" class="btn btn-donate" style="width: 100%;">Proceed to Secure Payment</button>
+            
+            <p style="text-align: center; margin-top: 15px; font-size: 0.8rem; color: #666;">
+                <i class="fas fa-shield-alt"></i> Your payment is secured and encrypted
+            </p>
+        </form>
     </div>
+</div>
 
 <script>
     // Mobile menu toggle
@@ -916,21 +947,25 @@ nav a {
     const displayAmount = document.getElementById('display-amount');
     const paymentMethod = document.getElementById('payment-method');
     const mobileMoneyFields = document.getElementById('mobile-money-fields');
-    let selectedAmount = 50000;
+    let selectedAmount = 5000;
 
     // Format UGX currency
     function formatUGX(amount) {
         return 'UGX ' + parseInt(amount).toLocaleString('en-UG');
     }
+    function updateDonateButton() {
+    donateButton.textContent = `Donate ${formatUGX(selectedAmount)} Now`;
+}
 
-    donationAmounts.forEach(amount => {
-        amount.addEventListener('click', function() {
-            donationAmounts.forEach(a => a.classList.remove('active'));
-            this.classList.add('active');
-            selectedAmount = this.getAttribute('data-amount');
-            updateDonateButton();
-        });
+donationAmounts.forEach(amount => {
+    amount.addEventListener('click', function() {
+        donationAmounts.forEach(a => a.classList.remove('active'));
+        this.classList.add('active');
+        selectedAmount = this.getAttribute('data-amount');
+        updateDonateButton();
     });
+});
+    
 
     setCustomAmountBtn.addEventListener('click', function() {
         const customAmount = customAmountInput.value;
