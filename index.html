@@ -128,18 +128,25 @@
             font-weight: 500;
         }
         
+       
         nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-        
-        nav a {
-            font-weight: 500;
-            position: relative;
-            padding: 5px 0;
-        }
-        
+    display: flex;
+    list-style: none;
+    gap: 25px;
+    align-items: center; /* This ensures vertical alignment */
+}
+
+nav li {
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    font-weight: 500;
+    position: relative;
+    padding: 8px 0;
+    white-space: nowrap; /* Prevents text wrapping */
+}
         nav a:after {
             content: '';
             position: absolute;
@@ -636,31 +643,33 @@
 </head>
 <body>
     <!-- Header -->
-    <header>
-        <div class="container header-container">
-            <div class="logo">
-                <!-- Placeholder for logo - replace with actual logo -->
-                <img src="YuSmilelogo.png" alt="YuSmile Uganda Logo" style="height: 50px;">
-                    <span>Creating Sustainable Impact</span>
-                </div>
+   <!-- Header -->
+<header>
+    <div class="container header-container">
+        <div class="logo">
+            <!-- Replace with your actual logo -->
+            <img src="YuSmilelogo.png" alt="YuSmile Uganda Logo" style="height: 50px;">
+            <div class="logo-text">
+                <h1>YuSmile Uganda</h1>
+                <span>Creating Sustainable Impact</span>
             </div>
-            <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <nav>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Programs</a></li>
-                    <li><a href="#">Get Involved</a></li>
-                    <li><a href="#">News</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#" class="btn btn-donate">Donate Now</a></li>
-                </ul>
-            </nav>
         </div>
-    </header>
-
+        <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Programs</a></li>
+                <li><a href="#">Get Involved</a></li>
+                <li><a href="#">News</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#" class="btn btn-donate">Donate Now</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
     <!-- Hero Section -->
     <section class="hero">
         <div class="container hero-content">
