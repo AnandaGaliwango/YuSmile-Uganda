@@ -936,9 +936,7 @@ nav a {
 </div>
 <script>
     // Debug - check if elements exist
-console.log('Custom amount input:', document.getElementById('custom-amount'));
-console.log('Set button:', document.getElementById('set-custom-amount'));
-console.log('Donate button:', document.getElementById('donate-button'));
+
     // Mobile menu toggle
     document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
         document.querySelector('nav ul').classList.toggle('active');
@@ -954,31 +952,40 @@ console.log('Donate button:', document.getElementById('donate-button'));
     const paymentMethod = document.getElementById('payment-method');
     const mobileMoneyFields = document.getElementById('mobile-money-fields');
     let selectedAmount = 5000;
-
-    // Fix donation amounts data attributes - ADD THIS
-    document.querySelector('.donation-amount[data-amount=""]').setAttribute('data-amount', '5000');
-    document.querySelectorAll('.donation-amount[data-amount=""]')[1].setAttribute('data-amount', '10000');
-    document.querySelectorAll('.donation-amount[data-amount=""]')[2].setAttribute('data-amount', '20000');
-    document.querySelectorAll('.donation-amount[data-amount=""]')[3].setAttribute('data-amount', '30000');
-    document.querySelectorAll('.donation-amount[data-amount=""]')[4].setAttribute('data-amount', '50000');
+    function formatUGX(amount) {
+        return 'UGX ' + parseInt(amount).toLocaleString('en-UG');
+    }
+    function updateDonateButton() {
+    donateButton.textContent = `Donate ${formatUGX(selectedAmount)} Now`;
+}
 
     // Format UGX currency
     function formatUGX(amount) {
         return 'UGX ' + parseInt(amount).toLocaleString('en-UG');
     }
 
+    donationAmounts.forEach(amount => {
+    amount.addEventListener('click', function() {
+        donationAmounts.forEach(a => a.classList.remove('active'));
+        this.classList.add('active');
+        selectedAmount = this.getAttribute('data-amount');
+        updateDonateButton();
+    });
+});
+    
+
+    setCustomAmountBtn.addEventListener('click', function() {
+        const customAmount = customAmountInput.value;
+        if (customAmount && customAmount > 0) {
+            selectedAmount = customAmount;
+            donationAmounts.forEach(a => a.classList.remove('active'));
+            updateDonateButton();
+        }
+    });
+
     function updateDonateButton() {
         donateButton.textContent = `Donate ${formatUGX(selectedAmount)} Now`;
     }
-
-    donationAmounts.forEach(amount => {
-        amount.addEventListener('click', function() {
-            donationAmounts.forEach(a => a.classList.remove('active'));
-            this.classList.add('active');
-            selectedAmount = this.getAttribute('data-amount');
-            updateDonateButton();
-        });
-    });
 
    // Custom amount handler - ADD THIS
 setCustomAmountBtn.addEventListener('click', function() {
@@ -1098,6 +1105,7 @@ customAmountInput.addEventListener('keypress', function(e) {
 </body>
 
 </html>
+
 
 
 
