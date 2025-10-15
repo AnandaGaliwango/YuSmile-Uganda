@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YuSmile Uganda - Creating Sustainable Impact</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #1a73e8;
+            --secondary: #34a853;
+            --accent: #fbbc05;
+            --dark: #202124;
+            --light: #f8f9fa;
+            --text: #3c4043;
+        }
+        
+        body {
+            color: var(--text);
+            line-height: 1.6;
+            background-color: var(--light);
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #0d5bb9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #2a8e47;
+        }
+        
+        .btn-donate {
+            background-color: #e94235;
+            color: white;
+            font-weight: bold;
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 8px rgba(233, 66, 53, 0.3);
+        }
+        
+        .btn-donate:hover {
+            background-color: #d32f2f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(233, 66, 53, 0.4);
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            
+        }
+        
+       .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 20px 15px 40px; /* Added more left padding */
+}
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo img {
+            height: 50px;
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+        
+        .logo-text span {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            font-weight: 500;
+        }
+        
+       
+        nav ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+    align-items: center; /* This ensures vertical alignment */
+}
+
+nav li {
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    font-weight: 500;
+    position: relative;
+    padding: 8px 0;
+    white-space: nowrap; /* Prevents text wrapping */
+}
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover:after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1521334884684-d80222895322?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        /* Mission Section */
+        .mission {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--text);
+        }
+        
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .mission-card {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .mission-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .mission-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .mission-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        /* Programs Section */
+        .programs {
+            padding: 80px 0;
+            background-color: #f0f7ff;
+        }
+        
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .program-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .program-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .program-content {
+            padding: 25px;
+        }
+        
+        .program-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        /* Impact Section */
+        .impact {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            padding: 30px 20px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+        
+        /* Donation Section */
+        .donation {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #e94235, #ff7043);
+            color: white;
+            text-align: center;
+        }
+        
+        .donation h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .donation p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+        }
+        
+        .donation-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .donation-amount {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .donation-amount:hover, .donation-amount.active {
+            background: white;
+            color: #e94235;
+        }
+        
+        .custom-amount {
+            display: flex;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .custom-amount input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+        }
+        
+        .custom-amount button {
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 0 15px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: white;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-column p {
+            margin-bottom: 15px;
+            color: #b0b3b8;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #b0b3b8;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .contact-item i {
+            color: var(--accent);
+            margin-top: 3px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            text-align: center;
+            color: #b0b3b8;
+            font-size: 0.9rem;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+        
+        .modal h3 {
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            nav ul {
+                gap: 20px;
+            }
+            
+            .hero h2 {
+                font-size: 2.4rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                gap: 15px;
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .donation-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .donation-amount {
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .logo-text h1 {
+                font-size: 1.5rem;
+            }
+            
+            .hero {
+                padding: 70px 20px;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .mission, .programs, .impact, .donation, .cta {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+   <!-- Header -->
+<header>
+    <div class="container header-container">
+        <div class="logo">
+            <!-- Replace with your actual logo -->
+            <img src="YuSmilelogo.png" alt="YuSmile Uganda Logo" style="height: 50px;">
+            <div class="logo-text">
+                <span>Creating Sustainable Impact</span>
+            </div>
+        </div>
+        <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Programs</a></li>
+                <li><a href="#">Get Involved</a></li>
+                <li><a href="#">News</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#" class="btn btn-donate">Donate Now</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h2>Empowering Communities, Creating Sustainable Impact</h2>
+            <p>YuSmile Uganda is dedicated to improving lives through education, healthcare, and community development initiatives across Uganda.</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn">Get Involved</a>
+                <a href="#" class="btn btn-donate">Donate Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Mission</h2>
+                <p>We work to create sustainable impact through programs that address the most pressing needs in Ugandan communities.</p>
+            </div>
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Education</h3>
+                    <p>Providing quality education opportunities for children and youth, with a focus on marginalized communities.</p>
+                </div>
+                <div class="mission-card">
+                    <i class="fas fa-heartbeat"></i>
+                    <h3>Healthcare</h3>
+                    <p>Improving access to healthcare services and promoting health education in underserved areas.</p>
+                </div>
+                <div class="mission-card">
+                    <i class="fas fa-hands-helping"></i>
+                    <h3>Community Development</h3>
+                    <p>Empowering communities through sustainable development projects and capacity building.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section class="programs">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Programs</h2>
+                <p>Discover the initiatives that are making a real difference in the lives of Ugandans.</p>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <div class="program-img" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                    <div class="program-content">
+                        <h3>Youth Education Initiative</h3>
+                        <p>Providing scholarships, school supplies, and mentorship programs to empower the next generation.</p>
+                        <a href="#" class="btn" style="margin-top: 15px;">Learn More</a>
+                    </div>
+                </div>
+                <div class="program-card">
+                    <div class="program-img" style="background-image: url('https://images.unsplash.com/photo-1551601651-2a8555f1a136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80');"></div>
+                    <div class="program-content">
+                        <h3>Healthcare Access Program</h3>
+                        <p>Mobile clinics and health education campaigns reaching remote communities across Uganda.</p>
+                        <a href="#" class="btn" style="margin-top: 15px;">Learn More</a>
+                    </div>
+                </div>
+                <div class="program-card">
+                    <div class="program-img" style="background-image: url('https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                    <div class="program-content">
+                        <h3>Women's Empowerment</h3>
+                        <p>Skills training and microfinance programs to help women achieve economic independence.</p>
+                        <a href="#" class="btn" style="margin-top: 15px;">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="impact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Impact</h2>
+                <p>Through the support of our donors and volunteers, we've been able to make a meaningful difference.</p>
+            </div>
+            <div class="impact-stats">
+                <div class="stat-item">
+                    <div class="stat-number">5,000+</div>
+                    <div class="stat-text">Children Educated</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-text">Communities Served</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1,200+</div>
+                    <div class="stat-text">Healthcare Visits</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">300+</div>
+                    <div class="stat-text">Women Empowered</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donation Section -->
+    <section class="donation">
+        <div class="container">
+            <h2>Support Our Mission</h2>
+            <p>Your donation helps us continue our work in education, healthcare, and community development across Uganda.</p>
+            
+            <div class="donation-options">
+                <div class="donation-amount active" data-amount="">UGX5000</div>
+                <div class="donation-amount" data-amount="">UGX10,000</div>
+                <div class="donation-amount " data-amount="">UGX20,000</div>
+                <div class="donation-amount" data-amount="">UGX30,000</div>
+                <div class="donation-amount" data-amount="">UGX50,000</div>
+            </div>
+            
+            <div class="custom-amount">
+                <input type="number" placeholder="Other amount" id="custom-amount">
+                <button id="set-custom-amount">Set</button>
+            </div>
+            
+            <a href="#" class="btn btn-donate" id="donate-button" style="margin-top: 20px;">Donate UGX5000 Now</a>
+            
+            <p style="margin-top: 20px; font-size: 0.9rem;">
+                <i class="fas fa-lock"></i> Secure payment processed by Pesapal
+            </p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Join Us in Creating Sustainable Impact</h2>
+            <p>Your support can help us reach more communities and create lasting change in Uganda.</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn">Volunteer</a>
+                <a href="#" class="btn btn-donate">Donate Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About YuSmile</h3>
+                    <p>YuSmile Uganda is a non-profit organization dedicated to creating sustainable impact through education, healthcare, and community development initiatives.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Programs</a></li>
+                        <li><a href="#">Get Involved</a></li>
+                        <li><a href="#">News & Events</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+256 758 927639</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@yusmileuganda.org</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>P.O. Box 800765, Kampala, Uganda</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter to stay updated on our programs and impact.</p>
+                    <form style="margin-top: 15px;">
+                        <input type="email" placeholder="Your email address" style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 4px; border: none;">
+                        <button type="submit" class="btn" style="width: 100%;">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 YuSmile Uganda. All rights reserved. | Creating Sustainable Impact</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Donation Modal -->
+<!-- Donation Modal -->
+<div class="modal" id="donation-modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3>Make a Donation</h3>
+        <p>Thank you for supporting YuSmile Uganda. Your donation will help us create sustainable impact in communities across Uganda.</p>
+        
+        <div style="background: #f0f7ff; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+            <h4 style="margin: 0; color: var(--primary);">Donation Amount: <span id="display-amount">UGX 50,000</span></h4>
+        </div>
+        
+        <form id="donation-form">
+            <div class="form-group">
+                <label for="donor-name">Full Name *</label>
+                <input type="text" id="donor-name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="donor-email">Email Address *</label>
+                <input type="email" id="donor-email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="donor-phone">Phone Number *</label>
+                <input type="tel" id="donor-phone" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="payment-method">Payment Method *</label>
+                <select id="payment-method" required>
+                    <option value="">Select payment method</option>
+                    <option value="mobile_money">Mobile Money</option>
+                    <option value="card">Credit/Debit Card</option>
+                    <option value="bank">Bank Transfer</option>
+                </select>
+            </div>
+            
+            <div id="mobile-money-fields" style="display: none;">
+                <div class="form-group">
+                    <label for="mobile-provider">Mobile Provider *</label>
+                    <select id="mobile-provider">
+                        <option value="">Select provider</option>
+                        <option value="mtn">MTN Mobile Money</option>
+                        <option value="airtel">Airtel Money</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="mobile-number">Mobile Number *</label>
+                    <input type="tel" id="mobile-number" placeholder="e.g., 0758927639">
+                </div>
+            </div>
+            
+            <input type="hidden" id="donation-amount-final" value="50000">
+            
+            <button type="submit" class="btn btn-donate" style="width: 100%;">Proceed to Secure Payment</button>
+            
+            <p style="text-align: center; margin-top: 15px; font-size: 0.8rem; color: #666;">
+                <i class="fas fa-shield-alt"></i> Your payment is secured and encrypted
+            </p>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Mobile menu toggle
+    document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+        document.querySelector('nav ul').classList.toggle('active');
+    });
+
+    // Donation amount selection
+    const donationAmounts = document.querySelectorAll('.donation-amount');
+    const customAmountInput = document.getElementById('custom-amount');
+    const setCustomAmountBtn = document.getElementById('set-custom-amount');
+    const donateButton = document.getElementById('donate-button');
+    const donationAmountFinal = document.getElementById('donation-amount-final');
+    const displayAmount = document.getElementById('display-amount');
+    const paymentMethod = document.getElementById('payment-method');
+    const mobileMoneyFields = document.getElementById('mobile-money-fields');
+    let selectedAmount = 5000;
+
+    // Format UGX currency
+    function formatUGX(amount) {
+        return 'UGX ' + parseInt(amount).toLocaleString('en-UG');
+    }
+    function updateDonateButton() {
+    donateButton.textContent = `Donate ${formatUGX(selectedAmount)} Now`;
+}
+
+donationAmounts.forEach(amount => {
+    amount.addEventListener('click', function() {
+        donationAmounts.forEach(a => a.classList.remove('active'));
+        this.classList.add('active');
+        selectedAmount = this.getAttribute('data-amount');
+        updateDonateButton();
+    });
+});
+    
+
+    setCustomAmountBtn.addEventListener('click', function() {
+        const customAmount = customAmountInput.value;
+        if (customAmount && customAmount > 0) {
+            selectedAmount = customAmount;
+            donationAmounts.forEach(a => a.classList.remove('active'));
+            updateDonateButton();
+        }
+    });
+
+    function updateDonateButton() {
+        donateButton.textContent = `Donate ${formatUGX(selectedAmount)} Now`;
+    }
+
+    // Payment method toggle
+    paymentMethod.addEventListener('change', function() {
+        if (this.value === 'mobile_money') {
+            mobileMoneyFields.style.display = 'block';
+        } else {
+            mobileMoneyFields.style.display = 'none';
+        }
+    });
+
+    // Modal functionality
+    const modal = document.getElementById('donation-modal');
+    const closeModal = document.querySelector('.close-modal');
+    const donationForm = document.getElementById('donation-form');
+
+    // Open modal when donate button is clicked
+    document.querySelectorAll('.btn-donate').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            donationAmountFinal.value = selectedAmount;
+            displayAmount.textContent = formatUGX(selectedAmount);
+            modal.style.display = 'flex';
+        });
+    });
+
+    // Close modal
+    closeModal.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+
+    // Close modal when clicking outside
+    window.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    // Form submission - Integration with Pesapal
+    // In your existing script.js - update the donation form handler
+donationForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = {
+        amount: selectedAmount,
+        name: document.getElementById('donor-name').value,
+        email: document.getElementById('donor-email').value,
+        phone: document.getElementById('donor-phone').value,
+        payment_method: document.getElementById('payment-method').value
+    };
+
+    // Show loading state
+    const submitBtn = donationForm.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+    submitBtn.disabled = true;
+
+    // Call your Vercel API route
+    fetch('/api/process-donation', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success && data.redirect_url) {
+            // Redirect to Pesapal payment page
+            window.location.href = data.redirect_url;
+        } else {
+            throw new Error(data.error || 'Payment processing failed');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Donation processing failed: ' + error.message);
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    });
+});
+    // Function to process donation (Replace with actual Pesapal integration)
+    function processDonation(donationData) {
+        // Show processing message
+        const submitBtn = donationForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+        submitBtn.disabled = true;
+        
+        // Simulate API call to your server
+        setTimeout(() => {
+            // In production, this would:
+            // 1. Send data to your server
+            // 2. Your server would create Pesapal order
+            // 3. Redirect to Pesapal payment page
+            
+            alert(`Thank you for your donation of ${formatUGX(donationData.amount)}!\n\nIn production, you would now be redirected to Pesapal to complete your ${donationData.payment_method} payment.`);
+            
+            // Reset form
+            donationForm.reset();
+            modal.style.display = 'none';
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            
+        }, 2000);
+    }
+
+    // Initialize
+    updateDonateButton();
+</script>
+</body>
+</html>
