@@ -952,23 +952,30 @@ nav a {
     const mobileMoneyFields = document.getElementById('mobile-money-fields');
     let selectedAmount = 5000;
 
+    // Fix donation amounts data attributes
+    document.querySelector('.donation-amount[data-amount=""]').setAttribute('data-amount', '5000');
+    document.querySelectorAll('.donation-amount[data-amount=""]')[1].setAttribute('data-amount', '10000');
+    document.querySelectorAll('.donation-amount[data-amount=""]')[2].setAttribute('data-amount', '20000');
+    document.querySelectorAll('.donation-amount[data-amount=""]')[3].setAttribute('data-amount', '30000');
+    document.querySelectorAll('.donation-amount[data-amount=""]')[4].setAttribute('data-amount', '50000');
+
     // Format UGX currency
     function formatUGX(amount) {
         return 'UGX ' + parseInt(amount).toLocaleString('en-UG');
     }
-    function updateDonateButton() {
-    donateButton.textContent = `Donate ${formatUGX(selectedAmount)} Now`;
-}
 
-donationAmounts.forEach(amount => {
-    amount.addEventListener('click', function() {
-        donationAmounts.forEach(a => a.classList.remove('active'));
-        this.classList.add('active');
-        selectedAmount = this.getAttribute('data-amount');
-        updateDonateButton();
+    function updateDonateButton() {
+        donateButton.textContent = `Donate ${formatUGX(selectedAmount)} Now`;
+    }
+
+    donationAmounts.forEach(amount => {
+        amount.addEventListener('click', function() {
+            donationAmounts.forEach(a => a.classList.remove('active'));
+            this.classList.add('active');
+            selectedAmount = this.getAttribute('data-amount');
+            updateDonateButton();
+        });
     });
-});
-    
 
     setCustomAmountBtn.addEventListener('click', function() {
         const customAmount = customAmountInput.value;
@@ -978,10 +985,6 @@ donationAmounts.forEach(amount => {
             updateDonateButton();
         }
     });
-
-    function updateDonateButton() {
-        donateButton.textContent = `Donate ${formatUGX(selectedAmount)} Now`;
-    }
 
     // Payment method toggle
     paymentMethod.addEventListener('change', function() {
@@ -1019,73 +1022,98 @@ donationAmounts.forEach(amount => {
         }
     });
 
-    // Form submission - Integration with Pesapal
-    // In your existing script.js - update the donation form handler
-donationForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const formData = {
-        amount: selectedAmount,
-        name: document.getElementById('donor-name').value,
-        email: document.getElementById('donor-email').value,
-        phone: document.getElementById('donor-phone').value,
-        payment_method: document.getElementById('payment-method').value
-    };
+    // REAL PAYMENT PROCESSING WITH FLUTTERWAVE
+    donationForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = {
+            amount: selectedAmount,
+            name: document.getElementById('donor-name').value,
+            email: document.getElementById('donor-email').value,
+            phone: document.getElementById('donor-phone').value,
+            payment_method: document.getElementById('payment-method').value,
+            mobile_provider: document.getElementById('mobile-provider').value,
+            mobile_number: document.getElementById('mobile-number').value
+        };
 
-    // Show loading state
-    const submitBtn = donationForm.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-    submitBtn.disabled = true;
-
-    // Call your Vercel API route
-    fetch('/api/process-donation', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success && data.redirect_url) {
-            // Redirect to Pesapal payment page
-            window.location.href = data.redirect_url;
-        } else {
-            throw new Error(data.error || 'Payment processing failed');
+        // Validation
+        if (!formData.name || !formData.email || !formData.phone || !formData.payment_method) {
+            alert('Please fill in all required fields');
+            return;
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Donation processing failed: ' + error.message);
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
+
+        if (formData.payment_method === 'mobile_money' && (!formData.mobile_provider || !formData.mobile_number)) {
+            alert('Please select mobile provider and enter mobile number');
+            return;
+        }
+
+        // Process payment with Flutterwave
+        processFlutterwavePayment(formData);
     });
-});
-    // Function to process donation (Replace with actual Pesapal integration)
-    function processDonation(donationData) {
-        // Show processing message
+
+    // Flutterwave Payment Function
+    function processFlutterwavePayment(formData) {
+        // Show loading state
         const submitBtn = donationForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
         submitBtn.disabled = true;
-        
-        // Simulate API call to your server
-        setTimeout(() => {
-            // In production, this would:
-            // 1. Send data to your server
-            // 2. Your server would create Pesapal order
-            // 3. Redirect to Pesapal payment page
-            
-            alert(`Thank you for your donation of ${formatUGX(donationData.amount)}!\n\nIn production, you would now be redirected to Pesapal to complete your ${donationData.payment_method} payment.`);
-            
-            // Reset form
-            donationForm.reset();
-            modal.style.display = 'none';
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-            
-        }, 2000);
+
+        // Load Flutterwave script dynamically
+        if (typeof FlutterwaveCheckout === 'undefined') {
+            const script = document.createElement('script');
+            script.src = 'https://checkout.flutterwave.com/v3.js';
+            script.onload = function() {
+                initializeFlutterwave(formData, submitBtn, originalText);
+            };
+            document.head.appendChild(script);
+        } else {
+            initializeFlutterwave(formData, submitBtn, originalText);
+        }
+    }
+
+    function initializeFlutterwave(formData, submitBtn, originalText) {
+        FlutterwaveCheckout({
+            public_key: "FLWPUBK_TEST-8c13b25f3096f12e6a1e565c2824240a-X", // TEST KEY - Replace with your live key
+            tx_ref: "YU" + Date.now(),
+            amount: formData.amount,
+            currency: "UGX",
+            payment_options: "mobilemoneyuganda,card",
+            customer: {
+                email: formData.email,
+                phone_number: formData.phone,
+                name: formData.name,
+            },
+            customizations: {
+                title: "YuSmile Uganda",
+                description: "Donation to support community development",
+                logo: "https://yourwebsite.com/YuSmilelogo.png",
+            },
+            callback: function(response) {
+                // Handle payment response
+                if (response.status === 'successful') {
+                    // Payment was successful
+                    const successParams = new URLSearchParams({
+                        amount: formData.amount,
+                        donor: formData.name,
+                        email: formData.email,
+                        transaction_id: response.transaction_id,
+                        status: 'success'
+                    });
+                    window.location.href = `donation-success.html?${successParams.toString()}`;
+                } else {
+                    // Payment failed or was cancelled
+                    alert('Payment was not completed. Please try again.');
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            },
+            onclose: function() {
+                // Modal was closed
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
     }
 
     // Initialize
@@ -1094,4 +1122,5 @@ donationForm.addEventListener('submit', function(e) {
 </body>
 
 </html>
+
 
