@@ -935,6 +935,10 @@ nav a {
     </div>
 </div>
 <script>
+    // Debug - check if elements exist
+console.log('Custom amount input:', document.getElementById('custom-amount'));
+console.log('Set button:', document.getElementById('set-custom-amount'));
+console.log('Donate button:', document.getElementById('donate-button'));
     // Mobile menu toggle
     document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
         document.querySelector('nav ul').classList.toggle('active');
@@ -1094,6 +1098,7 @@ customAmountInput.addEventListener('keypress', function(e) {
 </body>
 
 </html>
+
 
 
 
