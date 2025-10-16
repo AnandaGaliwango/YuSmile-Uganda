@@ -184,11 +184,18 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-size: contain;
-        background-position: center;
+        background-size: cover;
+        background-position: center center;
         opacity: 0;
         transition: opacity 1s ease-in-out;
     }
+    .slide:nth-child(2) { /* YuSmile2 */
+    background-position: center 30%;
+}
+
+.slide:nth-child(4) { /* YuSmile4 */
+    background-position: center 40%;
+}
     
     .slide.active {
         opacity: 1;
@@ -1304,4 +1311,5 @@
     </script>
 </body>
 </html>
+
 
