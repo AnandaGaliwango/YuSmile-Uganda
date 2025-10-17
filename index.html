@@ -13,6 +13,13 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        /* Ensure no gaps between consecutive sections */
+.mission + .programs,
+.programs + .impact,
+.impact + .donation,
+.donation + .partners {
+    margin-top: 0;
+}
         
         :root {
             --primary: #1a73e8;
@@ -1687,5 +1694,6 @@ header + .page-container .hero-slider {
     </script>
 </body>
 </html>
+
 
 
