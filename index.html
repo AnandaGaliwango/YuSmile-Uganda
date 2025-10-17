@@ -1397,68 +1397,50 @@ header + .page-container .hero-slider {
         </div>
     </footer>
 
-    <!-- Donation Modal -->
-    <div class="modal" id="donation-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h3>Make a Donation</h3>
-            <p>Thank you for supporting YuSmile Uganda. Your donation will help us create sustainable impact in communities across Uganda.</p>
-            
-            <div style="background: #f0f7ff; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
-                <h4 style="margin: 0; color: var(--primary);">Donation Amount: <span id="display-amount">UGX 5,000</span></h4>
+   <!-- Donation Modal -->
+<div class="modal" id="donation-modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3>Make a Donation</h3>
+        <p>Thank you for supporting YuSmile Uganda. Your donation will help us create sustainable impact in communities across Uganda.</p>
+        
+        <div style="background: #f0f7ff; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+            <h4 style="margin: 0; color: var(--primary);">Donation Amount: <span id="display-amount">UGX 5,000</span></h4>
+        </div>
+        
+        <form id="donation-form">
+            <div class="form-group">
+                <label for="firstName">First Name *</label>
+                <input type="text" id="firstName" required>
             </div>
             
-            <form id="donation-form">
-                <div class="form-group">
-                    <label for="donor-name">Full Name *</label>
-                    <input type="text" id="donor-name" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="donor-email">Email Address *</label>
-                    <input type="email" id="donor-email" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="donor-phone">Phone Number *</label>
-                    <input type="tel" id="donor-phone" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="payment-method">Payment Method *</label>
-                    <select id="payment-method" required>
-                        <option value="">Select payment method</option>
-                        <option value="mobile_money">Mobile Money</option>
-                        <option value="card">Credit/Debit Card</option>
-                        <option value="bank">Bank Transfer</option>
-                    </select>
-                </div>
-                
-                <div id="mobile-money-fields" style="display: none;">
-                    <div class="form-group">
-                        <label for="mobile-provider">Mobile Provider *</label>
-                        <select id="mobile-provider">
-                            <option value="">Select provider</option>
-                            <option value="mtn">MTN Mobile Money</option>
-                            <option value="airtel">Airtel Money</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="mobile-number">Mobile Number *</label>
-                        <input type="tel" id="mobile-number" placeholder="e.g., 0758927639">
-                    </div>
-                </div>
-                
-                <input type="hidden" id="donation-amount-final" value="5000">
-                
-                <button type="submit" class="btn btn-donate" style="width: 100%;">Proceed to Secure Payment</button>
-                
-                <p style="text-align: center; margin-top: 15px; font-size: 0.8rem; color: #666;">
-                    <i class="fas fa-shield-alt"></i> Your payment is secured and encrypted
-                </p>
-            </form>
-        </div>
+            <div class="form-group">
+                <label for="lastName">Last Name *</label>
+                <input type="text" id="lastName" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="donor-email">Email Address *</label>
+                <input type="email" id="donor-email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="donor-phone">Phone Number *</label>
+                <input type="tel" id="donor-phone" required placeholder="e.g., 0758927639">
+            </div>
+            
+            <input type="hidden" id="donation-amount-final" value="5000">
+            
+            <button type="submit" class="btn btn-donate" style="width: 100%;">
+                <i class="fas fa-lock"></i> Proceed to Secure Payment
+            </button>
+            
+            <p style="text-align: center; margin-top: 15px; font-size: 0.8rem; color: #666;">
+                <i class="fas fa-shield-alt"></i> Your payment is securely processed by Pesapal
+            </p>
+        </form>
     </div>
+</div>
 
     <script>
         // Page Navigation
@@ -1557,8 +1539,6 @@ header + .page-container .hero-slider {
         const donateButton = document.getElementById('donate-button');
         const donationAmountFinal = document.getElementById('donation-amount-final');
         const displayAmount = document.getElementById('display-amount');
-        const paymentMethod = document.getElementById('payment-method');
-        const mobileMoneyFields = document.getElementById('mobile-money-fields');
         let selectedAmount = 5000;
 
         function formatUGX(amount) {
@@ -1596,13 +1576,7 @@ header + .page-container .hero-slider {
             }
         });
 
-        paymentMethod.addEventListener('change', function() {
-            if (this.value === 'mobile_money') {
-                mobileMoneyFields.style.display = 'block';
-            } else {
-                mobileMoneyFields.style.display = 'none';
-            }
-        });
+       
 
         const modal = document.getElementById('donation-modal');
         const closeModal = document.querySelector('.close-modal');
@@ -1628,56 +1602,76 @@ header + .page-container .hero-slider {
         });
 
         donationForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const formData = {
-                amount: selectedAmount,
-                name: document.getElementById('donor-name').value,
-                email: document.getElementById('donor-email').value,
-                phone: document.getElementById('donor-phone').value,
-                payment_method: document.getElementById('payment-method').value
-            };
+    e.preventDefault();
+    
+    const formData = {
+        amount: selectedAmount,
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        email: document.getElementById('donor-email').value,
+        phone: document.getElementById('donor-phone').value,
+        reference: 'YUSMILE-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9),
+        currency: 'UGX',
+        description: 'Donation to YuSmile Uganda'
+    };
 
-            if (!formData.name || !formData.email || !formData.phone || !formData.payment_method) {
-                alert('Please fill in all required fields');
-                return;
-            }
+    // Validate form
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
+        alert('Please fill in all required fields');
+        return;
+    }
 
-            const submitBtn = donationForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting to Pesapal...';
-            submitBtn.disabled = true;
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+        alert('Please enter a valid email address');
+        return;
+    }
 
-            try {
-                console.log('Sending to Pesapal:', formData);
-                
-                const response = await fetch('/api/process-donation', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
-                });
+    // Validate phone number (Ugandan format)
+    const phoneRegex = /^(?:\+256|0)[17]\d{8}$/;
+    const cleanPhone = formData.phone.replace(/\s+/g, '');
+    if (!phoneRegex.test(cleanPhone)) {
+        alert('Please enter a valid Ugandan phone number (e.g., 0758927639 or +256758927639)');
+        return;
+    }
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+    const submitBtn = donationForm.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting to Pesapal...';
+    submitBtn.disabled = true;
 
-                const data = await response.json();
-                console.log('Pesapal response:', data);
-
-                if (data.success && data.redirect_url) {
-                    window.location.href = data.redirect_url;
-                } else {
-                    throw new Error(data.error || 'Failed to initialize payment');
-                }
-            } catch (error) {
-                console.error('Payment Error:', error);
-                alert('Error: ' + error.message + '\nPlease try again or contact support.');
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }
+    try {
+        console.log('Sending to Pesapal:', formData);
+        
+        const response = await fetch('/api/process-donation', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
         });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('Pesapal response:', data);
+
+        if (data.success && data.redirect_url) {
+            // Redirect to Pesapal payment page
+            window.location.href = data.redirect_url;
+        } else {
+            throw new Error(data.error || 'Failed to initialize payment');
+        }
+    } catch (error) {
+        console.error('Payment Error:', error);
+        alert('Error: ' + error.message + '\nPlease try again or contact support at info@yusmileuganda.org');
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    }
+});
 
         // Form submissions
         document.getElementById('volunteer-form').addEventListener('submit', function(e) {
@@ -1697,6 +1691,7 @@ header + .page-container .hero-slider {
     </script>
 </body>
 </html>
+
 
 
 
