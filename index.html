@@ -5,622 +5,629 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YuSmile Uganda - Creating Sustainable Impact</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-    /* Reset and Base Styles */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
-    :root {
-        --primary: #1a73e8;
-        --secondary: #34a853;
-        --accent: #fbbc05;
-        --dark: #202124;
-        --light: #f8f9fa;
-        --text: #3c4043;
-    }
-    
-    body {
-        color: var(--text);
-        line-height: 1.6;
-        background-color: var(--light);
-    }
-    
-    a {
-        text-decoration: none;
-        color: inherit;
-    }
-    
-    .container {
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
-   
-    .btn {
-        display: inline-block;
-        padding: 12px 24px;
-        background-color: var(--primary);
-        color: white;
-        border-radius: 4px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        border: none;
-        cursor: pointer;
-    }
-    
-    .btn:hover {
-        background-color: #0d5bb9;
-        transform: translateY(-2px);
-    }
-    
-    .btn-secondary {
-        background-color: var(--secondary);
-    }
-    
-    .btn-secondary:hover {
-        background-color: #2a8e47;
-    }
-    
-    .btn-donate {
-        background-color: #e94235;
-        color: white;
-        font-weight: bold;
-        padding: 14px 28px;
-        font-size: 1.1rem;
-        box-shadow: 0 4px 8px rgba(233, 66, 53, 0.3);
-    }
-    
-    .btn-donate:hover {
-        background-color: #d32f2f;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(233, 66, 53, 0.4);
-    }
-    
-    /* Header Styles */
-    header {
-        background-color: white;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        position: sticky;
-        top: 0;
-        z-index: 100;
-    }
-    
-   .header-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 0;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 15px 20px 15px 40px;
-    }
-    
-    .logo {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-    
-    .logo img {
-        height: 50px;
-    }
-    
-    .logo-text {
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .logo-text h1 {
-        font-size: 1.8rem;
-        color: var(--primary);
-        line-height: 1.2;
-    }
-    
-    .logo-text span {
-        font-size: 0.9rem;
-        color: var(--secondary);
-        font-weight: 500;
-    }
-    
-   
-    nav ul {
-        display: flex;
-        list-style: none;
-        gap: 25px;
-        align-items: center;
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #1a73e8;
+            --secondary: #34a853;
+            --accent: #fbbc05;
+            --dark: #202124;
+            --light: #f8f9fa;
+            --text: #3c4043;
+        }
+        
+        body {
+            color: var(--text);
+            line-height: 1.6;
+            background-color: var(--light);
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+       
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #0d5bb9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #2a8e47;
+        }
+        
+        .btn-donate {
+            background-color: #e94235;
+            color: white;
+            font-weight: bold;
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 8px rgba(233, 66, 53, 0.3);
+        }
+        
+        .btn-donate:hover {
+            background-color: #d32f2f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(233, 66, 53, 0.4);
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+       .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px 15px 40px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo img {
+            height: 50px;
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+        
+        .logo-text span {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            font-weight: 500;
+        }
+        
+       
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+        }
+
+        nav li {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            font-weight: 500;
+            position: relative;
+            padding: 8px 0;
+            white-space: nowrap;
+        }
+        
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover:after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        /* Hero Slider Section */
+        .hero-slider {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .slide:nth-child(2) { /* YuSmile2 */
+        background-position: center 30%;
     }
 
-    nav li {
-        display: flex;
-        align-items: center;
+    .slide:nth-child(4) { /* YuSmile4 */
+        background-position: center 30%;
     }
-
-    nav a {
-        font-weight: 500;
-        position: relative;
-        padding: 8px 0;
-        white-space: nowrap;
-    }
-    
-    nav a:after {
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 2px;
-        bottom: 0;
-        left: 0;
-        background-color: var(--primary);
-        transition: width 0.3s ease;
-    }
-    
-    nav a:hover:after {
-        width: 100%;
-    }
-    
-    .mobile-menu-btn {
-        display: none;
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-        color: var(--dark);
-    }
-    
-    /* Hero Slider Section */
-    .hero-slider {
-        position: relative;
-        height: 600px;
-        overflow: hidden;
-    }
-    
-    .slide {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-size: cover;
-        background-position: center center;
-        opacity: 0;
-        transition: opacity 1s ease-in-out;
-    }
-    .slide:nth-child(2) { /* YuSmile2 */
-    background-position: center 30%;
-}
-
-.slide:nth-child(4) { /* YuSmile4 */
-    background-position: center 30%;
-}
-    
-    .slide.active {
-        opacity: 1;
-    }
-    
-    .hero-content {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        color: white;
-        background: rgba(0, 0, 0, 0.6);
-        padding: 40px;
-        border-radius: 10px;
-        max-width: 800px;
-        width: 90%;
-        z-index: 2;
-    }
-    
-    .hero-content h2 {
-        font-size: 2.8rem;
-        margin-bottom: 20px;
-        line-height: 1.2;
-    }
-    
-    .hero-content p {
-        font-size: 1.2rem;
-        margin-bottom: 30px;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    .slider-nav {
-        position: absolute;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 10px;
-        z-index: 2;
-    }
-    
-    .slider-dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.5);
-        cursor: pointer;
-        transition: background 0.3s ease;
-    }
-    
-    .slider-dot.active {
-        background: white;
-    }
-    
-    .slider-arrow {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        border: none;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        font-size: 1.5rem;
-        cursor: pointer;
-        transition: background 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 2;
-    }
-    
-    .slider-arrow:hover {
-        background: rgba(255, 255, 255, 0.4);
-    }
-    
-    .slider-arrow.prev {
-        left: 20px;
-    }
-    
-    .slider-arrow.next {
-        right: 20px;
-    }
-    
-    /* Mission Section */
-    .mission {
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 800px;
+            width: 90%;
+            z-index: 2;
+        }
+        
+        .hero-content h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .slider-nav {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 2;
+        }
+        
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .slider-dot.active {
+            background: white;
+        }
+        
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+        
+        .slider-arrow:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        
+        .slider-arrow.prev {
+            left: 20px;
+        }
+        
+        .slider-arrow.next {
+            right: 20px;
+        }
+        
+        /* Mission Section */
+        .mission {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--text);
+        }
+        
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .mission-card {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .mission-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .mission-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .mission-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        /* Programs Section */
+        .programs {
+            padding: 80px 0;
+            background-color: #f0f7ff;
+        }
+        
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .program-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .program-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .program-content {
+            padding: 25px;
+        }
+        
+        .program-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        /* Impact Section */
+        .impact {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            padding: 30px 20px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+        
+        /* Donation Section */
+        .donation {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #e94235, #ff7043);
+            color: white;
+            text-align: center;
+        }
+        
+        .donation h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .donation p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+        }
+        
+        .donation-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .donation-amount {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .donation-amount:hover, .donation-amount.active {
+            background: white;
+            color: #e94235;
+        }
+        
+        .custom-amount {
+            display: flex;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .custom-amount input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+        }
+        
+        .custom-amount button {
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 0 15px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        
+        /* Key Partners Section - Updated to match program cards */
+    .partners {
         padding: 80px 0;
-        background-color: white;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
     }
-    
-    .section-title {
-        text-align: center;
-        margin-bottom: 50px;
-    }
-    
-    .section-title h2 {
-        font-size: 2.2rem;
-        color: var(--primary);
-        margin-bottom: 15px;
-    }
-    
-    .section-title p {
-        max-width: 700px;
-        margin: 0 auto;
-        color: var(--text);
-    }
-    
-    .mission-grid {
+
+    .partners-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 30px;
+        margin-top: 50px;
     }
-    
-    .mission-card {
-        background-color: var(--light);
+
+    .partner-card {
+        background: white;
         border-radius: 8px;
-        padding: 30px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease;
+        color: var(--text);
     }
-    
-    .mission-card:hover {
+
+    .partner-card:hover {
         transform: translateY(-10px);
     }
-    
-    .mission-card i {
-        font-size: 2.5rem;
-        color: var(--primary);
-        margin-bottom: 20px;
-    }
-    
-    .mission-card h3 {
-        font-size: 1.5rem;
-        margin-bottom: 15px;
-        color: var(--dark);
-    }
-    
-    /* Programs Section */
-    .programs {
-        padding: 80px 0;
-        background-color: #f0f7ff;
-    }
-    
-    .programs-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-    }
-    
-    .program-card {
-        background-color: white;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    }
-    
-    .program-img {
+
+    .partner-img {
         height: 200px;
         background-size: cover;
         background-position: center;
     }
-    
-    .program-content {
+
+    .partner-content {
         padding: 25px;
     }
-    
-    .program-content h3 {
+
+    .partner-content h3 {
         font-size: 1.4rem;
         margin-bottom: 15px;
         color: var(--dark);
     }
-    
-    /* Impact Section */
-    .impact {
-        padding: 80px 0;
-        background-color: white;
-    }
-    
-    .impact-stats {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 30px;
-        text-align: center;
-    }
-    
-    .stat-item {
-        padding: 30px 20px;
-    }
-    
-    .stat-number {
-        font-size: 3rem;
-        font-weight: 700;
-        color: var(--primary);
-        margin-bottom: 10px;
-    }
-    
-    .stat-text {
-        font-size: 1.1rem;
+
+    .partner-content p {
         color: var(--text);
-    }
-    
-    /* Donation Section */
-    .donation {
-        padding: 80px 0;
-        background: linear-gradient(135deg, #e94235, #ff7043);
-        color: white;
-        text-align: center;
-    }
-    
-    .donation h2 {
-        font-size: 2.2rem;
+        line-height: 1.6;
         margin-bottom: 20px;
     }
-    
-    .donation p {
-        max-width: 700px;
-        margin: 0 auto 30px;
-        font-size: 1.1rem;
+
+    /* Page Styles */
+    .page-container {
+        display: none;
+        padding: 80px 0;
+        background-color: white;
+        min-height: 70vh;
     }
-    
-    .donation-options {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        flex-wrap: wrap;
-        margin-bottom: 30px;
+
+    .page-container.active {
+        display: block;
     }
-    
-    .donation-amount {
-        background: rgba(255, 255, 255, 0.2);
-        padding: 15px 25px;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    
-    .donation-amount:hover, .donation-amount.active {
-        background: white;
-        color: #e94235;
-    }
-    
-    .custom-amount {
-        display: flex;
-        max-width: 300px;
+
+    .page-content {
+        max-width: 800px;
         margin: 0 auto;
     }
-    
-    .custom-amount input {
-        flex: 1;
+
+    .page-content h1 {
+        font-size: 2.5rem;
+        color: var(--primary);
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .page-content h2 {
+        font-size: 1.8rem;
+        color: var(--primary);
+        margin: 40px 0 20px;
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 10px;
+    }
+
+    .page-content h3 {
+        font-size: 1.4rem;
+        color: var(--dark);
+        margin: 25px 0 15px;
+    }
+
+    .page-content p {
+        margin-bottom: 15px;
+        line-height: 1.7;
+    }
+
+    .page-content ul {
+        margin: 20px 0;
+        padding-left: 30px;
+    }
+
+    .page-content li {
+        margin-bottom: 10px;
+        line-height: 1.6;
+    }
+
+    /* Form Styles */
+    .involvement-form {
+        background-color: var(--light);
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        margin-top: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+
+    .form-group input, .form-group textarea, .form-group select {
+        width: 100%;
         padding: 12px;
-        border: none;
-        border-radius: 4px 0 0 4px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
     }
-    
-    .custom-amount button {
-        background: var(--dark);
-        color: white;
-        border: none;
-        padding: 0 15px;
-        border-radius: 0 4px 4px 0;
-        cursor: pointer;
+
+    .form-group textarea {
+        min-height: 120px;
+        resize: vertical;
     }
-    
-    /* Key Partners Section - Updated to match program cards */
-.partners {
-    padding: 80px 0;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-}
 
-.partners-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-top: 50px;
-}
+    /* Contact Info Styles */
+    .contact-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+    }
 
-.partner-card {
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    color: var(--text);
-}
+    .contact-card {
+        background-color: var(--light);
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        text-align: center;
+    }
 
-.partner-card:hover {
-    transform: translateY(-10px);
-}
+    .contact-card i {
+        font-size: 2.5rem;
+        color: var(--primary);
+        margin-bottom: 15px;
+    }
 
-.partner-img {
-    height: 200px;
-    background-size: cover;
-    background-position: center;
-}
+    .contact-card h3 {
+        margin-bottom: 10px;
+        color: var(--dark);
+    }
 
-.partner-content {
-    padding: 25px;
-}
+    .contact-card p {
+        color: var(--text);
+    }
 
-.partner-content h3 {
-    font-size: 1.4rem;
-    margin-bottom: 15px;
-    color: var(--dark);
-}
-
-.partner-content p {
-    color: var(--text);
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-/* Page Styles */
-.page-section {
-    padding: 80px 0;
-    background-color: white;
-}
-
-.page-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.page-content h1 {
-    font-size: 2.5rem;
-    color: var(--primary);
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.page-content h2 {
-    font-size: 1.8rem;
-    color: var(--primary);
-    margin: 40px 0 20px;
-    border-bottom: 2px solid var(--accent);
-    padding-bottom: 10px;
-}
-
-.page-content h3 {
-    font-size: 1.4rem;
-    color: var(--dark);
-    margin: 25px 0 15px;
-}
-
-.page-content p {
-    margin-bottom: 15px;
-    line-height: 1.7;
-}
-
-.page-content ul {
-    margin: 20px 0;
-    padding-left: 30px;
-}
-
-.page-content li {
-    margin-bottom: 10px;
-    line-height: 1.6;
-}
-
-/* Form Styles */
-.involvement-form {
-    background-color: var(--light);
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    margin-top: 30px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-
-.form-group input, .form-group textarea, .form-group select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-}
-
-.form-group textarea {
-    min-height: 120px;
-    resize: vertical;
-}
-
-/* Contact Info Styles */
-.contact-details {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
-}
-
-.contact-card {
-    background-color: var(--light);
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    text-align: center;
-}
-
-.contact-card i {
-    font-size: 2.5rem;
-    color: var(--primary);
-    margin-bottom: 15px;
-}
-
-.contact-card h3 {
-    margin-bottom: 10px;
-    color: var(--dark);
-}
-
-.contact-card p {
-    color: var(--text);
-}
     /* Footer */
     footer {
         background-color: var(--dark);
@@ -881,7 +888,7 @@
             padding: 60px 0;
         }
     }
-</style>
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -899,20 +906,20 @@
             </button>
             <nav>
                 <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#programs">Programs</a></li>
-                    <li><a href="#get-involved">Get Involved</a></li>
-                    <li><a href="#news">News</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="#donate" class="btn btn-donate">Donate Now</a></li>
+                    <li><a href="#" class="nav-link" data-page="home">Home</a></li>
+                    <li><a href="#" class="nav-link" data-page="about">About Us</a></li>
+                    <li><a href="#" class="nav-link" data-page="programs">Programs</a></li>
+                    <li><a href="#" class="nav-link" data-page="get-involved">Get Involved</a></li>
+                    <li><a href="#" class="nav-link" data-page="news">News</a></li>
+                    <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
+                    <li><a href="#" class="btn btn-donate">Donate Now</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Home Section -->
-    <section id="home">
+    <!-- Home Page -->
+    <div id="home" class="page-container active">
         <!-- Hero Slider Section -->
         <section class="hero-slider">
             <div class="slide active" style="background-image: url('YuSmile1.jpeg');"></div>
@@ -925,8 +932,8 @@
                 <h2>Empowering Communities, Creating Sustainable Impact</h2>
                 <p>YuSmile Uganda is dedicated to improving lives through education, healthcare, and community development initiatives across Uganda.</p>
                 <div class="hero-buttons">
-                    <a href="#get-involved" class="btn">Get Involved</a>
-                    <a href="#donate" class="btn btn-donate">Donate Now</a>
+                    <a href="#" class="btn nav-link" data-page="get-involved">Get Involved</a>
+                    <a href="#" class="btn btn-donate">Donate Now</a>
                 </div>
             </div>
             
@@ -973,7 +980,7 @@
         </section>
 
         <!-- Programs Section -->
-        <section id="programs" class="programs">
+        <section class="programs">
             <div class="container">
                 <div class="section-title">
                     <h2>Our Programs</h2>
@@ -985,7 +992,7 @@
                         <div class="program-content">
                             <h3>Book Donations</h3>
                             <p>Providing scholarships, school supplies, and mentorship programs to empower the next generation.</p>
-                            <a href="#programs" class="btn" style="margin-top: 15px;">Learn More</a>
+                            <a href="#" class="btn nav-link" data-page="programs" style="margin-top: 15px;">Learn More</a>
                         </div>
                     </div>
                     <div class="program-card">
@@ -993,7 +1000,7 @@
                         <div class="program-content">
                             <h3>Healthcare Access Program</h3>
                             <p>Mobile clinics and health education campaigns reaching remote communities across Uganda.</p>
-                            <a href="#programs" class="btn" style="margin-top: 15px;">Learn More</a>
+                            <a href="#" class="btn nav-link" data-page="programs" style="margin-top: 15px;">Learn More</a>
                         </div>
                     </div>
                     <div class="program-card">
@@ -1001,7 +1008,7 @@
                         <div class="program-content">
                             <h3>Women's Empowerment</h3>
                             <p>Skills training and microfinance programs to help women achieve economic independence.</p>
-                            <a href="#programs" class="btn" style="margin-top: 15px;">Learn More</a>
+                            <a href="#" class="btn nav-link" data-page="programs" style="margin-top: 15px;">Learn More</a>
                         </div>
                     </div>
                 </div>
@@ -1037,7 +1044,7 @@
         </section>
 
         <!-- Donation Section -->
-        <section id="donate" class="donation">
+        <section class="donation">
             <div class="container">
                 <h2>Support Our Mission</h2>
                 <p>Your donation helps us continue our work in education, healthcare, and community development across Uganda.</p>
@@ -1055,7 +1062,7 @@
                     <button id="set-custom-amount">Set</button>
                 </div>
                 
-                <a href="#donate" class="btn btn-donate" id="donate-button" style="margin-top: 20px;">Donate UGX 5,000 Now</a>
+                <a href="#" class="btn btn-donate" id="donate-button" style="margin-top: 20px;">Donate UGX 5,000 Now</a>
                 
                 <p style="margin-top: 20px; font-size: 0.9rem;">
                     <i class="fas fa-lock"></i> Secure payment processed by Pesapal
@@ -1071,38 +1078,37 @@
                     <p>We collaborate with individuals, organizations and institutions that share our vision for sustainable development in Uganda.</p>
                 </div>
                 <div class="partners-grid">
-            <div class="partner-card">
-                <div class="partner-img" style="background-image: url('YuSmile5.png');"></div>
-                <div class="partner-content">
-                    <h3>The Late Wendy Cooling</h3>
-                    <p>Ms.Wendy Cooling donated books to YuSmile Uganda and also donated funds to cover the costs for YuSmile website development.</p>
-                    <a href="https://www.google.com/search?client=ms-android-samsung-ss&sca_esv=bdbe2dd8fffd653b&sxsrf=AE3TifPIv-MHqa2eihYQ9Y2IRKiEqHgYxw:1760602162532&q=wendy+cooling&source=lnms&fbs=AIIjpHxU7SXXniUZfeShr2fp4giZ1Y6MJ25_tmWITc7uy4KIeuYzzFkfneXafNx6OMdA4MQRJc_t_TQjwHYrzlkIauOK_IaFSQcTHs2AgJbmYqOLNr-gBKF7I3dfcWHoQ8Rv9DjgCkddkmI70Eyfx6YeKCiQpQ6vp-564Wh7Ux48nEGedWNIKpMOjgODVmfE1geG6VKILIklDXLwRh1QTq_557DgED4jgQ&sa=X&ved=2ahUKEwit-fOToqiQAxV6V0EAHdWgEXEQ0pQJegQICRAB&biw=1366&bih=633&dpr=1" class="btn" style="margin-top: 15px;">Learn More</a>
+                    <div class="partner-card">
+                        <div class="partner-img" style="background-image: url('YuSmile5.png');"></div>
+                        <div class="partner-content">
+                            <h3>The Late Wendy Cooling</h3>
+                            <p>Ms.Wendy Cooling donated books to YuSmile Uganda and also donated funds to cover the costs for YuSmile website development.</p>
+                            <a href="https://www.google.com/search?client=ms-android-samsung-ss&sca_esv=bdbe2dd8fffd653b&sxsrf=AE3TifPIv-MHqa2eihYQ9Y2IRKiEqHgYxw:1760602162532&q=wendy+cooling&source=lnms&fbs=AIIjpHxU7SXXniUZfeShr2fp4giZ1Y6MJ25_tmWITc7uy4KIeuYzzFkfneXafNx6OMdA4MQRJc_t_TQjwHYrzlkIauOK_IaFSQcTHs2AgJbmYqOLNr-gBKF7I3dfcWHoQ8Rv9DjgCkddkmI70Eyfx6YeKCiQpQ6vp-564Wh7Ux48nEGedWNIKpMOjgODVmfE1geG6VKILIklDXLwRh1QTq_557DgED4jgQ&sa=X&ved=2ahUKEwit-fOToqiQAxV6V0EAHdWgEXEQ0pQJegQICRAB&biw=1366&bih=633&dpr=1" class="btn" style="margin-top: 15px;">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="partner-card">
+                        <div class="partner-img" style="background-image: url('partner2.jpg');"></div>
+                        <div class="partner-content">
+                            <h3>Uganda Health Alliance</h3>
+                            <p>Collaborating on mobile clinic services and community health education programs.</p>
+                            <a href="#" class="btn" style="margin-top: 15px;">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="partner-card">
+                        <div class="partner-img" style="background-image: url('partner3.jpg');"></div>
+                        <div class="partner-content">
+                            <h3>Community Development Trust</h3>
+                            <p>Partnering on sustainable agriculture and economic empowerment projects.</p>
+                            <a href="#" class="btn" style="margin-top: 15px;">Learn More</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="partner-card">
-                <div class="partner-img" style="background-image: url('partner2.jpg');"></div>
-                <div class="partner-content">
-                    <h3>Uganda Health Alliance</h3>
-                    <p>Collaborating on mobile clinic services and community health education programs.</p>
-                    <a href="#partners" class="btn" style="margin-top: 15px;">Learn More</a>
-                </div>
-            </div>
-            <div class="partner-card">
-                <div class="partner-img" style="background-image: url('partner3.jpg');"></div>
-                <div class="partner-content">
-                    <h3>Community Development Trust</h3>
-                    <p>Partnering on sustainable agriculture and economic empowerment projects.</p>
-                    <a href="#partners" class="btn" style="margin-top: 15px;">Learn More</a>
-                </div>
-            </div>
-        
-        </div>
             </div>
         </section>
-    </section>
+    </div>
 
-    <!-- About Us Section -->
-    <section id="about" class="page-section">
+    <!-- About Us Page -->
+    <div id="about" class="page-container">
         <div class="container">
             <div class="page-content">
                 <h1>About YuSmile Uganda</h1>
@@ -1136,10 +1142,35 @@
                 <p>Skilling communities in various economic activities that will improve their livelihoods is important to us. Skills can be in best agricultural practices, Technical and vocational training support and healthy living practices needed in local communities.</p>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Get Involved Section -->
-    <section id="get-involved" class="page-section">
+    <!-- Programs Page -->
+    <div id="programs" class="page-container">
+        <div class="container">
+            <div class="page-content">
+                <h1>Our Programs</h1>
+                <p>YuSmile Uganda implements various programs aimed at creating sustainable impact in communities across Uganda. Our programs focus on education, healthcare, energy access, and community empowerment.</p>
+                
+                <h2>Read2Child Program</h2>
+                <p>Our Read2Child program aims to promote reading as a culture by providing children's story books through Health Centers in disadvantaged communities. This initiative gives children access to books they otherwise wouldn't have, helping improve literacy levels and fostering a love for reading.</p>
+                
+                <h2>Energy Access Program</h2>
+                <p>With more than 50% of Uganda's population still using kerosene lamps and candles, our Energy Access Program focuses on providing cleaner, sustainable energy solutions to off-grid communities and those with unreliable electricity.</p>
+                
+                <h2>Empower Program</h2>
+                <p>Our Empower Program focuses on skilling communities in various economic activities to improve livelihoods. This includes training in best agricultural practices, technical and vocational skills, and healthy living practices needed in local communities.</p>
+                
+                <h2>Healthcare Access Program</h2>
+                <p>Through mobile clinics and health education campaigns, we reach remote communities across Uganda with essential healthcare services and health education.</p>
+                
+                <h2>Women's Empowerment</h2>
+                <p>We provide skills training and microfinance programs to help women achieve economic independence and become active contributors to their communities.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Get Involved Page -->
+    <div id="get-involved" class="page-container">
         <div class="container">
             <div class="page-content">
                 <h1>Get Involved</h1>
@@ -1192,10 +1223,31 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Contact Section -->
-    <section id="contact" class="page-section">
+    <!-- News Page -->
+    <div id="news" class="page-container">
+        <div class="container">
+            <div class="page-content">
+                <h1>News & Updates</h1>
+                <p>Stay tuned for the latest news and updates from YuSmile Uganda. We're working on bringing you the most recent information about our programs and impact.</p>
+                <p>Check back soon for updates!</p>
+                
+                <div style="margin-top: 40px; text-align: center;">
+                    <p>Subscribe to our newsletter to stay updated on our programs and impact.</p>
+                    <form style="margin-top: 20px; max-width: 400px; margin-left: auto; margin-right: auto;">
+                        <div class="form-group">
+                            <input type="email" placeholder="Your email address" style="width: 100%; padding: 12px; border-radius: 4px; border: 1px solid #ddd;">
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%;">Subscribe to Newsletter</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page-container">
         <div class="container">
             <div class="page-content">
                 <h1>Contact Us</h1>
@@ -1249,18 +1301,7 @@
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- News Section (Placeholder) -->
-    <section id="news" class="page-section">
-        <div class="container">
-            <div class="page-content">
-                <h1>News & Updates</h1>
-                <p>Stay tuned for the latest news and updates from YuSmile Uganda. We're working on bringing you the most recent information about our programs and impact.</p>
-                <p>Check back soon for updates!</p>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -1279,12 +1320,12 @@
                 <div class="footer-column">
                     <h3>Quick Links</h3>
                     <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#programs">Our Programs</a></li>
-                        <li><a href="#get-involved">Get Involved</a></li>
-                        <li><a href="#news">News & Events</a></li>
-                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#" class="nav-link" data-page="home">Home</a></li>
+                        <li><a href="#" class="nav-link" data-page="about">About Us</a></li>
+                        <li><a href="#" class="nav-link" data-page="programs">Our Programs</a></li>
+                        <li><a href="#" class="nav-link" data-page="get-involved">Get Involved</a></li>
+                        <li><a href="#" class="nav-link" data-page="news">News & Events</a></li>
+                        <li><a href="#" class="nav-link" data-page="contact">Contact Us</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -1383,6 +1424,28 @@
     </div>
 
     <script>
+        // Page Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const pageId = this.getAttribute('data-page');
+                
+                // Hide all pages
+                document.querySelectorAll('.page-container').forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // Show selected page
+                document.getElementById(pageId).classList.add('active');
+                
+                // Close mobile menu if open
+                document.querySelector('nav ul').classList.remove('active');
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+            });
+        });
+
         // Image Slider Functionality
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.slider-dot');
