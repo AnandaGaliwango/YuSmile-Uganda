@@ -511,6 +511,116 @@
     line-height: 1.6;
     margin-bottom: 20px;
 }
+
+/* Page Styles */
+.page-section {
+    padding: 80px 0;
+    background-color: white;
+}
+
+.page-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.page-content h1 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.page-content h2 {
+    font-size: 1.8rem;
+    color: var(--primary);
+    margin: 40px 0 20px;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 10px;
+}
+
+.page-content h3 {
+    font-size: 1.4rem;
+    color: var(--dark);
+    margin: 25px 0 15px;
+}
+
+.page-content p {
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+
+.page-content ul {
+    margin: 20px 0;
+    padding-left: 30px;
+}
+
+.page-content li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+/* Form Styles */
+.involvement-form {
+    background-color: var(--light);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-top: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-group input, .form-group textarea, .form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Contact Info Styles */
+.contact-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.contact-card {
+    background-color: var(--light);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.contact-card i {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+.contact-card h3 {
+    margin-bottom: 10px;
+    color: var(--dark);
+}
+
+.contact-card p {
+    color: var(--text);
+}
     /* Footer */
     footer {
         background-color: var(--dark);
@@ -789,204 +899,366 @@
             </button>
             <nav>
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Programs</a></li>
-                    <li><a href="#">Get Involved</a></li>
-                    <li><a href="#">News</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#" class="btn btn-donate">Donate Now</a></li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#programs">Programs</a></li>
+                    <li><a href="#get-involved">Get Involved</a></li>
+                    <li><a href="#news">News</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#donate" class="btn btn-donate">Donate Now</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Slider Section -->
-    <!-- Hero Slider Section -->
-    <section class="hero-slider">
-        <div class="slide active" style="background-image: url('YuSmile1.jpeg');"></div>
-        <div class="slide" style="background-image: url('YuSmile2.jpeg');"></div>
-        <div class="slide" style="background-image: url('YuSmile3.jpeg');"></div>
-        <div class="slide" style="background-image: url('YuSmile4.jpeg');"></div>
-        
-        <!-- Static content that doesn't change -->
-        <div class="hero-content">
-            <h2>Empowering Communities, Creating Sustainable Impact</h2>
-            <p>YuSmile Uganda is dedicated to improving lives through education, healthcare, and community development initiatives across Uganda.</p>
-            <div class="hero-buttons">
-                <a href="#" class="btn">Get Involved</a>
-                <a href="#" class="btn btn-donate">Donate Now</a>
+    <!-- Home Section -->
+    <section id="home">
+        <!-- Hero Slider Section -->
+        <section class="hero-slider">
+            <div class="slide active" style="background-image: url('YuSmile1.jpeg');"></div>
+            <div class="slide" style="background-image: url('YuSmile2.jpeg');"></div>
+            <div class="slide" style="background-image: url('YuSmile3.jpeg');"></div>
+            <div class="slide" style="background-image: url('YuSmile4.jpeg');"></div>
+            
+            <!-- Static content that doesn't change -->
+            <div class="hero-content">
+                <h2>Empowering Communities, Creating Sustainable Impact</h2>
+                <p>YuSmile Uganda is dedicated to improving lives through education, healthcare, and community development initiatives across Uganda.</p>
+                <div class="hero-buttons">
+                    <a href="#get-involved" class="btn">Get Involved</a>
+                    <a href="#donate" class="btn btn-donate">Donate Now</a>
+                </div>
             </div>
-        </div>
+            
+            <button class="slider-arrow prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="slider-arrow next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            
+            <div class="slider-nav">
+                <div class="slider-dot active"></div>
+                <div class="slider-dot"></div>
+                <div class="slider-dot"></div>
+                <div class="slider-dot"></div>
+            </div>
+        </section>
+
+        <!-- Mission Section -->
+        <section class="mission">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Mission</h2>
+                    <p>We work to create sustainable impact through programs that address the most pressing needs in Ugandan communities.</p>
+                </div>
+                <div class="mission-grid">
+                    <div class="mission-card">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>Education</h3>
+                        <p>Providing quality education opportunities for children and youth, with a focus on marginalized communities.</p>
+                    </div>
+                    <div class="mission-card">
+                        <i class="fas fa-heartbeat"></i>
+                        <h3>Healthcare</h3>
+                        <p>Improving access to healthcare services and promoting health education in underserved areas.</p>
+                    </div>
+                    <div class="mission-card">
+                        <i class="fas fa-hands-helping"></i>
+                        <h3>Community Development</h3>
+                        <p>Empowering communities through sustainable development projects and capacity building.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programs Section -->
+        <section id="programs" class="programs">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Programs</h2>
+                    <p>Discover the initiatives that are making a real difference in the lives of Ugandans.</p>
+                </div>
+                <div class="programs-grid">
+                    <div class="program-card">
+                        <div class="program-img" style="background-image: url('YuSmile6.jpg');"></div>
+                        <div class="program-content">
+                            <h3>Book Donations</h3>
+                            <p>Providing scholarships, school supplies, and mentorship programs to empower the next generation.</p>
+                            <a href="#programs" class="btn" style="margin-top: 15px;">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="program-card">
+                        <div class="program-img" style="background-image: url('https://images.unsplash.com/photo-1551601651-2a8555f1a136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80');"></div>
+                        <div class="program-content">
+                            <h3>Healthcare Access Program</h3>
+                            <p>Mobile clinics and health education campaigns reaching remote communities across Uganda.</p>
+                            <a href="#programs" class="btn" style="margin-top: 15px;">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="program-card">
+                        <div class="program-img" style="background-image: url('https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                        <div class="program-content">
+                            <h3>Women's Empowerment</h3>
+                            <p>Skills training and microfinance programs to help women achieve economic independence.</p>
+                            <a href="#programs" class="btn" style="margin-top: 15px;">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Section -->
+        <section class="impact">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Impact</h2>
+                    <p>Through the support of our donors and volunteers, we've been able to make a meaningful difference.</p>
+                </div>
+                <div class="impact-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">5,000+</div>
+                        <div class="stat-text">Children Educated</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-text">Communities Served</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1,200+</div>
+                        <div class="stat-text">Healthcare Visits</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">300+</div>
+                        <div class="stat-text">Women Empowered</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Donation Section -->
+        <section id="donate" class="donation">
+            <div class="container">
+                <h2>Support Our Mission</h2>
+                <p>Your donation helps us continue our work in education, healthcare, and community development across Uganda.</p>
+                
+                <div class="donation-options">
+                    <div class="donation-amount active" data-amount="5000">UGX 5,000</div>
+                    <div class="donation-amount" data-amount="10000">UGX 10,000</div>
+                    <div class="donation-amount" data-amount="20000">UGX 20,000</div>
+                    <div class="donation-amount" data-amount="30000">UGX 30,000</div>
+                    <div class="donation-amount" data-amount="50000">UGX 50,000</div>
+                </div>
+                
+                <div class="custom-amount">
+                    <input type="number" placeholder="Other amount (UGX)" id="custom-amount">
+                    <button id="set-custom-amount">Set</button>
+                </div>
+                
+                <a href="#donate" class="btn btn-donate" id="donate-button" style="margin-top: 20px;">Donate UGX 5,000 Now</a>
+                
+                <p style="margin-top: 20px; font-size: 0.9rem;">
+                    <i class="fas fa-lock"></i> Secure payment processed by Pesapal
+                </p>
+            </div>
+        </section>
+
+        <!-- Key Partners Section (Replaces CTA Section) -->
+        <section class="partners">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Key Partners and Sponsors</h2>
+                    <p>We collaborate with individuals, organizations and institutions that share our vision for sustainable development in Uganda.</p>
+                </div>
+                <div class="partners-grid">
+            <div class="partner-card">
+                <div class="partner-img" style="background-image: url('YuSmile5.png');"></div>
+                <div class="partner-content">
+                    <h3>The Late Wendy Cooling</h3>
+                    <p>Ms.Wendy Cooling donated books to YuSmile Uganda and also donated funds to cover the costs for YuSmile website development.</p>
+                    <a href="https://www.google.com/search?client=ms-android-samsung-ss&sca_esv=bdbe2dd8fffd653b&sxsrf=AE3TifPIv-MHqa2eihYQ9Y2IRKiEqHgYxw:1760602162532&q=wendy+cooling&source=lnms&fbs=AIIjpHxU7SXXniUZfeShr2fp4giZ1Y6MJ25_tmWITc7uy4KIeuYzzFkfneXafNx6OMdA4MQRJc_t_TQjwHYrzlkIauOK_IaFSQcTHs2AgJbmYqOLNr-gBKF7I3dfcWHoQ8Rv9DjgCkddkmI70Eyfx6YeKCiQpQ6vp-564Wh7Ux48nEGedWNIKpMOjgODVmfE1geG6VKILIklDXLwRh1QTq_557DgED4jgQ&sa=X&ved=2ahUKEwit-fOToqiQAxV6V0EAHdWgEXEQ0pQJegQICRAB&biw=1366&bih=633&dpr=1" class="btn" style="margin-top: 15px;">Learn More</a>
+                </div>
+            </div>
+            <div class="partner-card">
+                <div class="partner-img" style="background-image: url('partner2.jpg');"></div>
+                <div class="partner-content">
+                    <h3>Uganda Health Alliance</h3>
+                    <p>Collaborating on mobile clinic services and community health education programs.</p>
+                    <a href="#partners" class="btn" style="margin-top: 15px;">Learn More</a>
+                </div>
+            </div>
+            <div class="partner-card">
+                <div class="partner-img" style="background-image: url('partner3.jpg');"></div>
+                <div class="partner-content">
+                    <h3>Community Development Trust</h3>
+                    <p>Partnering on sustainable agriculture and economic empowerment projects.</p>
+                    <a href="#partners" class="btn" style="margin-top: 15px;">Learn More</a>
+                </div>
+            </div>
         
-        <button class="slider-arrow prev">
-            <i class="fas fa-chevron-left"></i>
-        </button>
-        <button class="slider-arrow next">
-            <i class="fas fa-chevron-right"></i>
-        </button>
-        
-        <div class="slider-nav">
-            <div class="slider-dot active"></div>
-            <div class="slider-dot"></div>
-            <div class="slider-dot"></div>
-            <div class="slider-dot"></div>
         </div>
+            </div>
+        </section>
     </section>
 
-    <!-- Rest of your existing sections (Mission, Programs, Impact, Donation) remain the same -->
-    <!-- Mission Section -->
-    <section class="mission">
+    <!-- About Us Section -->
+    <section id="about" class="page-section">
         <div class="container">
-            <div class="section-title">
+            <div class="page-content">
+                <h1>About YuSmile Uganda</h1>
+                
+                <h2>Who We Are</h2>
+                <p>Created in 2018, YuSmile is a non-profit organization which promotes Education, Energy Access, Health and sustainable agriculture through Humanitarian aid and development projects in Uganda.</p>
+                
+                <h2>Our Vision</h2>
+                <p>A Sustainable Impact for All</p>
+                
                 <h2>Our Mission</h2>
-                <p>We work to create sustainable impact through programs that address the most pressing needs in Ugandan communities.</p>
+                <p>To create a positive impact in societies in need.</p>
+                
+                <h2>Objectives</h2>
+                <ul>
+                    <li>To promote reading as a culture allowing children and caregivers an opportunity for long life learning.</li>
+                    <li>To promote Energy Access in communities that are off grid and in unreliable grids.</li>
+                    <li>To Promote a healthy living through best practices that will improve standards of human life.</li>
+                    <li>To promote best practices in agriculture that will produce food while protecting the environment.</li>
+                </ul>
+                
+                <h2>Focus Areas</h2>
+                
+                <h3>1. Read2Child Program</h3>
+                <p>We set out to donate children's story books through Health Centers that are located in disadvantaged communities, with a lot of uneducated families. This we believe will give a chance to their children get access to free children's story books that they otherwise would not have gained access to, that might help them improve their literacy levels but also the associated benefits of reading in their future.</p>
+                
+                <h3>2. Energy Access Program</h3>
+                <p>More than 50% of the population in Uganda still used kerosene lamps and candles. We set out under this program to reach out to such communities and support them with cleaner energy solutions that are sustainable.</p>
+                
+                <h3>3. Empower Program</h3>
+                <p>Skilling communities in various economic activities that will improve their livelihoods is important to us. Skills can be in best agricultural practices, Technical and vocational training support and healthy living practices needed in local communities.</p>
             </div>
-            <div class="mission-grid">
-                <div class="mission-card">
-                    <i class="fas fa-graduation-cap"></i>
-                    <h3>Education</h3>
-                    <p>Providing quality education opportunities for children and youth, with a focus on marginalized communities.</p>
-                </div>
-                <div class="mission-card">
-                    <i class="fas fa-heartbeat"></i>
-                    <h3>Healthcare</h3>
-                    <p>Improving access to healthcare services and promoting health education in underserved areas.</p>
-                </div>
-                <div class="mission-card">
-                    <i class="fas fa-hands-helping"></i>
-                    <h3>Community Development</h3>
-                    <p>Empowering communities through sustainable development projects and capacity building.</p>
+        </div>
+    </section>
+
+    <!-- Get Involved Section -->
+    <section id="get-involved" class="page-section">
+        <div class="container">
+            <div class="page-content">
+                <h1>Get Involved</h1>
+                <p>Join us in making a difference in communities across Uganda. There are many ways you can contribute to our mission.</p>
+                
+                <div class="involvement-form">
+                    <h2>Volunteer With Us</h2>
+                    <p>Fill out the form below to express your interest in volunteering with YuSmile Uganda.</p>
+                    
+                    <form id="volunteer-form">
+                        <div class="form-group">
+                            <label for="full-name">Full Name *</label>
+                            <input type="text" id="full-name" name="full-name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="involvement-type">How would you like to be involved? *</label>
+                            <select id="involvement-type" name="involvement-type" required>
+                                <option value="">Select an option</option>
+                                <option value="volunteer">Volunteer</option>
+                                <option value="partner">Partner Organization</option>
+                                <option value="donor">Regular Donor</option>
+                                <option value="ambassador">Community Ambassador</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="skills">Skills/Expertise</label>
+                            <textarea id="skills" name="skills" placeholder="Tell us about your skills, experience, or how you'd like to contribute"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Additional Message</label>
+                            <textarea id="message" name="message" placeholder="Any additional information you'd like to share"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-donate" style="width: 100%;">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Programs Section -->
-    <section class="programs">
+    <!-- Contact Section -->
+    <section id="contact" class="page-section">
         <div class="container">
-            <div class="section-title">
-                <h2>Our Programs</h2>
-                <p>Discover the initiatives that are making a real difference in the lives of Ugandans.</p>
-            </div>
-            <div class="programs-grid">
-                <div class="program-card">
-                    <div class="program-img" style="background-image: url('YuSmile6.jpg');"></div>
-                    <div class="program-content">
-                        <h3>Book Donations</h3>
-                        <p>Providing scholarships, school supplies, and mentorship programs to empower the next generation.</p>
-                        <a href="#" class="btn" style="margin-top: 15px;">Learn More</a>
+            <div class="page-content">
+                <h1>Contact Us</h1>
+                <p>We'd love to hear from you. Reach out to us through any of the following channels.</p>
+                
+                <div class="contact-details">
+                    <div class="contact-card">
+                        <i class="fas fa-phone"></i>
+                        <h3>Phone</h3>
+                        <p>+256 758 927639</p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email</h3>
+                        <p>info@yusmileuganda.org</p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Address</h3>
+                        <p>P.O. Box 800765, Kampala, Uganda</p>
                     </div>
                 </div>
-                <div class="program-card">
-                    <div class="program-img" style="background-image: url('https://images.unsplash.com/photo-1551601651-2a8555f1a136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80');"></div>
-                    <div class="program-content">
-                        <h3>Healthcare Access Program</h3>
-                        <p>Mobile clinics and health education campaigns reaching remote communities across Uganda.</p>
-                        <a href="#" class="btn" style="margin-top: 15px;">Learn More</a>
-                    </div>
-                </div>
-                <div class="program-card">
-                    <div class="program-img" style="background-image: url('https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
-                    <div class="program-content">
-                        <h3>Women's Empowerment</h3>
-                        <p>Skills training and microfinance programs to help women achieve economic independence.</p>
-                        <a href="#" class="btn" style="margin-top: 15px;">Learn More</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Impact Section -->
-    <section class="impact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Impact</h2>
-                <p>Through the support of our donors and volunteers, we've been able to make a meaningful difference.</p>
-            </div>
-            <div class="impact-stats">
-                <div class="stat-item">
-                    <div class="stat-number">5,000+</div>
-                    <div class="stat-text">Children Educated</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">50+</div>
-                    <div class="stat-text">Communities Served</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">1,200+</div>
-                    <div class="stat-text">Healthcare Visits</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">300+</div>
-                    <div class="stat-text">Women Empowered</div>
+                
+                <div class="involvement-form" style="margin-top: 50px;">
+                    <h2>Send Us a Message</h2>
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="contact-name">Full Name *</label>
+                            <input type="text" id="contact-name" name="contact-name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact-email">Email Address *</label>
+                            <input type="email" id="contact-email" name="contact-email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact-subject">Subject *</label>
+                            <input type="text" id="contact-subject" name="contact-subject" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact-message">Message *</label>
+                            <textarea id="contact-message" name="contact-message" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-donate" style="width: 100%;">Send Message</button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Donation Section -->
-    <section class="donation">
+    <!-- News Section (Placeholder) -->
+    <section id="news" class="page-section">
         <div class="container">
-            <h2>Support Our Mission</h2>
-            <p>Your donation helps us continue our work in education, healthcare, and community development across Uganda.</p>
-            
-            <div class="donation-options">
-                <div class="donation-amount active" data-amount="5000">UGX 5,000</div>
-                <div class="donation-amount" data-amount="10000">UGX 10,000</div>
-                <div class="donation-amount" data-amount="20000">UGX 20,000</div>
-                <div class="donation-amount" data-amount="30000">UGX 30,000</div>
-                <div class="donation-amount" data-amount="50000">UGX 50,000</div>
+            <div class="page-content">
+                <h1>News & Updates</h1>
+                <p>Stay tuned for the latest news and updates from YuSmile Uganda. We're working on bringing you the most recent information about our programs and impact.</p>
+                <p>Check back soon for updates!</p>
             </div>
-            
-            <div class="custom-amount">
-                <input type="number" placeholder="Other amount (UGX)" id="custom-amount">
-                <button id="set-custom-amount">Set</button>
-            </div>
-            
-            <a href="#" class="btn btn-donate" id="donate-button" style="margin-top: 20px;">Donate UGX 5,000 Now</a>
-            
-            <p style="margin-top: 20px; font-size: 0.9rem;">
-                <i class="fas fa-lock"></i> Secure payment processed by Pesapal
-            </p>
-        </div>
-    </section>
-
-    <!-- Key Partners Section (Replaces CTA Section) -->
-    <section class="partners">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Key Partners and Sponsors</h2>
-                <p>We collaborate with individuals, organizations and institutions that share our vision for sustainable development in Uganda.</p>
-            </div>
-            <div class="partners-grid">
-    <div class="partner-card">
-        <div class="partner-img" style="background-image: url('YuSmile5.png');"></div>
-        <div class="partner-content">
-            <h3>The Late Wendy Cooling</h3>
-            <p>Ms.Wendy Cooling donated books to YuSmile Uganda and also donated funds to cover the costs for YuSmile website development.</p>
-            <a href="https://www.google.com/search?client=ms-android-samsung-ss&sca_esv=bdbe2dd8fffd653b&sxsrf=AE3TifPIv-MHqa2eihYQ9Y2IRKiEqHgYxw:1760602162532&q=wendy+cooling&source=lnms&fbs=AIIjpHxU7SXXniUZfeShr2fp4giZ1Y6MJ25_tmWITc7uy4KIeuYzzFkfneXafNx6OMdA4MQRJc_t_TQjwHYrzlkIauOK_IaFSQcTHs2AgJbmYqOLNr-gBKF7I3dfcWHoQ8Rv9DjgCkddkmI70Eyfx6YeKCiQpQ6vp-564Wh7Ux48nEGedWNIKpMOjgODVmfE1geG6VKILIklDXLwRh1QTq_557DgED4jgQ&sa=X&ved=2ahUKEwit-fOToqiQAxV6V0EAHdWgEXEQ0pQJegQICRAB&biw=1366&bih=633&dpr=1" class="btn" style="margin-top: 15px;">Learn More</a>
-        </div>
-    </div>
-    <div class="partner-card">
-        <div class="partner-img" style="background-image: url('partner2.jpg');"></div>
-        <div class="partner-content">
-            <h3>Uganda Health Alliance</h3>
-            <p>Collaborating on mobile clinic services and community health education programs.</p>
-            <a href="#" class="btn" style="margin-top: 15px;">Learn More</a>
-        </div>
-    </div>
-    <div class="partner-card">
-        <div class="partner-img" style="background-image: url('partner3.jpg');"></div>
-        <div class="partner-content">
-            <h3>Community Development Trust</h3>
-            <p>Partnering on sustainable agriculture and economic empowerment projects.</p>
-            <a href="#" class="btn" style="margin-top: 15px;">Learn More</a>
-        </div>
-    </div>
-   
-</div>
         </div>
     </section>
 
@@ -1007,12 +1279,12 @@
                 <div class="footer-column">
                     <h3>Quick Links</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Our Programs</a></li>
-                        <li><a href="#">Get Involved</a></li>
-                        <li><a href="#">News & Events</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#programs">Our Programs</a></li>
+                        <li><a href="#get-involved">Get Involved</a></li>
+                        <li><a href="#news">News & Events</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -1307,15 +1579,21 @@
             }
         });
 
+        // Form submissions
+        document.getElementById('volunteer-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your interest in volunteering with YuSmile Uganda! We will contact you soon.');
+            this.reset();
+        });
+
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you as soon as possible.');
+            this.reset();
+        });
+
         // Initialize
         updateDonateButton();
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
