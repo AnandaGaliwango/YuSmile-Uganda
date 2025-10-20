@@ -5,7 +5,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-tr6y61l6$sjm^x1os$gi%jaej7e13cu%(@$m#7j^m5_o&j$97j'  
 DEBUG = True
 
-ALLOWED_HOSTS = ['yu-smile-uganda.vercel.app']  # Use specific hosts in production
+ALLOWED_HOSTS = ['yu-smile-uganda.vercel.app',
+                 '127.0.0.1', 'localhost'
+]  
 
 # -------------------------------------------------
 # APPLICATIONS
