@@ -1397,7 +1397,7 @@ header + .page-container .hero-slider {
         </div>
     </footer>
 
-   <!-- Donation Modal -->
+ <!-- Donation Modal -->
 <div class="modal" id="donation-modal">
     <div class="modal-content">
         <span class="close-modal">&times;</span>
@@ -1405,7 +1405,9 @@ header + .page-container .hero-slider {
         <p>Thank you for supporting YuSmile Uganda. Your donation will help us create sustainable impact in communities across Uganda.</p>
         
         <div style="background: #f0f7ff; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
-            <h4 style="margin: 0; color: var(--primary);">Donation Amount: <span id="display-amount">UGX 5,000</span></h4>
+            <h4 style="margin: 0; color: var(--primary);">
+                Donation Amount: <span id="display-amount">UGX 5,000</span>
+            </h4>
         </div>
         
         <form id="donation-form">
@@ -1429,22 +1431,22 @@ header + .page-container .hero-slider {
                 <input type="tel" id="donor-phone" required placeholder="e.g., 0758927639">
             </div>
 
-            <!-- New: Payment Method Selector -->
+            <!-- Payment Method Selector -->
             <div class="form-group">
                 <label for="payment-method">Payment Method *</label>
                 <select id="payment-method" required>
                     <option value="pesapal">Pesapal</option>
                     <option value="mtn">MTN Mobile Money</option>
-                    <!-- <option value="airtel">Airtel Money</option> Uncomment if enabled -->
+                    <!-- <option value="airtel">Airtel Money</option> -->
                 </select>
             </div>
-            
+
             <input type="hidden" id="donation-amount-final" value="5000">
-            
+
             <button type="submit" class="btn btn-donate" style="width: 100%;">
                 <i class="fas fa-lock"></i> Proceed to Secure Payment
             </button>
-            
+
             <p style="text-align: center; margin-top: 15px; font-size: 0.8rem; color: #666;">
                 <i class="fas fa-shield-alt"></i> Your payment is securely processed by the selected payment provider
             </p>
@@ -1453,7 +1455,7 @@ header + .page-container .hero-slider {
 </div>
 
 <script>
-    // Donation Modal JS
+    // --- Modal & Donation Handling ---
     const modal = document.getElementById('donation-modal');
     const closeModal = document.querySelector('.close-modal');
     const donationForm = document.getElementById('donation-form');
@@ -1461,52 +1463,83 @@ header + .page-container .hero-slider {
     const displayAmount = document.getElementById('display-amount');
     let selectedAmount = 5000;
 
-    function formatUGX(amount) {
-        return 'UGX ' + parseInt(amount).toLocaleString('en-UG');
-    }
+    function formatUGX(amount) { return 'UGX ' + parseInt(amount).toLocaleString('en-UG'); }
 
     function updateDonateButton() {
         document.querySelector('.btn-donate').textContent = `Donate ${formatUGX(selectedAmount)} Now`;
     }
 
-    // Close modal
     closeModal.addEventListener('click', () => modal.style.display = 'none');
     window.addEventListener('click', e => { if(e.target === modal) modal.style.display = 'none'; });
 
-    donationForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
+    // --- Donation Amount Selection ---
+    const donationAmounts = document.querySelectorAll('.donation-amount');
+    const customAmountInput = document.getElementById('custom-amount');
+    const setCustomAmountBtn = document.getElementById('set-custom-amount');
 
+    donationAmounts.forEach(amount => {
+        amount.addEventListener('click', function() {
+            donationAmounts.forEach(a => a.classList.remove('active'));
+            this.classList.add('active');
+            selectedAmount = parseInt(this.getAttribute('data-amount'));
+            donationAmountFinal.value = selectedAmount;
+            displayAmount.textContent = formatUGX(selectedAmount);
+            updateDonateButton();
+        });
+    });
+
+    setCustomAmountBtn.addEventListener('click', () => {
+        const customAmount = parseInt(customAmountInput.value);
+        if(customAmount && customAmount > 0){
+            selectedAmount = customAmount;
+            donationAmounts.forEach(a => a.classList.remove('active'));
+            donationAmountFinal.value = selectedAmount;
+            displayAmount.textContent = formatUGX(selectedAmount);
+            updateDonateButton();
+        } else alert('Please enter a valid amount');
+    });
+
+    customAmountInput.addEventListener('keypress', e => { if(e.key === 'Enter'){ e.preventDefault(); setCustomAmountBtn.click(); } });
+
+    // --- Open Modal from Buttons ---
+    document.querySelectorAll('.btn-donate').forEach(button => {
+        button.addEventListener('click', e => {
+            e.preventDefault();
+            donationAmountFinal.value = selectedAmount;
+            displayAmount.textContent = formatUGX(selectedAmount);
+            modal.style.display = 'flex';
+        });
+    });
+
+    // --- Form Submission ---
+    donationForm.addEventListener('submit', async function(e){
+        e.preventDefault();
         const paymentMethod = document.getElementById('payment-method').value;
         const formData = {
             amount: selectedAmount,
-            firstName: document.getElementById('firstName').value,
-            lastName: document.getElementById('lastName').value,
-            email: document.getElementById('donor-email').value,
-            phone: document.getElementById('donor-phone').value,
+            firstName: document.getElementById('firstName').value.trim(),
+            lastName: document.getElementById('lastName').value.trim(),
+            email: document.getElementById('donor-email').value.trim(),
+            phone: document.getElementById('donor-phone').value.trim(),
             reference: 'YUSMILE-' + Date.now() + '-' + Math.random().toString(36).substr(2,9),
             currency: 'UGX',
             description: 'Donation to YuSmile Uganda',
             payment_method: paymentMethod
         };
 
-        // Simple validation
-        if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
+        // Validation
+        if(!formData.firstName || !formData.lastName || !formData.email || !formData.phone){
             alert('Please fill in all required fields');
             return;
         }
 
-        // Email format
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(formData.email)) {
-            alert('Please enter a valid email address');
+        if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)){
+            alert('Please enter a valid email');
             return;
         }
 
-        // Phone number validation (Ugandan)
-        const phoneRegex = /^(?:\+256|0)[17]\d{8}$/;
-        const cleanPhone = formData.phone.replace(/\s+/g,'');
-        if (!phoneRegex.test(cleanPhone)) {
-            alert('Please enter a valid Ugandan phone number (e.g., 0758927639 or +256758927639)');
+        if(!/^(?:\+256|0)[17]\d{8}$/.test(formData.phone.replace(/\s+/g,''))){
+            alert('Invalid Ugandan phone number');
             return;
         }
 
@@ -1515,15 +1548,15 @@ header + .page-container .hero-slider {
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting...';
         submitBtn.disabled = true;
 
-        try {
+        try{
             let apiUrl = '';
             if(paymentMethod === 'pesapal') apiUrl = '/api/pesapal-payment';
-            if(paymentMethod === 'mtn') apiUrl = '/api/mtn-payment';
-            // if(paymentMethod === 'airtel') apiUrl = '/api/airtel-payment';
+            if(paymentMethod === 'mtn') apiUrl = '/api/mtn-momo-payment';
+            // if(paymentMethod === 'airtel') apiUrl = '/api/airtel-money-payment';
 
             const response = await fetch(apiUrl, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type':'application/json' },
                 body: JSON.stringify(formData)
             });
 
@@ -1537,242 +1570,18 @@ header + .page-container .hero-slider {
                 modal.style.display = 'none';
             }
 
-        } catch (error) {
+        } catch(error){
             console.error('Payment Error:', error);
             alert('Error: ' + error.message);
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
         }
     });
+
+    // --- Initialize ---
+    updateDonateButton();
 </script>
 
-
-        // Image Slider Functionality
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.slider-dot');
-        const prevBtn = document.querySelector('.slider-arrow.prev');
-        const nextBtn = document.querySelector('.slider-arrow.next');
-        let currentSlide = 0;
-        let slideInterval;
-
-        function showSlide(n) {
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            
-            currentSlide = (n + slides.length) % slides.length;
-            
-            slides[currentSlide].classList.add('active');
-            dots[currentSlide].classList.add('active');
-        }
-
-        function nextSlide() {
-            showSlide(currentSlide + 1);
-        }
-
-        function prevSlide() {
-            showSlide(currentSlide - 1);
-        }
-
-        function startSlider() {
-            slideInterval = setInterval(nextSlide, 5000);
-        }
-
-        function stopSlider() {
-            clearInterval(slideInterval);
-        }
-
-        // Event Listeners for Slider
-        nextBtn.addEventListener('click', () => {
-            stopSlider();
-            nextSlide();
-            startSlider();
-        });
-
-        prevBtn.addEventListener('click', () => {
-            stopSlider();
-            prevSlide();
-            startSlider();
-        });
-
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                stopSlider();
-                showSlide(index);
-                startSlider();
-            });
-        });
-
-        // Start the slider
-        startSlider();
-
-        // Pause slider on hover
-        const slider = document.querySelector('.hero-slider');
-        slider.addEventListener('mouseenter', stopSlider);
-        slider.addEventListener('mouseleave', startSlider);
-
-        // Your existing JavaScript code for donations and mobile menu
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('active');
-        });
-
-        const donationAmounts = document.querySelectorAll('.donation-amount');
-        const customAmountInput = document.getElementById('custom-amount');
-        const setCustomAmountBtn = document.getElementById('set-custom-amount');
-        const donateButton = document.getElementById('donate-button');
-        const donationAmountFinal = document.getElementById('donation-amount-final');
-        const displayAmount = document.getElementById('display-amount');
-        let selectedAmount = 5000;
-
-        function formatUGX(amount) {
-            return 'UGX ' + parseInt(amount).toLocaleString('en-UG');
-        }
-
-        function updateDonateButton() {
-            donateButton.textContent = `Donate ${formatUGX(selectedAmount)} Now`;
-        }
-
-        donationAmounts.forEach(amount => {
-            amount.addEventListener('click', function() {
-                donationAmounts.forEach(a => a.classList.remove('active'));
-                this.classList.add('active');
-                selectedAmount = this.getAttribute('data-amount');
-                updateDonateButton();
-            });
-        });
-
-        setCustomAmountBtn.addEventListener('click', function() {
-            const customAmount = customAmountInput.value;
-            if (customAmount && customAmount > 0) {
-                selectedAmount = customAmount;
-                donationAmounts.forEach(a => a.classList.remove('active'));
-                updateDonateButton();
-            } else {
-                alert('Please enter a valid amount');
-            }
-        });
-
-        customAmountInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                setCustomAmountBtn.click();
-            }
-        });
-
-       
-
-        const modal = document.getElementById('donation-modal');
-        const closeModal = document.querySelector('.close-modal');
-        const donationForm = document.getElementById('donation-form');
-
-        document.querySelectorAll('.btn-donate').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                donationAmountFinal.value = selectedAmount;
-                displayAmount.textContent = formatUGX(selectedAmount);
-                modal.style.display = 'flex';
-            });
-        });
-
-        closeModal.addEventListener('click', function() {
-            modal.style.display = 'none';
-        });
-
-        window.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-
-        donationForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    const formData = {
-        amount: selectedAmount,
-        firstName: document.getElementById('firstName').value,
-        lastName: document.getElementById('lastName').value,
-        email: document.getElementById('donor-email').value,
-        phone: document.getElementById('donor-phone').value,
-        reference: 'YUSMILE-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9),
-        currency: 'UGX',
-        description: 'Donation to YuSmile Uganda'
-    };
-
-    // Validate form
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
-        alert('Please fill in all required fields');
-        return;
-    }
-
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-        alert('Please enter a valid email address');
-        return;
-    }
-
-    // Validate phone number (Ugandan format)
-    const phoneRegex = /^(?:\+256|0)[17]\d{8}$/;
-    const cleanPhone = formData.phone.replace(/\s+/g, '');
-    if (!phoneRegex.test(cleanPhone)) {
-        alert('Please enter a valid Ugandan phone number (e.g., 0758927639 or +256758927639)');
-        return;
-    }
-
-    const submitBtn = donationForm.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting to Pesapal...';
-    submitBtn.disabled = true;
-
-    try {
-        console.log('Sending to Pesapal:', formData);
-        
-        const response = await fetch('/api/process-donation', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log('Pesapal response:', data);
-
-        if (data.success && data.redirect_url) {
-            // Redirect to Pesapal payment page
-            window.location.href = data.redirect_url;
-        } else {
-            throw new Error(data.error || 'Failed to initialize payment');
-        }
-    } catch (error) {
-        console.error('Payment Error:', error);
-        alert('Error: ' + error.message + '\nPlease try again or contact support at info@yusmileuganda.org');
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-    }
-});
-
-        // Form submissions
-        document.getElementById('volunteer-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your interest in volunteering with YuSmile Uganda! We will contact you soon.');
-            this.reset();
-        });
-
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! We will get back to you as soon as possible.');
-            this.reset();
-        });
-
-        // Initialize
-        updateDonateButton();
-    </script>
-</body>
-</html>
 
 
 
