@@ -488,61 +488,58 @@ header + .page-container .hero-slider {
             cursor: pointer;
         }
         
-        /* Key Partners Section - Updated to match program cards */
-    .partners {
-        padding: 80px 0;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
-        color: white;
-      
+       .partners {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
     margin-bottom: 0;
-    padding-bottom: 80px;
+}
 
-    }
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
 
-    .partners-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-        margin-top: 50px;
-    }
+.partner-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    color: var(--text);
+}
 
-    .partner-card {
-        background: white;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
-        color: var(--text);
-    }
+.partner-card:hover {
+    transform: translateY(-10px);
+}
 
-    .partner-card:hover {
-        transform: translateY(-10px);
-    }
+.partner-img {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
 
-    .partner-img {
-        height: 200px;
-        background-size: cover;
-        background-position: center;
-    }
+.partner-content {
+    padding: 25px;
+}
 
-    .partner-content {
-        padding: 25px;
-    }
-    .partners .section-title h2,
- {
+.partners .section-title h2 {
     color: black;
 }
-    .partner-content h3 {
-        font-size: 1.4rem;
-        margin-bottom: 15px;
-        color: var(--dark);
-    }
 
-    .partner-content p {
-        color: var(--text);
-        line-height: 1.6;
-        margin-bottom: 20px;
-    }
+.partner-content h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: var(--dark);
+}
+
+.partner-content p {
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
 
     /* Page Styles */
     .page-container {
