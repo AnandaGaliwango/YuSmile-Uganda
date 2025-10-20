@@ -5,7 +5,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-tr6y61l6$sjm^x1os$gi%jaej7e13cu%(@$m#7j^m5_o&j$97j'  
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']  # Use specific hosts in production
+ALLOWED_HOSTS = ['yu-smile-uganda.vercel.app']  # Use specific hosts in production
 
 # -------------------------------------------------
 # APPLICATIONS
@@ -111,6 +111,9 @@ EMAIL_HOST_PASSWORD = 'Asmpls123'
 # -------------------------------------------------
 # CORS SETTINGS
 # -------------------------------------------------
+CORS_ALLOWED_ORIGINS = [
+        "https://yu-smile-uganda.vercel.app",  
+]
 CORS_ALLOW_ALL_ORIGINS = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
