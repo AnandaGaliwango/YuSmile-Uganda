@@ -1428,6 +1428,16 @@ header + .page-container .hero-slider {
                 <label for="donor-phone">Phone Number *</label>
                 <input type="tel" id="donor-phone" required placeholder="e.g., 0758927639">
             </div>
+
+            <!-- New: Payment Method Selector -->
+            <div class="form-group">
+                <label for="payment-method">Payment Method *</label>
+                <select id="payment-method" required>
+                    <option value="pesapal">Pesapal</option>
+                    <option value="mtn">MTN Mobile Money</option>
+                    <!-- <option value="airtel">Airtel Money</option> Uncomment if enabled -->
+                </select>
+            </div>
             
             <input type="hidden" id="donation-amount-final" value="5000">
             
@@ -1436,34 +1446,106 @@ header + .page-container .hero-slider {
             </button>
             
             <p style="text-align: center; margin-top: 15px; font-size: 0.8rem; color: #666;">
-                <i class="fas fa-shield-alt"></i> Your payment is securely processed by Pesapal
+                <i class="fas fa-shield-alt"></i> Your payment is securely processed by the selected payment provider
             </p>
         </form>
     </div>
 </div>
 
-    <script>
-        // Page Navigation
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const pageId = this.getAttribute('data-page');
-                
-                // Hide all pages
-                document.querySelectorAll('.page-container').forEach(page => {
-                    page.classList.remove('active');
-                });
-                
-                // Show selected page
-                document.getElementById(pageId).classList.add('active');
-                
-                // Close mobile menu if open
-                document.querySelector('nav ul').classList.remove('active');
-                
-                // Scroll to top
-                window.scrollTo(0, 0);
+<script>
+    // Donation Modal JS
+    const modal = document.getElementById('donation-modal');
+    const closeModal = document.querySelector('.close-modal');
+    const donationForm = document.getElementById('donation-form');
+    const donationAmountFinal = document.getElementById('donation-amount-final');
+    const displayAmount = document.getElementById('display-amount');
+    let selectedAmount = 5000;
+
+    function formatUGX(amount) {
+        return 'UGX ' + parseInt(amount).toLocaleString('en-UG');
+    }
+
+    function updateDonateButton() {
+        document.querySelector('.btn-donate').textContent = `Donate ${formatUGX(selectedAmount)} Now`;
+    }
+
+    // Close modal
+    closeModal.addEventListener('click', () => modal.style.display = 'none');
+    window.addEventListener('click', e => { if(e.target === modal) modal.style.display = 'none'; });
+
+    donationForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const paymentMethod = document.getElementById('payment-method').value;
+        const formData = {
+            amount: selectedAmount,
+            firstName: document.getElementById('firstName').value,
+            lastName: document.getElementById('lastName').value,
+            email: document.getElementById('donor-email').value,
+            phone: document.getElementById('donor-phone').value,
+            reference: 'YUSMILE-' + Date.now() + '-' + Math.random().toString(36).substr(2,9),
+            currency: 'UGX',
+            description: 'Donation to YuSmile Uganda',
+            payment_method: paymentMethod
+        };
+
+        // Simple validation
+        if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
+            alert('Please fill in all required fields');
+            return;
+        }
+
+        // Email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+            alert('Please enter a valid email address');
+            return;
+        }
+
+        // Phone number validation (Ugandan)
+        const phoneRegex = /^(?:\+256|0)[17]\d{8}$/;
+        const cleanPhone = formData.phone.replace(/\s+/g,'');
+        if (!phoneRegex.test(cleanPhone)) {
+            alert('Please enter a valid Ugandan phone number (e.g., 0758927639 or +256758927639)');
+            return;
+        }
+
+        const submitBtn = donationForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting...';
+        submitBtn.disabled = true;
+
+        try {
+            let apiUrl = '';
+            if(paymentMethod === 'pesapal') apiUrl = '/api/pesapal-payment';
+            if(paymentMethod === 'mtn') apiUrl = '/api/mtn-payment';
+            // if(paymentMethod === 'airtel') apiUrl = '/api/airtel-payment';
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
             });
-        });
+
+            const data = await response.json();
+            console.log(paymentMethod, 'response:', data);
+
+            if(paymentMethod === 'pesapal' && data.success && data.redirect_url){
+                window.location.href = data.redirect_url;
+            } else {
+                alert('Payment initiated. Please check your phone for MoMo prompt.');
+                modal.style.display = 'none';
+            }
+
+        } catch (error) {
+            console.error('Payment Error:', error);
+            alert('Error: ' + error.message);
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+</script>
+
 
         // Image Slider Functionality
         const slides = document.querySelectorAll('.slide');
