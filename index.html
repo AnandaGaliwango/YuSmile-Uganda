@@ -13,6 +13,18 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        /* Fix for white space between header and content */
+.page-container {
+    padding-top: 0 !important;
+}
+
+#home {
+    padding-top: 0;
+}
+header + .page-container .hero-slider {
+    margin-top: 0;
+    padding-top: 0;
+}
         
         :root {
             --primary: #1a73e8;
@@ -176,6 +188,7 @@
             position: relative;
             height: 600px;
             overflow: hidden;
+             margin-top: 0;
         }
         
         .slide {
@@ -1660,3 +1673,4 @@
     </script>
 </body>
 </html>
+
