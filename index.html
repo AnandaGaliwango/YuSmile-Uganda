@@ -1080,8 +1080,7 @@
                     <button id="set-custom-amount">Set</button>
                 </div>
                 
-                <a href="#" class="btn btn-donate" id="donate-button" style="margin-top: 20px;">Donate UGX 5,000 Now</a>
-                
+                <button class="btn btn-donate" id="donate-button" style="margin-top: 20px;">Donate UGX 5,000 Now</button>
                 <p style="margin-top: 20px; font-size: 0.9rem;">
                     <i class="fas fa-lock"></i> Secure payment processed by Pesapal
                 </p>
@@ -1442,7 +1441,38 @@
                 window.scrollTo(0, 0);
             });
         });
+        // Add this debug code to see if elements exist and events are firing
+console.log('=== DONATION DEBUG INFO ===');
+console.log('Donate button found:', document.getElementById('donate-button'));
+console.log('Modal found:', document.getElementById('donation-modal'));
+console.log('Donation amounts found:', document.querySelectorAll('.donation-amount').length);
 
+// Test if button click is working
+document.getElementById('donate-button').addEventListener('click', function(e) {
+    e.preventDefault();
+    console.log('✅ MAIN DONATE BUTTON CLICKED!');
+    
+    // Test if modal elements are accessible
+    const modal = document.getElementById('donation-modal');
+    console.log('Modal element:', modal);
+    console.log('Modal display style:', modal.style.display);
+    console.log('Modal computed display:', window.getComputedStyle(modal).display);
+    
+    // Try to show modal
+    modal.style.display = 'flex';
+    console.log('Modal display set to:', modal.style.display);
+});
+
+// Also test the other donate buttons
+document.querySelectorAll('.btn-donate').forEach((button, index) => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        console.log(`✅ DONATE BUTTON ${index + 1} CLICKED!`);
+        console.log('Button text:', this.textContent);
+    });
+});
+
+console.log('=== END DEBUG INFO ===');
         // Image Slider Functionality
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.slider-dot');
@@ -1677,6 +1707,7 @@
     </script>
 </body>
 </html>
+
 
 
 
