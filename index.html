@@ -1471,19 +1471,18 @@ console.log('Modal found:', document.getElementById('donation-modal'));
 console.log('Donation amounts found:', document.querySelectorAll('.donation-amount').length);
 
 // Test if button click is working
+// Direct event listener for the main donate button
 document.getElementById('donate-button').addEventListener('click', function(e) {
     e.preventDefault();
-    console.log('✅ MAIN DONATE BUTTON CLICKED!');
+    console.log('MAIN DONATE BUTTON CLICKED - Opening modal');
     
-    // Test if modal elements are accessible
+    // Update the modal with current amount
+    donationAmountFinal.value = selectedAmount;
+    displayAmount.textContent = formatUGX(selectedAmount);
+    
+    // Show the modal
     const modal = document.getElementById('donation-modal');
-    console.log('Modal element:', modal);
-    console.log('Modal display style:', modal.style.display);
-    console.log('Modal computed display:', window.getComputedStyle(modal).display);
-    
-    // Try to show modal
     modal.style.display = 'flex';
-    console.log('Modal display set to:', modal.style.display);
 });
 
 // Also test the other donate buttons
@@ -1732,6 +1731,7 @@ document.getElementById('donation-modal').style.position = 'fixed';
     </script>
 </body>
 </html>
+
 
 
 
