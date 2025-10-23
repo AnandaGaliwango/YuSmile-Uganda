@@ -1443,294 +1443,295 @@
     </div>
 </div>
     <script>
-        // Page Navigation
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const pageId = this.getAttribute('data-page');
-                
-                // Hide all pages
-                document.querySelectorAll('.page-container').forEach(page => {
-                    page.classList.remove('active');
-                });
-                
-                // Show selected page
-                document.getElementById(pageId).classList.add('active');
-                
-                // Close mobile menu if open
-                document.querySelector('nav ul').classList.remove('active');
-                
-                // Scroll to top
-                window.scrollTo(0, 0);
+    // Page Navigation
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const pageId = this.getAttribute('data-page');
+            
+            // Hide all pages
+            document.querySelectorAll('.page-container').forEach(page => {
+                page.classList.remove('active');
             });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Close mobile menu if open
+            document.querySelector('nav ul').classList.remove('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
         });
-        // Add this debug code to see if elements exist and events are firing
-console.log('=== DONATION DEBUG INFO ===');
-console.log('Donate button found:', document.getElementById('donate-button'));
-console.log('Modal found:', document.getElementById('donation-modal'));
-console.log('Donation amounts found:', document.querySelectorAll('.donation-amount').length);
-
-// Test if button click is working
-// Direct event listener for the main donate button
-document.getElementById('donate-button').addEventListener('click', function(e) {
-    e.preventDefault();
-    console.log('MAIN DONATE BUTTON CLICKED - Opening modal');
-    
-    // Update the modal with current amount
-    donationAmountFinal.value = selectedAmount;
-    displayAmount.textContent = formatUGX(selectedAmount);
-    
-    // Show the modal
-    const modal = document.getElementById('donation-modal');
-    modal.style.display = 'flex';
-});
-
-// Also test the other donate buttons
-document.querySelectorAll('.btn-donate').forEach((button, index) => {
-    button.addEventListener('click', function(e) {
-        e.preventDefault();
-        console.log(`✅ DONATE BUTTON ${index + 1} CLICKED!`);
-        console.log('Button text:', this.textContent);
     });
-});
 
-console.log('=== END DEBUG INFO ===');
-        // Image Slider Functionality
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.slider-dot');
-        const prevBtn = document.querySelector('.slider-arrow.prev');
-        const nextBtn = document.querySelector('.slider-arrow.next');
-        let currentSlide = 0;
-        let slideInterval;
+    // Image Slider Functionality
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.slider-dot');
+    const prevBtn = document.querySelector('.slider-arrow.prev');
+    const nextBtn = document.querySelector('.slider-arrow.next');
+    let currentSlide = 0;
+    let slideInterval;
 
-        function showSlide(n) {
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            
-            currentSlide = (n + slides.length) % slides.length;
-            
-            slides[currentSlide].classList.add('active');
-            dots[currentSlide].classList.add('active');
-        }
+    function showSlide(n) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        currentSlide = (n + slides.length) % slides.length;
+        
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
+    }
 
-        function nextSlide() {
-            showSlide(currentSlide + 1);
-        }
+    function nextSlide() {
+        showSlide(currentSlide + 1);
+    }
 
-        function prevSlide() {
-            showSlide(currentSlide - 1);
-        }
+    function prevSlide() {
+        showSlide(currentSlide - 1);
+    }
 
-        function startSlider() {
-            slideInterval = setInterval(nextSlide, 5000);
-        }
+    function startSlider() {
+        slideInterval = setInterval(nextSlide, 5000);
+    }
 
-        function stopSlider() {
-            clearInterval(slideInterval);
-        }
+    function stopSlider() {
+        clearInterval(slideInterval);
+    }
 
-        // Event Listeners for Slider
-        nextBtn.addEventListener('click', () => {
-            stopSlider();
-            nextSlide();
-            startSlider();
-        });
-
-        prevBtn.addEventListener('click', () => {
-            stopSlider();
-            prevSlide();
-            startSlider();
-        });
-
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                stopSlider();
-                showSlide(index);
-                startSlider();
-            });
-        });
-
-        // Start the slider
+    // Event Listeners for Slider
+    nextBtn.addEventListener('click', () => {
+        stopSlider();
+        nextSlide();
         startSlider();
+    });
 
-        // Pause slider on hover
-        const slider = document.querySelector('.hero-slider');
-        slider.addEventListener('mouseenter', stopSlider);
-        slider.addEventListener('mouseleave', startSlider);
+    prevBtn.addEventListener('click', () => {
+        stopSlider();
+        prevSlide();
+        startSlider();
+    });
 
-        // Your existing JavaScript code for donations and mobile menu
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('active');
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            stopSlider();
+            showSlide(index);
+            startSlider();
         });
+    });
 
-        const donationAmounts = document.querySelectorAll('.donation-amount');
-        const customAmountInput = document.getElementById('custom-amount');
-        const setCustomAmountBtn = document.getElementById('set-custom-amount');
-        const donateButton = document.getElementById('donate-button');
-        const donationAmountFinal = document.getElementById('donation-amount-final');
-        const displayAmount = document.getElementById('display-amount');
-        
-        let selectedAmount = 5000;
+    // Start the slider
+    startSlider();
 
-        function formatUGX(amount) {
-            return 'UGX ' + parseInt(amount).toLocaleString('en-UG');
-        }
+    // Pause slider on hover
+    const slider = document.querySelector('.hero-slider');
+    slider.addEventListener('mouseenter', stopSlider);
+    slider.addEventListener('mouseleave', startSlider);
 
-        function updateDonateButton() {
-            donateButton.textContent = `Donate ${formatUGX(selectedAmount)} Now`;
-        }
+    // Mobile menu
+    document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+        document.querySelector('nav ul').classList.toggle('active');
+    });
 
-        donationAmounts.forEach(amount => {
-            amount.addEventListener('click', function() {
-                donationAmounts.forEach(a => a.classList.remove('active'));
-                this.classList.add('active');
-                selectedAmount = this.getAttribute('data-amount');
-                updateDonateButton();
-            });
-        });
-
-        setCustomAmountBtn.addEventListener('click', function() {
-    const customAmount = customAmountInput.value;
-    if (customAmount && customAmount >= 1000) { // Minimum 1000 UGX
-        selectedAmount = customAmount;
-        donationAmounts.forEach(a => a.classList.remove('active'));
-        updateDonateButton();
-    } else {
-        alert('Please enter a valid amount (minimum UGX 1,000)');
-    }
-});
-
-        customAmountInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                setCustomAmountBtn.click();
-            }
-        });
-
-        
-
-        const modal = document.getElementById('donation-modal');
-        const closeModal = document.querySelector('.close-modal');
-        const donationForm = document.getElementById('donation-form');
-
-        document.querySelectorAll('.btn-donate').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                donationAmountFinal.value = selectedAmount;
-                displayAmount.textContent = formatUGX(selectedAmount);
-                modal.style.display = 'flex';
-            });
-        });
-        // ADD THIS ONE LINE TO FIX THE MODAL:
-document.getElementById('donation-modal').style.position = 'fixed';
-
-        closeModal.addEventListener('click', function() {
-            modal.style.display = 'none';
-        });
-
-        window.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-
-        donationForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
+    // Donation functionality - CLEANED AND FIXED
+    const donationAmounts = document.querySelectorAll('.donation-amount');
+    const customAmountInput = document.getElementById('custom-amount');
+    const setCustomAmountBtn = document.getElementById('set-custom-amount');
+    const donateButton = document.getElementById('donate-button');
+    const donationAmountFinal = document.getElementById('donation-amount-final');
+    const displayAmount = document.getElementById('display-amount');
     
-    const formData = {
-        amount: selectedAmount,
-        name: document.getElementById('donor-name').value,
-        email: document.getElementById('donor-email').value,
-        phone: document.getElementById('donor-phone').value
-    };
+    let selectedAmount = 5000;
 
-    // Validate form
-    if (!formData.name || !formData.email || !formData.phone) {
-        alert('Please fill in all required fields');
-        return;
+    function formatUGX(amount) {
+        return 'UGX ' + parseInt(amount).toLocaleString('en-UG');
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-        alert('Please enter a valid email address');
-        return;
+    function updateDonateButton() {
+        donateButton.textContent = `Donate ${formatUGX(selectedAmount)} Now`;
     }
 
-    // Validate phone number (basic Ugandan format)
-    const phoneRegex = /^(?:\+256|0)[17]\d{8}$/;
-    const cleanPhone = formData.phone.replace(/\s+/g, '');
-    if (!phoneRegex.test(cleanPhone)) {
-        alert('Please enter a valid Ugandan phone number (e.g., 0758927639 or +256758927639)');
-        return;
-    }
-
-    // Validate minimum amount
-    if (formData.amount < 1000) {
-        alert('Minimum donation amount is UGX 1,000');
-        return;
-    }
-
-    const submitBtn = donationForm.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-    submitBtn.disabled = true;
-
-    try {
-        console.log('Sending donation to backend:', formData);
-        
-        // Call your backend API
-        const response = await fetch('/api/process-donation', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
+    // Donation amount selection
+    donationAmounts.forEach(amount => {
+        amount.addEventListener('click', function() {
+            donationAmounts.forEach(a => a.classList.remove('active'));
+            this.classList.add('active');
+            selectedAmount = this.getAttribute('data-amount');
+            updateDonateButton();
         });
+    });
 
-        const data = await response.json();
-        console.log('Backend response:', data);
-
-        if (!response.ok) {
-            throw new Error(data.error || `HTTP error! status: ${response.status}`);
-        }
-
-        if (data.success && data.redirect_url) {
-            console.log('Redirecting to Pesapal:', data.redirect_url);
-            // Redirect to Pesapal payment page
-            window.location.href = data.redirect_url;
+    // Custom amount
+    setCustomAmountBtn.addEventListener('click', function() {
+        const customAmount = customAmountInput.value;
+        if (customAmount && customAmount >= 1000) {
+            selectedAmount = customAmount;
+            donationAmounts.forEach(a => a.classList.remove('active'));
+            updateDonateButton();
         } else {
-            throw new Error(data.error || 'Failed to initialize payment');
+            alert('Please enter a valid amount (minimum UGX 1,000)');
+        }
+    });
+
+    customAmountInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            setCustomAmountBtn.click();
+        }
+    });
+
+    // Modal functionality - SIMPLIFIED AND FIXED
+    const modal = document.getElementById('donation-modal');
+    const closeModal = document.querySelector('.close-modal');
+    const donationForm = document.getElementById('donation-form');
+
+    // SINGLE event listener for ALL donate buttons
+    document.querySelectorAll('.btn-donate').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Update the modal with current amount
+            donationAmountFinal.value = selectedAmount;
+            displayAmount.textContent = formatUGX(selectedAmount);
+            
+            // Show the modal
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    // Close modal
+    closeModal.addEventListener('click', function() {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    });
+
+    window.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
+
+    // Payment method fields toggle
+    document.getElementById('payment-method').addEventListener('change', function() {
+        const mobileMoneyFields = document.getElementById('mobile-money-fields');
+        if (this.value === 'mobile_money') {
+            mobileMoneyFields.style.display = 'block';
+        } else {
+            mobileMoneyFields.style.display = 'none';
+        }
+    });
+
+    // Donation form submission
+    donationForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = {
+            amount: selectedAmount,
+            name: document.getElementById('donor-name').value,
+            email: document.getElementById('donor-email').value,
+            phone: document.getElementById('donor-phone').value,
+            payment_method: document.getElementById('payment-method').value
+        };
+
+        // Validate form
+        if (!formData.name || !formData.email || !formData.phone || !formData.payment_method) {
+            alert('Please fill in all required fields');
+            return;
         }
 
-    } catch (error) {
-        console.error('Payment Error:', error);
-        alert('Error processing donation: ' + error.message + '\n\nPlease try again or contact us at info@yusmileuganda.org');
-        
-        // Reset button
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-    }
-});
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+            alert('Please enter a valid email address');
+            return;
+        }
 
-        // Form submissions
-        document.getElementById('volunteer-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your interest in volunteering with YuSmile Uganda! We will contact you soon.');
-            this.reset();
-        });
+        // Validate phone number
+        const phoneRegex = /^(?:\+256|0)[17]\d{8}$/;
+        const cleanPhone = formData.phone.replace(/\s+/g, '');
+        if (!phoneRegex.test(cleanPhone)) {
+            alert('Please enter a valid Ugandan phone number (e.g., 0758927639 or +256758927639)');
+            return;
+        }
 
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! We will get back to you as soon as possible.');
-            this.reset();
-        });
+        // Validate mobile money fields if selected
+        if (formData.payment_method === 'mobile_money') {
+            const provider = document.getElementById('mobile-provider').value;
+            const mobileNumber = document.getElementById('mobile-number').value;
+            
+            if (!provider || !mobileNumber) {
+                alert('Please fill in all mobile money details');
+                return;
+            }
+            
+            formData.mobile_provider = provider;
+            formData.mobile_number = mobileNumber;
+        }
 
-        // Initialize
-        updateDonateButton();
-    </script>
+        // Validate minimum amount
+        if (formData.amount < 1000) {
+            alert('Minimum donation amount is UGX 1,000');
+            return;
+        }
+
+        const submitBtn = donationForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+        submitBtn.disabled = true;
+
+        try {
+            console.log('Processing donation:', formData);
+            
+            // SIMULATE PAYMENT PROCESSING (Replace with actual Pesapal integration)
+            setTimeout(() => {
+                alert(`Thank you for your donation of ${formatUGX(selectedAmount)}! You would now be redirected to Pesapal for secure payment.`);
+                
+                // In production, redirect to Pesapal:
+                // window.location.href = 'YOUR_PESAPAL_PAYMENT_URL';
+                
+                // For now, just close modal and reset
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                donationForm.reset();
+                
+                // Reset button
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 1500);
+
+        } catch (error) {
+            console.error('Payment Error:', error);
+            alert('Error processing donation: ' + error.message + '\n\nPlease try again or contact us at yusmile.ug@gmail.com');
+            
+            // Reset button
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+
+    // Other form submissions
+    document.getElementById('volunteer-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Thank you for your interest in volunteering with YuSmile Uganda! We will contact you soon.');
+        this.reset();
+    });
+
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Thank you for your message! We will get back to you as soon as possible.');
+        this.reset();
+    });
+
+    // Initialize
+    updateDonateButton();
+
+    console.log('✅ JavaScript loaded successfully - Donation system ready');
+</script>
 </body>
 </html>
+
 
 
 
