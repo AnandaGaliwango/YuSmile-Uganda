@@ -1474,303 +1474,465 @@
     </div>
     
     <!-- Only showing the updated JavaScript section -->
-    <script>
-        // Your existing JavaScript code for navigation, slider, etc.
-        
-        // Enhanced backend integration
-        const API_BASE_URL = 'http://localhost:8000'; // Update with your backend URL
-        
-        // Function to handle API requests
-        async function makeApiRequest(endpoint, method = 'GET', data = null) {
-            const url = `${API_BASE_URL}${endpoint}`;
-            const options = {
-                method,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            };
+    
+<script>
+    // Page Navigation
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const pageId = this.getAttribute('data-page');
             
-            if (data && (method === 'POST' || method === 'PUT')) {
-                options.body = JSON.stringify(data);
-            }
+            // Hide all pages
+            document.querySelectorAll('.page-container').forEach(page => {
+                page.classList.remove('active');
+            });
             
-            try {
-                const response = await fetch(url, options);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                return await response.json();
-            } catch (error) {
-                console.error('API Request Error:', error);
-                throw error;
-            }
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Close mobile menu if open
+            document.querySelector('nav ul').classList.remove('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        });
+    });
+
+    // Image Slider Functionality
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.slider-dot');
+    const prevBtn = document.querySelector('.slider-arrow.prev');
+    const nextBtn = document.querySelector('.slider-arrow.next');
+    let currentSlide = 0;
+    let slideInterval;
+
+    function showSlide(n) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        currentSlide = (n + slides.length) % slides.length;
+        
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
+    }
+
+    function nextSlide() {
+        showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+        showSlide(currentSlide - 1);
+    }
+
+    function startSlider() {
+        slideInterval = setInterval(nextSlide, 5000);
+    }
+
+    function stopSlider() {
+        clearInterval(slideInterval);
+    }
+
+    // Event Listeners for Slider
+    nextBtn.addEventListener('click', () => {
+        stopSlider();
+        nextSlide();
+        startSlider();
+    });
+
+    prevBtn.addEventListener('click', () => {
+        stopSlider();
+        prevSlide();
+        startSlider();
+    });
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            stopSlider();
+            showSlide(index);
+            startSlider();
+        });
+    });
+
+    // Start the slider
+    startSlider();
+
+    // Pause slider on hover
+    const slider = document.querySelector('.hero-slider');
+    slider.addEventListener('mouseenter', stopSlider);
+    slider.addEventListener('mouseleave', startSlider);
+
+    // Mobile menu functionality
+    document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+        document.querySelector('nav ul').classList.toggle('active');
+    });
+
+    // Donation functionality
+    const donationAmounts = document.querySelectorAll('.donation-amount');
+    const customAmountInput = document.getElementById('custom-amount');
+    const setCustomAmountBtn = document.getElementById('set-custom-amount');
+    const donateButton = document.getElementById('donate-button');
+    const donationAmountFinal = document.getElementById('donation-amount-final');
+    const displayAmount = document.getElementById('display-amount');
+    const paymentMethod = document.getElementById('payment-method');
+    const mobileMoneyFields = document.getElementById('mobile-money-fields');
+    let selectedAmount = 5000;
+
+    function formatUGX(amount) {
+        return 'UGX ' + parseInt(amount).toLocaleString('en-UG');
+    }
+
+    function updateDonateButton() {
+        donateButton.textContent = `Donate ${formatUGX(selectedAmount)} Now`;
+    }
+
+    donationAmounts.forEach(amount => {
+        amount.addEventListener('click', function() {
+            donationAmounts.forEach(a => a.classList.remove('active'));
+            this.classList.add('active');
+            selectedAmount = this.getAttribute('data-amount');
+            updateDonateButton();
+        });
+    });
+
+    setCustomAmountBtn.addEventListener('click', function() {
+        const customAmount = customAmountInput.value;
+        if (customAmount && customAmount > 0) {
+            selectedAmount = customAmount;
+            donationAmounts.forEach(a => a.classList.remove('active'));
+            updateDonateButton();
+        } else {
+            alert('Please enter a valid amount');
+        }
+    });
+
+    customAmountInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            setCustomAmountBtn.click();
+        }
+    });
+
+    paymentMethod.addEventListener('change', function() {
+        if (this.value === 'mobile_money') {
+            mobileMoneyFields.style.display = 'block';
+        } else {
+            mobileMoneyFields.style.display = 'none';
+        }
+    });
+
+    const modal = document.getElementById('donation-modal');
+    const closeModal = document.querySelector('.close-modal');
+    const donationForm = document.getElementById('donation-form');
+
+    document.querySelectorAll('.btn-donate').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            donationAmountFinal.value = selectedAmount;
+            displayAmount.textContent = formatUGX(selectedAmount);
+            modal.style.display = 'flex';
+        });
+    });
+
+    closeModal.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    // ========== BACKEND INTEGRATION - UPDATED FOR YOUR DJANGO URLS ==========
+    const API_BASE_URL = 'http://localhost:8000';
+
+    // Function to handle API requests
+    async function makeApiRequest(endpoint, method = 'GET', data = null) {
+        const url = `${API_BASE_URL}${endpoint}`;
+        const options = {
+            method,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+        
+        if (data && (method === 'POST' || method === 'PUT')) {
+            options.body = JSON.stringify(data);
         }
         
-        // Enhanced donation form submission
-        donationForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
+        try {
+            const response = await fetch(url, options);
             
-            const formData = {
-                amount: selectedAmount,
-                name: document.getElementById('donor-name').value,
-                email: document.getElementById('donor-email').value,
-                phone: document.getElementById('donor-phone').value,
-                payment_method: document.getElementById('payment-method').value
-            };
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            return await response.json();
+        } catch (error) {
+            console.error('API Request Error:', error);
+            throw error;
+        }
+    }
 
-            if (!formData.name || !formData.email || !formData.phone || !formData.payment_method) {
-                alert('Please fill in all required fields');
-                return;
+    // Enhanced donation form submission - Updated for your payment endpoints
+    donationForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = {
+            amount: selectedAmount,
+            name: document.getElementById('donor-name').value,
+            email: document.getElementById('donor-email').value,
+            phone: document.getElementById('donor-phone').value,
+            payment_method: document.getElementById('payment-method').value
+        };
+
+        if (!formData.name || !formData.email || !formData.phone || !formData.payment_method) {
+            alert('Please fill in all required fields');
+            return;
+        }
+
+        const submitBtn = donationForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        donationForm.classList.add('loading');
+
+        try {
+            console.log('Processing donation:', formData);
+            
+            // Route to appropriate payment endpoint based on selection
+            let paymentEndpoint;
+            if (formData.payment_method === 'mobile_money') {
+                const provider = document.getElementById('mobile-provider').value;
+                if (provider === 'mtn') {
+                    paymentEndpoint = '/pay/mtn/';
+                    formData.mobile_number = document.getElementById('mobile-number').value;
+                } else if (provider === 'airtel') {
+                    // If you enable Airtel later
+                    paymentEndpoint = '/pay/airtel/';
+                    formData.mobile_number = document.getElementById('mobile-number').value;
+                }
+            } else {
+                // Default to Pesapal for card/bank transfers
+                paymentEndpoint = '/pay/pesapal/';
             }
 
-            const submitBtn = donationForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting to Pesapal...';
-            submitBtn.disabled = true;
-            donationForm.classList.add('loading');
+            if (!paymentEndpoint) {
+                throw new Error('Please select a payment provider');
+            }
 
-            try {
-                console.log('Sending to Pesapal:', formData);
-                
-                // Updated to use our API function
-                const data = await makeApiRequest('/api/process-donation', 'POST', formData);
-                console.log('Pesapal response:', data);
+            const data = await makeApiRequest(paymentEndpoint, 'POST', formData);
+            console.log('Payment response:', data);
 
-                if (data.success && data.redirect_url) {
-                    window.location.href = data.redirect_url;
-                } else {
-                    throw new Error(data.error || 'Failed to initialize payment');
-                }
-            } catch (error) {
-                console.error('Payment Error:', error);
+            if (data.success && data.redirect_url) {
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting...';
+                window.location.href = data.redirect_url;
+            } else if (data.success) {
+                // For mobile money that might not redirect
+                const successDiv = document.createElement('div');
+                successDiv.className = 'success-message';
+                successDiv.innerHTML = `
+                    <strong>Payment Initiated!</strong><br>
+                    Please check your phone to complete the payment.
+                `;
                 
-                // Show error message in form
-                const errorDiv = document.createElement('div');
-                errorDiv.className = 'error-message';
-                errorDiv.textContent = 'Error: ' + error.message + '. Please try again or contact support.';
-                
-                // Remove any existing status messages
                 const existingStatus = donationForm.querySelector('.form-status');
-                if (existingStatus) {
-                    existingStatus.remove();
-                }
+                if (existingStatus) existingStatus.remove();
                 
-                // Add error message
                 const statusDiv = document.createElement('div');
                 statusDiv.className = 'form-status';
-                statusDiv.appendChild(errorDiv);
+                statusDiv.appendChild(successDiv);
                 donationForm.appendChild(statusDiv);
                 
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                donationForm.classList.remove('loading');
+                // Reset form after successful submission
+                setTimeout(() => {
+                    donationForm.reset();
+                    modal.style.display = 'none';
+                }, 3000);
+            } else {
+                throw new Error(data.error || 'Failed to process payment');
             }
-        });
-
-        // Enhanced volunteer form submission
-        document.getElementById('volunteer-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
+        } catch (error) {
+            console.error('Payment Error:', error);
             
-            const formData = {
-                full_name: document.getElementById('full-name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                involvement_type: document.getElementById('involvement-type').value,
-                skills: document.getElementById('skills').value,
-                message: document.getElementById('message').value
-            };
-
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
-            submitBtn.disabled = true;
-            this.classList.add('loading');
-
-            try {
-                // Send to backend
-                const response = await makeApiRequest('/api/volunteer', 'POST', formData);
-                
-                // Show success message
-                const successDiv = document.createElement('div');
-                successDiv.className = 'success-message';
-                successDiv.textContent = 'Thank you for your interest in volunteering with YuSmile Uganda! We will contact you soon.';
-                
-                // Remove any existing status messages
-                const existingStatus = this.querySelector('.form-status');
-                if (existingStatus) {
-                    existingStatus.remove();
-                }
-                
-                // Add success message
-                const statusDiv = document.createElement('div');
-                statusDiv.className = 'form-status';
-                statusDiv.appendChild(successDiv);
-                this.appendChild(statusDiv);
-                
-                // Reset form
-                this.reset();
-            } catch (error) {
-                console.error('Volunteer Form Error:', error);
-                
-                // Show error message
-                const errorDiv = document.createElement('div');
-                errorDiv.className = 'error-message';
-                errorDiv.textContent = 'There was an error submitting your form. Please try again or contact us directly.';
-                
-                // Remove any existing status messages
-                const existingStatus = this.querySelector('.form-status');
-                if (existingStatus) {
-                    existingStatus.remove();
-                }
-                
-                // Add error message
-                const statusDiv = document.createElement('div');
-                statusDiv.className = 'form-status';
-                statusDiv.appendChild(errorDiv);
-                this.appendChild(statusDiv);
-            } finally {
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                this.classList.remove('loading');
-            }
-        });
-
-        // Enhanced contact form submission
-        document.getElementById('contact-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = 'Error: ' + error.message + '. Please try again or contact support.';
             
-            const formData = {
-                name: document.getElementById('contact-name').value,
-                email: document.getElementById('contact-email').value,
-                subject: document.getElementById('contact-subject').value,
-                message: document.getElementById('contact-message').value
-            };
-
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            submitBtn.disabled = true;
-            this.classList.add('loading');
-
-            try {
-                // Send to backend
-                const response = await makeApiRequest('/api/contact', 'POST', formData);
-                
-                // Show success message
-                const successDiv = document.createElement('div');
-                successDiv.className = 'success-message';
-                successDiv.textContent = 'Thank you for your message! We will get back to you as soon as possible.';
-                
-                // Remove any existing status messages
-                const existingStatus = this.querySelector('.form-status');
-                if (existingStatus) {
-                    existingStatus.remove();
-                }
-                
-                // Add success message
-                const statusDiv = document.createElement('div');
-                statusDiv.className = 'form-status';
-                statusDiv.appendChild(successDiv);
-                this.appendChild(statusDiv);
-                
-                // Reset form
-                this.reset();
-            } catch (error) {
-                console.error('Contact Form Error:', error);
-                
-                // Show error message
-                const errorDiv = document.createElement('div');
-                errorDiv.className = 'error-message';
-                errorDiv.textContent = 'There was an error sending your message. Please try again or contact us directly.';
-                
-                // Remove any existing status messages
-                const existingStatus = this.querySelector('.form-status');
-                if (existingStatus) {
-                    existingStatus.remove();
-                }
-                
-                // Add error message
-                const statusDiv = document.createElement('div');
-                statusDiv.className = 'form-status';
-                statusDiv.appendChild(errorDiv);
-                this.appendChild(statusDiv);
-            } finally {
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                this.classList.remove('loading');
-            }
-        });
-
-        // Newsletter subscription
-        document.querySelectorAll('form').forEach(form => {
-            if (form.querySelector('input[type="email"]') && !form.id) {
-                form.addEventListener('submit', async function(e) {
-                    e.preventDefault();
-                    
-                    const emailInput = this.querySelector('input[type="email"]');
-                    const email = emailInput.value;
-                    
-                    if (!email) {
-                        alert('Please enter your email address');
-                        return;
-                    }
-                    
-                    const submitBtn = this.querySelector('button[type="submit"]');
-                    const originalText = submitBtn.textContent;
-                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
-                    submitBtn.disabled = true;
-                    
-                    try {
-                        // Send to backend
-                        const response = await makeApiRequest('/api/newsletter', 'POST', { email });
-                        
-                        alert('Thank you for subscribing to our newsletter!');
-                        emailInput.value = '';
-                    } catch (error) {
-                        console.error('Newsletter Error:', error);
-                        alert('There was an error subscribing to our newsletter. Please try again.');
-                    } finally {
-                        submitBtn.textContent = originalText;
-                        submitBtn.disabled = false;
-                    }
-                });
-            }
-        });
-
-        // Function to fetch and display impact stats from backend
-        async function loadImpactStats() {
-            try {
-                const stats = await makeApiRequest('/api/impact-stats');
-                
-                // Update the stats on the page
-                if (stats.children_educated) {
-                    document.querySelector('.stat-item:nth-child(1) .stat-number').textContent = stats.children_educated;
-                }
-                if (stats.communities_served) {
-                    document.querySelector('.stat-item:nth-child(2) .stat-number').textContent = stats.communities_served;
-                }
-                if (stats.healthcare_visits) {
-                    document.querySelector('.stat-item:nth-child(3) .stat-number').textContent = stats.healthcare_visits;
-                }
-                if (stats.women_empowered) {
-                    document.querySelector('.stat-item:nth-child(4) .stat-number').textContent = stats.women_empowered;
-                }
-            } catch (error) {
-                console.error('Error loading impact stats:', error);
-                // Stats will remain with default values
-            }
+            const existingStatus = donationForm.querySelector('.form-status');
+            if (existingStatus) existingStatus.remove();
+            
+            const statusDiv = document.createElement('div');
+            statusDiv.className = 'form-status';
+            statusDiv.appendChild(errorDiv);
+            donationForm.appendChild(statusDiv);
+            
+            submitBtn.textContent = originalText;
+        } finally {
+            submitBtn.disabled = false;
+            donationForm.classList.remove('loading');
         }
+    });
 
-        // Load impact stats when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            loadImpactStats();
-        });
+    // Enhanced contact form submission - Updated for your contact endpoint
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = {
+            name: document.getElementById('contact-name').value,
+            email: document.getElementById('contact-email').value,
+            subject: document.getElementById('contact-subject').value,
+            message: document.getElementById('contact-message').value
+        };
 
-        // Your existing initialization code
-        updateDonateButton();
-    </script>
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitBtn.disabled = true;
+        this.classList.add('loading');
+
+        try {
+            // Send to your contact endpoint
+            const response = await makeApiRequest('/contact/', 'POST', formData);
+            
+            const successDiv = document.createElement('div');
+            successDiv.className = 'success-message';
+            successDiv.textContent = 'Thank you for your message! We will get back to you soon.';
+            
+            const existingStatus = this.querySelector('.form-status');
+            if (existingStatus) existingStatus.remove();
+            
+            const statusDiv = document.createElement('div');
+            statusDiv.className = 'form-status';
+            statusDiv.appendChild(successDiv);
+            this.appendChild(statusDiv);
+            
+            this.reset();
+        } catch (error) {
+            console.error('Contact Form Error:', error);
+            
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = 'There was an error sending your message. Please try again.';
+            
+            const existingStatus = this.querySelector('.form-status');
+            if (existingStatus) existingStatus.remove();
+            
+            const statusDiv = document.createElement('div');
+            statusDiv.className = 'form-status';
+            statusDiv.appendChild(errorDiv);
+            this.appendChild(statusDiv);
+        } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            this.classList.remove('loading');
+        }
+    });
+
+    // Enhanced volunteer form submission
+    document.getElementById('volunteer-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = {
+            full_name: document.getElementById('full-name').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            involvement_type: document.getElementById('involvement-type').value,
+            skills: document.getElementById('skills').value,
+            message: document.getElementById('message').value
+        };
+
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+        submitBtn.disabled = true;
+        this.classList.add('loading');
+
+        try {
+            // Since you don't have a specific volunteer endpoint, use contact
+            const response = await makeApiRequest('/contact/', 'POST', {
+                ...formData,
+                subject: `Volunteer Application: ${formData.involvement_type}`,
+                message: `Volunteer Application Details:\n\nName: ${formData.full_name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nInterest: ${formData.involvement_type}\nSkills: ${formData.skills}\nMessage: ${formData.message}`
+            });
+            
+            const successDiv = document.createElement('div');
+            successDiv.className = 'success-message';
+            successDiv.textContent = 'Thank you for your interest in volunteering! We will contact you soon.';
+            
+            const existingStatus = this.querySelector('.form-status');
+            if (existingStatus) existingStatus.remove();
+            
+            const statusDiv = document.createElement('div');
+            statusDiv.className = 'form-status';
+            statusDiv.appendChild(successDiv);
+            this.appendChild(statusDiv);
+            
+            this.reset();
+        } catch (error) {
+            console.error('Volunteer Form Error:', error);
+            
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = 'There was an error submitting your application. Please try again.';
+            
+            const existingStatus = this.querySelector('.form-status');
+            if (existingStatus) existingStatus.remove();
+            
+            const statusDiv = document.createElement('div');
+            statusDiv.className = 'form-status';
+            statusDiv.appendChild(errorDiv);
+            this.appendChild(statusDiv);
+        } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            this.classList.remove('loading');
+        }
+    });
+
+    // Newsletter subscription (using contact endpoint)
+    document.querySelectorAll('form').forEach(form => {
+        if (form.querySelector('input[type="email"]') && !form.id) {
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const emailInput = this.querySelector('input[type="email"]');
+                const email = emailInput.value;
+                
+                if (!email) {
+                    alert('Please enter your email address');
+                    return;
+                }
+                
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
+                submitBtn.disabled = true;
+                
+                try {
+                    // Use contact endpoint for newsletter
+                    await makeApiRequest('/contact/', 'POST', {
+                        email: email,
+                        subject: 'Newsletter Subscription',
+                        message: 'Please add me to the YuSmile Uganda newsletter list.'
+                    });
+                    
+                    alert('Thank you for subscribing to our newsletter!');
+                    emailInput.value = '';
+                } catch (error) {
+                    console.error('Newsletter Error:', error);
+                    alert('There was an error subscribing. Please try again.');
+                } finally {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            });
+        }
+    });
+
+    // Initialize
+    updateDonateButton();
+</script>
 </body>
 </html>
+
 
