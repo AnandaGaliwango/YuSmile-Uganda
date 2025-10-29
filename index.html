@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YuSmile Uganda - Creating Sustainable Impact</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
+   
+        /* Your existing CSS remains the same */
+        /* I've kept all your existing styles */
+          <style>
         body {
     margin: 0;
     padding: 0;
@@ -903,8 +906,38 @@
             padding: 60px 0;
         }
     }
+  
+        /* Additional styles for backend integration */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .form-status {
+            margin-top: 15px;
+            text-align: center;
+        }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header>
@@ -1440,174 +1473,43 @@
             </form>
         </div>
     </div>
-
+    
+    <!-- Only showing the updated JavaScript section -->
     <script>
-        // Page Navigation
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const pageId = this.getAttribute('data-page');
-                
-                // Hide all pages
-                document.querySelectorAll('.page-container').forEach(page => {
-                    page.classList.remove('active');
-                });
-                
-                // Show selected page
-                document.getElementById(pageId).classList.add('active');
-                
-                // Close mobile menu if open
-                document.querySelector('nav ul').classList.remove('active');
-                
-                // Scroll to top
-                window.scrollTo(0, 0);
-            });
-        });
-
-        // Image Slider Functionality
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.slider-dot');
-        const prevBtn = document.querySelector('.slider-arrow.prev');
-        const nextBtn = document.querySelector('.slider-arrow.next');
-        let currentSlide = 0;
-        let slideInterval;
-
-        function showSlide(n) {
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
+        // Your existing JavaScript code for navigation, slider, etc.
+        
+        // Enhanced backend integration
+        const API_BASE_URL = 'http://localhost:8000'; // Update with your backend URL
+        
+        // Function to handle API requests
+        async function makeApiRequest(endpoint, method = 'GET', data = null) {
+            const url = `${API_BASE_URL}${endpoint}`;
+            const options = {
+                method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            };
             
-            currentSlide = (n + slides.length) % slides.length;
+            if (data && (method === 'POST' || method === 'PUT')) {
+                options.body = JSON.stringify(data);
+            }
             
-            slides[currentSlide].classList.add('active');
-            dots[currentSlide].classList.add('active');
-        }
-
-        function nextSlide() {
-            showSlide(currentSlide + 1);
-        }
-
-        function prevSlide() {
-            showSlide(currentSlide - 1);
-        }
-
-        function startSlider() {
-            slideInterval = setInterval(nextSlide, 5000);
-        }
-
-        function stopSlider() {
-            clearInterval(slideInterval);
-        }
-
-        // Event Listeners for Slider
-        nextBtn.addEventListener('click', () => {
-            stopSlider();
-            nextSlide();
-            startSlider();
-        });
-
-        prevBtn.addEventListener('click', () => {
-            stopSlider();
-            prevSlide();
-            startSlider();
-        });
-
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                stopSlider();
-                showSlide(index);
-                startSlider();
-            });
-        });
-
-        // Start the slider
-        startSlider();
-
-        // Pause slider on hover
-        const slider = document.querySelector('.hero-slider');
-        slider.addEventListener('mouseenter', stopSlider);
-        slider.addEventListener('mouseleave', startSlider);
-
-        // Your existing JavaScript code for donations and mobile menu
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('active');
-        });
-
-        const donationAmounts = document.querySelectorAll('.donation-amount');
-        const customAmountInput = document.getElementById('custom-amount');
-        const setCustomAmountBtn = document.getElementById('set-custom-amount');
-        const donateButton = document.getElementById('donate-button');
-        const donationAmountFinal = document.getElementById('donation-amount-final');
-        const displayAmount = document.getElementById('display-amount');
-        const paymentMethod = document.getElementById('payment-method');
-        const mobileMoneyFields = document.getElementById('mobile-money-fields');
-        let selectedAmount = 5000;
-
-        function formatUGX(amount) {
-            return 'UGX ' + parseInt(amount).toLocaleString('en-UG');
-        }
-
-        function updateDonateButton() {
-            donateButton.textContent = `Donate ${formatUGX(selectedAmount)} Now`;
-        }
-
-        donationAmounts.forEach(amount => {
-            amount.addEventListener('click', function() {
-                donationAmounts.forEach(a => a.classList.remove('active'));
-                this.classList.add('active');
-                selectedAmount = this.getAttribute('data-amount');
-                updateDonateButton();
-            });
-        });
-
-        setCustomAmountBtn.addEventListener('click', function() {
-            const customAmount = customAmountInput.value;
-            if (customAmount && customAmount > 0) {
-                selectedAmount = customAmount;
-                donationAmounts.forEach(a => a.classList.remove('active'));
-                updateDonateButton();
-            } else {
-                alert('Please enter a valid amount');
+            try {
+                const response = await fetch(url, options);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('API Request Error:', error);
+                throw error;
             }
-        });
-
-        customAmountInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                setCustomAmountBtn.click();
-            }
-        });
-
-        paymentMethod.addEventListener('change', function() {
-            if (this.value === 'mobile_money') {
-                mobileMoneyFields.style.display = 'block';
-            } else {
-                mobileMoneyFields.style.display = 'none';
-            }
-        });
-
-        const modal = document.getElementById('donation-modal');
-        const closeModal = document.querySelector('.close-modal');
-        const donationForm = document.getElementById('donation-form');
-
-        document.querySelectorAll('.btn-donate').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                donationAmountFinal.value = selectedAmount;
-                displayAmount.textContent = formatUGX(selectedAmount);
-                modal.style.display = 'flex';
-            });
-        });
-
-        closeModal.addEventListener('click', function() {
-            modal.style.display = 'none';
-        });
-
-        window.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-
+        }
+        
+        // Enhanced donation form submission
         donationForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -1628,23 +1530,13 @@
             const originalText = submitBtn.textContent;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting to Pesapal...';
             submitBtn.disabled = true;
+            donationForm.classList.add('loading');
 
             try {
                 console.log('Sending to Pesapal:', formData);
                 
-                const response = await fetch('/api/process-donation', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const data = await response.json();
+                // Updated to use our API function
+                const data = await makeApiRequest('/api/process-donation', 'POST', formData);
                 console.log('Pesapal response:', data);
 
                 if (data.success && data.redirect_url) {
@@ -1654,39 +1546,231 @@
                 }
             } catch (error) {
                 console.error('Payment Error:', error);
-                alert('Error: ' + error.message + '\nPlease try again or contact support.');
+                
+                // Show error message in form
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.textContent = 'Error: ' + error.message + '. Please try again or contact support.';
+                
+                // Remove any existing status messages
+                const existingStatus = donationForm.querySelector('.form-status');
+                if (existingStatus) {
+                    existingStatus.remove();
+                }
+                
+                // Add error message
+                const statusDiv = document.createElement('div');
+                statusDiv.className = 'form-status';
+                statusDiv.appendChild(errorDiv);
+                donationForm.appendChild(statusDiv);
+                
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
+                donationForm.classList.remove('loading');
             }
         });
 
-        // Form submissions
-        document.getElementById('volunteer-form').addEventListener('submit', function(e) {
+        // Enhanced volunteer form submission
+        document.getElementById('volunteer-form').addEventListener('submit', async function(e) {
             e.preventDefault();
-            alert('Thank you for your interest in volunteering with YuSmile Uganda! We will contact you soon.');
-            this.reset();
+            
+            const formData = {
+                full_name: document.getElementById('full-name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                involvement_type: document.getElementById('involvement-type').value,
+                skills: document.getElementById('skills').value,
+                message: document.getElementById('message').value
+            };
+
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            submitBtn.disabled = true;
+            this.classList.add('loading');
+
+            try {
+                // Send to backend
+                const response = await makeApiRequest('/api/volunteer', 'POST', formData);
+                
+                // Show success message
+                const successDiv = document.createElement('div');
+                successDiv.className = 'success-message';
+                successDiv.textContent = 'Thank you for your interest in volunteering with YuSmile Uganda! We will contact you soon.';
+                
+                // Remove any existing status messages
+                const existingStatus = this.querySelector('.form-status');
+                if (existingStatus) {
+                    existingStatus.remove();
+                }
+                
+                // Add success message
+                const statusDiv = document.createElement('div');
+                statusDiv.className = 'form-status';
+                statusDiv.appendChild(successDiv);
+                this.appendChild(statusDiv);
+                
+                // Reset form
+                this.reset();
+            } catch (error) {
+                console.error('Volunteer Form Error:', error);
+                
+                // Show error message
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.textContent = 'There was an error submitting your form. Please try again or contact us directly.';
+                
+                // Remove any existing status messages
+                const existingStatus = this.querySelector('.form-status');
+                if (existingStatus) {
+                    existingStatus.remove();
+                }
+                
+                // Add error message
+                const statusDiv = document.createElement('div');
+                statusDiv.className = 'form-status';
+                statusDiv.appendChild(errorDiv);
+                this.appendChild(statusDiv);
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                this.classList.remove('loading');
+            }
         });
 
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
+        // Enhanced contact form submission
+        document.getElementById('contact-form').addEventListener('submit', async function(e) {
             e.preventDefault();
-            alert('Thank you for your message! We will get back to you as soon as possible.');
-            this.reset();
+            
+            const formData = {
+                name: document.getElementById('contact-name').value,
+                email: document.getElementById('contact-email').value,
+                subject: document.getElementById('contact-subject').value,
+                message: document.getElementById('contact-message').value
+            };
+
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            this.classList.add('loading');
+
+            try {
+                // Send to backend
+                const response = await makeApiRequest('/api/contact', 'POST', formData);
+                
+                // Show success message
+                const successDiv = document.createElement('div');
+                successDiv.className = 'success-message';
+                successDiv.textContent = 'Thank you for your message! We will get back to you as soon as possible.';
+                
+                // Remove any existing status messages
+                const existingStatus = this.querySelector('.form-status');
+                if (existingStatus) {
+                    existingStatus.remove();
+                }
+                
+                // Add success message
+                const statusDiv = document.createElement('div');
+                statusDiv.className = 'form-status';
+                statusDiv.appendChild(successDiv);
+                this.appendChild(statusDiv);
+                
+                // Reset form
+                this.reset();
+            } catch (error) {
+                console.error('Contact Form Error:', error);
+                
+                // Show error message
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.textContent = 'There was an error sending your message. Please try again or contact us directly.';
+                
+                // Remove any existing status messages
+                const existingStatus = this.querySelector('.form-status');
+                if (existingStatus) {
+                    existingStatus.remove();
+                }
+                
+                // Add error message
+                const statusDiv = document.createElement('div');
+                statusDiv.className = 'form-status';
+                statusDiv.appendChild(errorDiv);
+                this.appendChild(statusDiv);
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                this.classList.remove('loading');
+            }
         });
 
-        // Initialize
+        // Newsletter subscription
+        document.querySelectorAll('form').forEach(form => {
+            if (form.querySelector('input[type="email"]') && !form.id) {
+                form.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const emailInput = this.querySelector('input[type="email"]');
+                    const email = emailInput.value;
+                    
+                    if (!email) {
+                        alert('Please enter your email address');
+                        return;
+                    }
+                    
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
+                    submitBtn.disabled = true;
+                    
+                    try {
+                        // Send to backend
+                        const response = await makeApiRequest('/api/newsletter', 'POST', { email });
+                        
+                        alert('Thank you for subscribing to our newsletter!');
+                        emailInput.value = '';
+                    } catch (error) {
+                        console.error('Newsletter Error:', error);
+                        alert('There was an error subscribing to our newsletter. Please try again.');
+                    } finally {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    }
+                });
+            }
+        });
+
+        // Function to fetch and display impact stats from backend
+        async function loadImpactStats() {
+            try {
+                const stats = await makeApiRequest('/api/impact-stats');
+                
+                // Update the stats on the page
+                if (stats.children_educated) {
+                    document.querySelector('.stat-item:nth-child(1) .stat-number').textContent = stats.children_educated;
+                }
+                if (stats.communities_served) {
+                    document.querySelector('.stat-item:nth-child(2) .stat-number').textContent = stats.communities_served;
+                }
+                if (stats.healthcare_visits) {
+                    document.querySelector('.stat-item:nth-child(3) .stat-number').textContent = stats.healthcare_visits;
+                }
+                if (stats.women_empowered) {
+                    document.querySelector('.stat-item:nth-child(4) .stat-number').textContent = stats.women_empowered;
+                }
+            } catch (error) {
+                console.error('Error loading impact stats:', error);
+                // Stats will remain with default values
+            }
+        }
+
+        // Load impact stats when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadImpactStats();
+        });
+
+        // Your existing initialization code
         updateDonateButton();
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
