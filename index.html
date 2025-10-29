@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YuSmile Uganda - Creating Sustainable Impact</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-   
-       
-          <style>
+    <style>
         body {
     margin: 0;
     padding: 0;
@@ -905,38 +903,8 @@
             padding: 60px 0;
         }
     }
-  
-        /* Additional styles for backend integration */
-        .loading {
-            opacity: 0.7;
-            pointer-events: none;
-        }
-        
-        .success-message {
-            background-color: #d4edda;
-            color: #155724;
-            padding: 12px;
-            border-radius: 4px;
-            margin-bottom: 15px;
-            border: 1px solid #c3e6cb;
-        }
-        
-        .error-message {
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 12px;
-            border-radius: 4px;
-            margin-bottom: 15px;
-            border: 1px solid #f5c6cb;
-        }
-        
-        .form-status {
-            margin-top: 15px;
-            text-align: center;
-        }
     </style>
 </head>
-
 <body>
     <!-- Header -->
     <header>
@@ -1410,529 +1378,138 @@
         </div>
     </footer>
 
-    <!-- Donation Modal -->
-    <div class="modal" id="donation-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h3>Make a Donation</h3>
-            <p>Thank you for supporting YuSmile Uganda. Your donation will help us create sustainable impact in communities across Uganda.</p>
-            
-            <div style="background: #f0f7ff; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
-                <h4 style="margin: 0; color: var(--primary);">Donation Amount: <span id="display-amount">UGX 5,000</span></h4>
-            </div>
-            
-            <form id="donation-form">
-                <div class="form-group">
-                    <label for="donor-name">Full Name *</label>
-                    <input type="text" id="donor-name" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="donor-email">Email Address *</label>
-                    <input type="email" id="donor-email" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="donor-phone">Phone Number *</label>
-                    <input type="tel" id="donor-phone" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="payment-method">Payment Method *</label>
-                    <select id="payment-method" required>
-                        <option value="">Select payment method</option>
-                        <option value="mobile_money">Mobile Money</option>
-                        <option value="card">Credit/Debit Card</option>
-                        <option value="bank">Bank Transfer</option>
-                    </select>
-                </div>
-                
-                <div id="mobile-money-fields" style="display: none;">
-                    <div class="form-group">
-                        <label for="mobile-provider">Mobile Provider *</label>
-                        <select id="mobile-provider">
-                            <option value="">Select provider</option>
-                            <option value="mtn">MTN Mobile Money</option>
-                            <option value="airtel">Airtel Money</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="mobile-number">Mobile Number *</label>
-                        <input type="tel" id="mobile-number" placeholder="e.g., 0758927639">
-                    </div>
-                </div>
-                
-                <input type="hidden" id="donation-amount-final" value="5000">
-                
-                <button type="submit" class="btn btn-donate" style="width: 100%;">Proceed to Secure Payment</button>
-                
-                <p style="text-align: center; margin-top: 15px; font-size: 0.8rem; color: #666;">
-                    <i class="fas fa-shield-alt"></i> Your payment is secured and encrypted
-                </p>
-            </form>
-        </div>
-    </div>
+  <!-- ✅ Donation Modal -->
+<div id="donationModal" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-50">
+  <div class="bg-white rounded-2xl shadow-lg w-full max-w-md p-6 relative">
     
-    <!-- Only showing the updated JavaScript section -->
+    <!-- Close Button -->
+    <button id="closeModal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
     
+    <h2 class="text-2xl font-semibold text-center mb-4 text-gray-800">Make a Donation</h2>
+    
+    <form id="donationForm" class="space-y-4">
+      <!-- Name -->
+      <div>
+        <label class="block text-gray-700 text-sm font-medium mb-1">Full Name</label>
+        <input type="text" name="name" required class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label class="block text-gray-700 text-sm font-medium mb-1">Email</label>
+        <input type="email" name="email" required class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- Phone -->
+      <div>
+        <label class="block text-gray-700 text-sm font-medium mb-1">Phone Number</label>
+        <input type="tel" name="phone" required class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- Amount -->
+      <div>
+        <label class="block text-gray-700 text-sm font-medium mb-1">Amount (UGX)</label>
+        <input type="number" name="amount" min="1000" required class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- Payment Method -->
+      <div>
+        <label class="block text-gray-700 text-sm font-medium mb-1">Payment Method</label>
+        <select id="paymentMethod" name="payment_method" required class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
+          <option value="">Select</option>
+          <option value="mobile_money">MTN Mobile Money</option>
+          <option value="pesapal">Card / Bank (Pesapal)</option>
+        </select>
+      </div>
+
+      <!-- Mobile Money Provider -->
+      <div id="mobileMoneyProvider" class="hidden">
+        <label class="block text-gray-700 text-sm font-medium mb-1">Mobile Money Provider</label>
+        <select name="provider" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
+          <option value="mtn">MTN Uganda</option>
+        </select>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition">
+        Proceed to Secure Payment
+      </button>
+    </form>
+
+    <div id="paymentMessage" class="text-center mt-4 text-sm"></div>
+  </div>
+</div>
+
+<!-- ✅ Donation Modal JS -->
 <script>
-    // Page Navigation
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const pageId = this.getAttribute('data-page');
-            
-            // Hide all pages
-            document.querySelectorAll('.page-container').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
-            
-            // Close mobile menu if open
-            document.querySelector('nav ul').classList.remove('active');
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-        });
+document.addEventListener('DOMContentLoaded', () => {
+  const donationModal = document.getElementById('donationModal');
+  const closeModal = document.getElementById('closeModal');
+  const donationForm = document.getElementById('donationForm');
+  const paymentMethod = document.getElementById('paymentMethod');
+  const mobileMoneyProvider = document.getElementById('mobileMoneyProvider');
+  const paymentMessage = document.getElementById('paymentMessage');
+
+  // 🔹 Attach to all "Donate Now" buttons (header + hero)
+  document.querySelectorAll('.btn-donate').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      donationModal.classList.remove('hidden');
+      donationModal.classList.add('flex'); // Show modal
     });
+  });
 
-    // Image Slider Functionality
-    const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.slider-dot');
-    const prevBtn = document.querySelector('.slider-arrow.prev');
-    const nextBtn = document.querySelector('.slider-arrow.next');
-    let currentSlide = 0;
-    let slideInterval;
+  // 🔹 Close modal
+  closeModal.addEventListener('click', () => {
+    donationModal.classList.add('hidden');
+    donationModal.classList.remove('flex');
+  });
 
-    function showSlide(n) {
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
+  // 🔹 Toggle Mobile Money provider field
+  paymentMethod.addEventListener('change', () => {
+    mobileMoneyProvider.classList.toggle('hidden', paymentMethod.value !== 'mobile_money');
+  });
+
+  // 🔹 Handle form submission (call backend)
+  donationForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    paymentMessage.textContent = 'Processing payment...';
+    paymentMessage.className = 'text-center mt-4 text-blue-600 text-sm';
+
+    const formData = Object.fromEntries(new FormData(donationForm));
+
+    // ✅ Choose API endpoint dynamically
+    let endpoint = '/api/pay/pesapal/';
+    if (formData.payment_method === 'mobile_money' && formData.provider === 'mtn') {
+      endpoint = '/api/pay/mtn/';
+    }
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        paymentMessage.textContent = result.message || 'Payment initiated successfully!';
+        paymentMessage.className = 'text-center mt-4 text-green-600 text-sm';
         
-        currentSlide = (n + slides.length) % slides.length;
-        
-        slides[currentSlide].classList.add('active');
-        dots[currentSlide].classList.add('active');
+        // Optional: redirect to Pesapal iframe
+        if (result.redirect_url) {
+          window.location.href = result.redirect_url;
+        }
+      } else {
+        paymentMessage.textContent = result.error || 'Payment failed. Please try again.';
+        paymentMessage.className = 'text-center mt-4 text-red-600 text-sm';
+      }
+    } catch (error) {
+      console.error(error);
+      paymentMessage.textContent = 'An error occurred. Please check your internet connection.';
+      paymentMessage.className = 'text-center mt-4 text-red-600 text-sm';
     }
-
-    function nextSlide() {
-        showSlide(currentSlide + 1);
-    }
-
-    function prevSlide() {
-        showSlide(currentSlide - 1);
-    }
-
-    function startSlider() {
-        slideInterval = setInterval(nextSlide, 5000);
-    }
-
-    function stopSlider() {
-        clearInterval(slideInterval);
-    }
-
-    // Event Listeners for Slider
-    nextBtn.addEventListener('click', () => {
-        stopSlider();
-        nextSlide();
-        startSlider();
-    });
-
-    prevBtn.addEventListener('click', () => {
-        stopSlider();
-        prevSlide();
-        startSlider();
-    });
-
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            stopSlider();
-            showSlide(index);
-            startSlider();
-        });
-    });
-
-    // Start the slider
-    startSlider();
-
-    // Pause slider on hover
-    const slider = document.querySelector('.hero-slider');
-    slider.addEventListener('mouseenter', stopSlider);
-    slider.addEventListener('mouseleave', startSlider);
-
-    // Mobile menu functionality
-    document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-        document.querySelector('nav ul').classList.toggle('active');
-    });
-
-    // Donation functionality
-    const donationAmounts = document.querySelectorAll('.donation-amount');
-    const customAmountInput = document.getElementById('custom-amount');
-    const setCustomAmountBtn = document.getElementById('set-custom-amount');
-    const donateButton = document.getElementById('donate-button');
-    const donationAmountFinal = document.getElementById('donation-amount-final');
-    const displayAmount = document.getElementById('display-amount');
-    const paymentMethod = document.getElementById('payment-method');
-    const mobileMoneyFields = document.getElementById('mobile-money-fields');
-    let selectedAmount = 5000;
-
-    function formatUGX(amount) {
-        return 'UGX ' + parseInt(amount).toLocaleString('en-UG');
-    }
-
-    function updateDonateButton() {
-        donateButton.textContent = `Donate ${formatUGX(selectedAmount)} Now`;
-    }
-
-    donationAmounts.forEach(amount => {
-        amount.addEventListener('click', function() {
-            donationAmounts.forEach(a => a.classList.remove('active'));
-            this.classList.add('active');
-            selectedAmount = this.getAttribute('data-amount');
-            updateDonateButton();
-        });
-    });
-
-    setCustomAmountBtn.addEventListener('click', function() {
-        const customAmount = customAmountInput.value;
-        if (customAmount && customAmount > 0) {
-            selectedAmount = customAmount;
-            donationAmounts.forEach(a => a.classList.remove('active'));
-            updateDonateButton();
-        } else {
-            alert('Please enter a valid amount');
-        }
-    });
-
-    customAmountInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            setCustomAmountBtn.click();
-        }
-    });
-
-    paymentMethod.addEventListener('change', function() {
-        if (this.value === 'mobile_money') {
-            mobileMoneyFields.style.display = 'block';
-        } else {
-            mobileMoneyFields.style.display = 'none';
-        }
-    });
-
-    const modal = document.getElementById('donation-modal');
-    const closeModal = document.querySelector('.close-modal');
-    const donationForm = document.getElementById('donation-form');
-
-    document.querySelectorAll('.btn-donate').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            donationAmountFinal.value = selectedAmount;
-            displayAmount.textContent = formatUGX(selectedAmount);
-            modal.style.display = 'flex';
-        });
-    });
-
-    closeModal.addEventListener('click', function() {
-        modal.style.display = 'none';
-    });
-
-    window.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-
-    // ========== BACKEND INTEGRATION - UPDATED FOR YOUR DJANGO URLS ==========
-    const API_BASE_URL = 'http://localhost:8000';
-
-    // Function to handle API requests
-    async function makeApiRequest(endpoint, method = 'GET', data = null) {
-        const url = `${API_BASE_URL}${endpoint}`;
-        const options = {
-            method,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
-        
-        if (data && (method === 'POST' || method === 'PUT')) {
-            options.body = JSON.stringify(data);
-        }
-        
-        try {
-            const response = await fetch(url, options);
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            return await response.json();
-        } catch (error) {
-            console.error('API Request Error:', error);
-            throw error;
-        }
-    }
-
-    // Enhanced donation form submission - Updated for your payment endpoints
-    donationForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const formData = {
-            amount: selectedAmount,
-            name: document.getElementById('donor-name').value,
-            email: document.getElementById('donor-email').value,
-            phone: document.getElementById('donor-phone').value,
-            payment_method: document.getElementById('payment-method').value
-        };
-
-        if (!formData.name || !formData.email || !formData.phone || !formData.payment_method) {
-            alert('Please fill in all required fields');
-            return;
-        }
-
-        const submitBtn = donationForm.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.disabled = true;
-        donationForm.classList.add('loading');
-
-        try {
-            console.log('Processing donation:', formData);
-            
-            // Route to appropriate payment endpoint based on selection
-            let paymentEndpoint;
-            if (formData.payment_method === 'mobile_money') {
-                const provider = document.getElementById('mobile-provider').value;
-                if (provider === 'mtn') {
-                    paymentEndpoint = '/pay/mtn/';
-                    formData.mobile_number = document.getElementById('mobile-number').value;
-                } else if (provider === 'airtel') {
-                    // If you enable Airtel later
-                    paymentEndpoint = '/pay/airtel/';
-                    formData.mobile_number = document.getElementById('mobile-number').value;
-                }
-            } else {
-                // Default to Pesapal for card/bank transfers
-                paymentEndpoint = '/pay/pesapal/';
-            }
-
-            if (!paymentEndpoint) {
-                throw new Error('Please select a payment provider');
-            }
-
-            const data = await makeApiRequest(paymentEndpoint, 'POST', formData);
-            console.log('Payment response:', data);
-
-            if (data.success && data.redirect_url) {
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting...';
-                window.location.href = data.redirect_url;
-            } else if (data.success) {
-                // For mobile money that might not redirect
-                const successDiv = document.createElement('div');
-                successDiv.className = 'success-message';
-                successDiv.innerHTML = `
-                    <strong>Payment Initiated!</strong><br>
-                    Please check your phone to complete the payment.
-                `;
-                
-                const existingStatus = donationForm.querySelector('.form-status');
-                if (existingStatus) existingStatus.remove();
-                
-                const statusDiv = document.createElement('div');
-                statusDiv.className = 'form-status';
-                statusDiv.appendChild(successDiv);
-                donationForm.appendChild(statusDiv);
-                
-                // Reset form after successful submission
-                setTimeout(() => {
-                    donationForm.reset();
-                    modal.style.display = 'none';
-                }, 3000);
-            } else {
-                throw new Error(data.error || 'Failed to process payment');
-            }
-        } catch (error) {
-            console.error('Payment Error:', error);
-            
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'error-message';
-            errorDiv.textContent = 'Error: ' + error.message + '. Please try again or contact support.';
-            
-            const existingStatus = donationForm.querySelector('.form-status');
-            if (existingStatus) existingStatus.remove();
-            
-            const statusDiv = document.createElement('div');
-            statusDiv.className = 'form-status';
-            statusDiv.appendChild(errorDiv);
-            donationForm.appendChild(statusDiv);
-            
-            submitBtn.textContent = originalText;
-        } finally {
-            submitBtn.disabled = false;
-            donationForm.classList.remove('loading');
-        }
-    });
-
-    // Enhanced contact form submission - Updated for your contact endpoint
-    document.getElementById('contact-form').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const formData = {
-            name: document.getElementById('contact-name').value,
-            email: document.getElementById('contact-email').value,
-            subject: document.getElementById('contact-subject').value,
-            message: document.getElementById('contact-message').value
-        };
-
-        const submitBtn = this.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        submitBtn.disabled = true;
-        this.classList.add('loading');
-
-        try {
-            // Send to your contact endpoint
-            const response = await makeApiRequest('/contact/', 'POST', formData);
-            
-            const successDiv = document.createElement('div');
-            successDiv.className = 'success-message';
-            successDiv.textContent = 'Thank you for your message! We will get back to you soon.';
-            
-            const existingStatus = this.querySelector('.form-status');
-            if (existingStatus) existingStatus.remove();
-            
-            const statusDiv = document.createElement('div');
-            statusDiv.className = 'form-status';
-            statusDiv.appendChild(successDiv);
-            this.appendChild(statusDiv);
-            
-            this.reset();
-        } catch (error) {
-            console.error('Contact Form Error:', error);
-            
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'error-message';
-            errorDiv.textContent = 'There was an error sending your message. Please try again.';
-            
-            const existingStatus = this.querySelector('.form-status');
-            if (existingStatus) existingStatus.remove();
-            
-            const statusDiv = document.createElement('div');
-            statusDiv.className = 'form-status';
-            statusDiv.appendChild(errorDiv);
-            this.appendChild(statusDiv);
-        } finally {
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-            this.classList.remove('loading');
-        }
-    });
-
-    // Enhanced volunteer form submission
-    document.getElementById('volunteer-form').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const formData = {
-            full_name: document.getElementById('full-name').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value,
-            involvement_type: document.getElementById('involvement-type').value,
-            skills: document.getElementById('skills').value,
-            message: document.getElementById('message').value
-        };
-
-        const submitBtn = this.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
-        submitBtn.disabled = true;
-        this.classList.add('loading');
-
-        try {
-            // Since you don't have a specific volunteer endpoint, use contact
-            const response = await makeApiRequest('/contact/', 'POST', {
-                ...formData,
-                subject: `Volunteer Application: ${formData.involvement_type}`,
-                message: `Volunteer Application Details:\n\nName: ${formData.full_name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nInterest: ${formData.involvement_type}\nSkills: ${formData.skills}\nMessage: ${formData.message}`
-            });
-            
-            const successDiv = document.createElement('div');
-            successDiv.className = 'success-message';
-            successDiv.textContent = 'Thank you for your interest in volunteering! We will contact you soon.';
-            
-            const existingStatus = this.querySelector('.form-status');
-            if (existingStatus) existingStatus.remove();
-            
-            const statusDiv = document.createElement('div');
-            statusDiv.className = 'form-status';
-            statusDiv.appendChild(successDiv);
-            this.appendChild(statusDiv);
-            
-            this.reset();
-        } catch (error) {
-            console.error('Volunteer Form Error:', error);
-            
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'error-message';
-            errorDiv.textContent = 'There was an error submitting your application. Please try again.';
-            
-            const existingStatus = this.querySelector('.form-status');
-            if (existingStatus) existingStatus.remove();
-            
-            const statusDiv = document.createElement('div');
-            statusDiv.className = 'form-status';
-            statusDiv.appendChild(errorDiv);
-            this.appendChild(statusDiv);
-        } finally {
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-            this.classList.remove('loading');
-        }
-    });
-
-    // Newsletter subscription (using contact endpoint)
-    document.querySelectorAll('form').forEach(form => {
-        if (form.querySelector('input[type="email"]') && !form.id) {
-            form.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                const emailInput = this.querySelector('input[type="email"]');
-                const email = emailInput.value;
-                
-                if (!email) {
-                    alert('Please enter your email address');
-                    return;
-                }
-                
-                const submitBtn = this.querySelector('button[type="submit"]');
-                const originalText = submitBtn.textContent;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
-                submitBtn.disabled = true;
-                
-                try {
-                    // Use contact endpoint for newsletter
-                    await makeApiRequest('/contact/', 'POST', {
-                        email: email,
-                        subject: 'Newsletter Subscription',
-                        message: 'Please add me to the YuSmile Uganda newsletter list.'
-                    });
-                    
-                    alert('Thank you for subscribing to our newsletter!');
-                    emailInput.value = '';
-                } catch (error) {
-                    console.error('Newsletter Error:', error);
-                    alert('There was an error subscribing. Please try again.');
-                } finally {
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                }
-            });
-        }
-    });
-
-    // Initialize
-    updateDonateButton();
+  });
+});
 </script>
-</body>
-</html>
-
-
