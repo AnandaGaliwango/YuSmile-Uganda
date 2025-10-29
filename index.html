@@ -7,18 +7,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-    margin: 0;
-    padding: 0;
-}
+            margin: 0;
+            padding: 0;
+        }
 
-.page-container {
-    margin: 0;
-    padding: 0;
-}
-#home {
-    margin: 0;
-    padding: 0;
-}
+        .page-container {
+            margin: 0;
+            padding: 0;
+        }
+        #home {
+            margin: 0;
+            padding: 0;
+        }
+        
         /* Reset and Base Styles */
         * {
             margin: 0;
@@ -26,8 +27,7 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        /* Fix for white space between header and content */
-
+        
         :root {
             --primary: #1a73e8;
             --secondary: #34a853;
@@ -104,7 +104,7 @@
             z-index: 100;
         }
         
-       .header-container {
+        .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -141,7 +141,6 @@
             font-weight: 500;
         }
         
-       
         nav ul {
             display: flex;
             list-style: none;
@@ -190,7 +189,7 @@
             position: relative;
             height: 600px;
             overflow: hidden;
-             margin-top: 0;
+            margin-top: 0;
         }
         
         .slide {
@@ -204,13 +203,14 @@
             opacity: 0;
             transition: opacity 1s ease-in-out;
         }
-        .slide:nth-child(2) { /* YuSmile2 */
-        background-position: center 30%;
-    }
+        
+        .slide:nth-child(2) {
+            background-position: center 30%;
+        }
 
-    .slide:nth-child(4) { /* YuSmile4 */
-        background-position: center 30%;
-    }
+        .slide:nth-child(4) {
+            background-position: center 30%;
+        }
         
         .slide.active {
             opacity: 1;
@@ -419,7 +419,7 @@
         /* Donation Section */
         .donation {
             padding: 80px 0;
-             background: linear-gradient(135deg, #bf6155, #d17a6f);
+            background: linear-gradient(135deg, #bf6155, #d17a6f);
             color: white;
             text-align: center;
         }
@@ -478,431 +478,457 @@
             cursor: pointer;
         }
         
-        /* Key Partners Section - Updated to match program cards */
-    .partners {
-        padding: 80px 0;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
-        color: white;
-    }
-
-    .partners-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-        margin-top: 50px;
-    }
-
-    .partner-card {
-        background: white;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
-        color: var(--text);
-    }
-
-    .partner-card:hover {
-        transform: translateY(-10px);
-    }
-
-    .partner-img {
-        height: 200px;
-        background-size: cover;
-        background-position: center;
-    }
-
-    .partner-content {
-        padding: 25px;
-    }
-
-    .partner-content h3 {
-        font-size: 1.4rem;
-        margin-bottom: 15px;
-        color: var(--dark);
-    }
-
-    .partner-content p {
-        color: var(--text);
-        line-height: 1.6;
-        margin-bottom: 20px;
-    }
-
-    /* Page Styles */
-    .page-container {
-        display: none;
-        padding: 80px 0;
-        background-color: white;
-        min-height: 70vh;
-    }
-
-    .page-container.active {
-        display: block;
-    }
-
-    .page-content {
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    .page-content h1 {
-        font-size: 2.5rem;
-        color: var(--primary);
-        margin-bottom: 30px;
-        text-align: center;
-    }
-
-    .page-content h2 {
-        font-size: 1.8rem;
-        color: var(--primary);
-        margin: 40px 0 20px;
-        border-bottom: 2px solid var(--accent);
-        padding-bottom: 10px;
-    }
-
-    .page-content h3 {
-        font-size: 1.4rem;
-        color: var(--dark);
-        margin: 25px 0 15px;
-    }
-
-    .page-content p {
-        margin-bottom: 15px;
-        line-height: 1.7;
-    }
-
-    .page-content ul {
-        margin: 20px 0;
-        padding-left: 30px;
-    }
-
-    .page-content li {
-        margin-bottom: 10px;
-        line-height: 1.6;
-    }
-
-    /* Form Styles */
-    .involvement-form {
-        background-color: var(--light);
-        padding: 30px;
-        border-radius: 8px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        margin-top: 30px;
-    }
-
-    .form-group {
-        margin-bottom: 20px;
-    }
-
-    .form-group label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 500;
-    }
-
-    .form-group input, .form-group textarea, .form-group select {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        font-size: 1rem;
-    }
-
-    .form-group textarea {
-        min-height: 120px;
-        resize: vertical;
-    }
-
-    /* Contact Info Styles */
-    .contact-details {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 30px;
-        margin-top: 40px;
-    }
-
-    .contact-card {
-        background-color: var(--light);
-        padding: 25px;
-        border-radius: 8px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        text-align: center;
-    }
-
-    .contact-card i {
-        font-size: 2.5rem;
-        color: var(--primary);
-        margin-bottom: 15px;
-    }
-
-    .contact-card h3 {
-        margin-bottom: 10px;
-        color: var(--dark);
-    }
-
-    .contact-card p {
-        color: var(--text);
-    }
-
-    /* Footer */
-    footer {
-        background-color: var(--dark);
-        color: white;
-        padding: 60px 0 20px;
-    }
-    
-    .footer-content {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 40px;
-        margin-bottom: 40px;
-    }
-    
-    .footer-column h3 {
-        font-size: 1.3rem;
-        margin-bottom: 20px;
-        color: white;
-        position: relative;
-        padding-bottom: 10px;
-    }
-    
-    .footer-column h3:after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 50px;
-        height: 2px;
-        background-color: var(--accent);
-    }
-    
-    .footer-column p {
-        margin-bottom: 15px;
-        color: #b0b3b8;
-    }
-    
-    .footer-links {
-        list-style: none;
-    }
-    
-    .footer-links li {
-        margin-bottom: 12px;
-    }
-    
-    .footer-links a {
-        color: #b0b3b8;
-        transition: color 0.3s ease;
-    }
-    
-    .footer-links a:hover {
-        color: white;
-    }
-    
-    .contact-info {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .contact-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-    }
-    
-    .contact-item i {
-        color: var(--accent);
-        margin-top: 3px;
-    }
-    
-    .social-links {
-        display: flex;
-        gap: 15px;
-        margin-top: 20px;
-    }
-    
-    .social-links a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        background-color: rgba(255, 255, 255, 0.1);
-        border-radius: 50%;
-        transition: all 0.3s ease;
-    }
-    
-    .social-links a:hover {
-        background-color: var(--primary);
-        transform: translateY(-3px);
-    }
-    
-    .footer-bottom {
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        padding-top: 20px;
-        text-align: center;
-        color: #b0b3b8;
-        font-size: 0.9rem;
-    }
-    
-    /* Modal Styles */
-    .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-        z-index: 1000;
-        justify-content: center;
-        align-items: center;
-    }
-    
-   
-    .modal-content {
-        background-color: white;
-        padding: 30px;
-        border-radius: 8px;
-        width: 90%;
-        max-width: 500px;
-        max-height: 90vh;
-        overflow-y: auto;
-        position: relative;
-    }
-    
-    .close-modal {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        font-size: 1.5rem;
-        cursor: pointer;
-        color: var(--text);
-    }
-    
-    .modal h3 {
-        margin-bottom: 20px;
-        color: var(--primary);
-    }
-    
-    .form-group {
-        margin-bottom: 20px;
-    }
-    
-    .form-group label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 500;
-    }
-    
-    .form-group input, .form-group select {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-    }
-    
-    /* Responsive Design */
-    @media (max-width: 992px) {
-        nav ul {
-            gap: 20px;
+        /* Key Partners Section */
+        .partners {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
         }
-        
-        .hero-content h2 {
-            font-size: 2.4rem;
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
         }
-        
-        .hero-slider {
-            height: 500px;
+
+        .partner-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            color: var(--text);
         }
-    }
-    
-    @media (max-width: 768px) {
-        .mobile-menu-btn {
+
+        .partner-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .partner-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .partner-content {
+            padding: 25px;
+        }
+
+        .partner-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .partner-content p {
+            color: var(--text);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Page Styles */
+        .page-container {
+            display: none;
+            padding: 80px 0;
+            background-color: white;
+            min-height: 70vh;
+        }
+
+        .page-container.active {
             display: block;
         }
-        
-        nav ul {
-            display: none;
-            position: absolute;
-            top: 80px;
-            left: 0;
+
+        .page-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-content h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .page-content h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin: 40px 0 20px;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+        }
+
+        .page-content h3 {
+            font-size: 1.4rem;
+            color: var(--dark);
+            margin: 25px 0 15px;
+        }
+
+        .page-content p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .page-content ul {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+
+        .page-content li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        /* Form Styles */
+        .involvement-form {
+            background-color: var(--light);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-top: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
             width: 100%;
-            background-color: white;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Contact Info Styles */
+        .contact-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .contact-card {
+            background-color: var(--light);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .contact-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .contact-card h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .contact-card p {
+            color: var(--text);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: white;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-column p {
+            margin-bottom: 15px;
+            color: #b0b3b8;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #b0b3b8;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .contact-info {
+            display: flex;
             flex-direction: column;
-            padding: 20px;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
             gap: 15px;
         }
         
-        nav ul.active {
+        .contact-item {
             display: flex;
+            align-items: flex-start;
+            gap: 10px;
         }
         
-        .hero-content h2 {
-            font-size: 2rem;
+        .contact-item i {
+            color: var(--accent);
+            margin-top: 3px;
         }
         
-        .hero-slider {
-            height: 450px;
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
         }
         
-        .slider-arrow {
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 40px;
             height: 40px;
-            font-size: 1.2rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
         }
         
-        .hero-buttons {
-            flex-direction: column;
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            text-align: center;
+            color: #b0b3b8;
+            font-size: 0.9rem;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
             align-items: center;
         }
         
-        .btn {
-            width: 100%;
-            max-width: 250px;
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
         }
         
-        .donation-options {
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .donation-amount {
-            width: 100%;
-            max-width: 200px;
-        }
-        
-        .partners-grid {
-            grid-template-columns: 1fr;
-            gap: 30px;
-        }
-    }
-    
-    @media (max-width: 576px) {
-        .logo-text h1 {
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
             font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
         }
         
-        .hero-slider {
-            height: 400px;
+        .modal h3 {
+            margin-bottom: 20px;
+            color: var(--primary);
         }
         
-        .hero-content h2 {
-            font-size: 1.8rem;
+        .form-group {
+            margin-bottom: 20px;
         }
         
-        .hero-content p {
-            font-size: 1rem;
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
         }
         
-        .section-title h2 {
-            font-size: 1.8rem;
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
         }
         
-        .mission, .programs, .impact, .donation, .partners {
-            padding: 60px 0;
+        /* Payment Status Messages */
+        .payment-message {
+            padding: 12px;
+            border-radius: 4px;
+            margin: 15px 0;
+            text-align: center;
+            font-weight: 500;
         }
-    }
+        
+        .payment-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .payment-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .payment-processing {
+            background-color: #cce7ff;
+            color: #004085;
+            border: 1px solid #b3d7ff;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            nav ul {
+                gap: 20px;
+            }
+            
+            .hero-content h2 {
+                font-size: 2.4rem;
+            }
+            
+            .hero-slider {
+                height: 500px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                gap: 15px;
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            .hero-content h2 {
+                font-size: 2rem;
+            }
+            
+            .hero-slider {
+                height: 450px;
+            }
+            
+            .slider-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .donation-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .donation-amount {
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            .partners-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .logo-text h1 {
+                font-size: 1.5rem;
+            }
+            
+            .hero-slider {
+                height: 400px;
+            }
+            
+            .hero-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .mission, .programs, .impact, .donation, .partners {
+                padding: 60px 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -910,7 +936,6 @@
     <header>
         <div class="container header-container">
             <div class="logo">
-                <!-- Replace with your actual logo -->
                 <img src="YuSmilelogo.png" alt="YuSmile Uganda Logo" style="height: 50px;">
                 <div class="logo-text">
                     <span>Creating Sustainable Impact</span>
@@ -1088,7 +1113,7 @@
             </div>
         </section>
 
-        <!-- Key Partners Section (Replaces CTA Section) -->
+        <!-- Key Partners Section -->
         <section class="partners">
             <div class="container">
                 <div class="section-title">
@@ -1378,138 +1403,372 @@
         </div>
     </footer>
 
-  <!-- ✅ Donation Modal -->
-<div id="donationModal" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-50">
-  <div class="bg-white rounded-2xl shadow-lg w-full max-w-md p-6 relative">
-    
-    <!-- Close Button -->
-    <button id="closeModal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
-    
-    <h2 class="text-2xl font-semibold text-center mb-4 text-gray-800">Make a Donation</h2>
-    
-    <form id="donationForm" class="space-y-4">
-      <!-- Name -->
-      <div>
-        <label class="block text-gray-700 text-sm font-medium mb-1">Full Name</label>
-        <input type="text" name="name" required class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
-      </div>
+    <!-- Donation Modal -->
+    <div class="modal" id="donation-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Make a Donation</h3>
+            <p>Thank you for supporting YuSmile Uganda. Your donation will help us create sustainable impact in communities across Uganda.</p>
+            
+            <div style="background: #f0f7ff; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+                <h4 style="margin: 0; color: var(--primary);">Donation Amount: <span id="display-amount">UGX 5,000</span></h4>
+            </div>
+            
+            <!-- Payment Status Message -->
+            <div id="payment-message" class="payment-message" style="display: none;"></div>
+            
+            <form id="donation-form">
+                <div class="form-group">
+                    <label for="donor-name">Full Name *</label>
+                    <input type="text" id="donor-name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="donor-email">Email Address *</label>
+                    <input type="email" id="donor-email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="donor-phone">Phone Number *</label>
+                    <input type="tel" id="donor-phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="payment-method">Payment Method *</label>
+                    <select id="payment-method" required>
+                        <option value="">Select payment method</option>
+                        <option value="mobile_money">Mobile Money</option>
+                        <option value="pesapal">Credit/Debit Card (Pesapal)</option>
+                    </select>
+                </div>
+                
+                <div id="mobile-money-fields" style="display: none;">
+                    <div class="form-group">
+                        <label for="mobile-provider">Mobile Provider *</label>
+                        <select id="mobile-provider">
+                            <option value="">Select provider</option>
+                            <option value="mtn">MTN Mobile Money</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile-number">Mobile Number *</label>
+                        <input type="tel" id="mobile-number" placeholder="e.g., 0758927639">
+                    </div>
+                </div>
+                
+                <input type="hidden" id="donation-amount-final" value="5000">
+                
+                <button type="submit" class="btn btn-donate" style="width: 100%;" id="submit-payment">
+                    Proceed to Secure Payment
+                </button>
+                
+                <p style="text-align: center; margin-top: 15px; font-size: 0.8rem; color: #666;">
+                    <i class="fas fa-shield-alt"></i> Your payment is secured and encrypted
+                </p>
+            </form>
+        </div>
+    </div>
 
-      <!-- Email -->
-      <div>
-        <label class="block text-gray-700 text-sm font-medium mb-1">Email</label>
-        <input type="email" name="email" required class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
-      </div>
+    <script>
+        // ========== BACKEND CONFIGURATION ==========
+        const API_BASE_URL = 'http://localhost:8000';
 
-      <!-- Phone -->
-      <div>
-        <label class="block text-gray-700 text-sm font-medium mb-1">Phone Number</label>
-        <input type="tel" name="phone" required class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
-      </div>
+        // ========== BASIC FUNCTIONALITY ==========
+        // Page Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const pageId = this.getAttribute('data-page');
+                
+                document.querySelectorAll('.page-container').forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                document.getElementById(pageId).classList.add('active');
+                document.querySelector('nav ul').classList.remove('active');
+                window.scrollTo(0, 0);
+            });
+        });
 
-      <!-- Amount -->
-      <div>
-        <label class="block text-gray-700 text-sm font-medium mb-1">Amount (UGX)</label>
-        <input type="number" name="amount" min="1000" required class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
-      </div>
+        // Image Slider Functionality
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        const prevBtn = document.querySelector('.slider-arrow.prev');
+        const nextBtn = document.querySelector('.slider-arrow.next');
+        let currentSlide = 0;
+        let slideInterval;
 
-      <!-- Payment Method -->
-      <div>
-        <label class="block text-gray-700 text-sm font-medium mb-1">Payment Method</label>
-        <select id="paymentMethod" name="payment_method" required class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
-          <option value="">Select</option>
-          <option value="mobile_money">MTN Mobile Money</option>
-          <option value="pesapal">Card / Bank (Pesapal)</option>
-        </select>
-      </div>
-
-      <!-- Mobile Money Provider -->
-      <div id="mobileMoneyProvider" class="hidden">
-        <label class="block text-gray-700 text-sm font-medium mb-1">Mobile Money Provider</label>
-        <select name="provider" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
-          <option value="mtn">MTN Uganda</option>
-        </select>
-      </div>
-
-      <!-- Submit Button -->
-      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition">
-        Proceed to Secure Payment
-      </button>
-    </form>
-
-    <div id="paymentMessage" class="text-center mt-4 text-sm"></div>
-  </div>
-</div>
-
-<!-- ✅ Donation Modal JS -->
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const donationModal = document.getElementById('donationModal');
-  const closeModal = document.getElementById('closeModal');
-  const donationForm = document.getElementById('donationForm');
-  const paymentMethod = document.getElementById('paymentMethod');
-  const mobileMoneyProvider = document.getElementById('mobileMoneyProvider');
-  const paymentMessage = document.getElementById('paymentMessage');
-
-  // 🔹 Attach to all "Donate Now" buttons (header + hero)
-  document.querySelectorAll('.btn-donate').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      donationModal.classList.remove('hidden');
-      donationModal.classList.add('flex'); // Show modal
-    });
-  });
-
-  // 🔹 Close modal
-  closeModal.addEventListener('click', () => {
-    donationModal.classList.add('hidden');
-    donationModal.classList.remove('flex');
-  });
-
-  // 🔹 Toggle Mobile Money provider field
-  paymentMethod.addEventListener('change', () => {
-    mobileMoneyProvider.classList.toggle('hidden', paymentMethod.value !== 'mobile_money');
-  });
-
-  // 🔹 Handle form submission (call backend)
-  donationForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    paymentMessage.textContent = 'Processing payment...';
-    paymentMessage.className = 'text-center mt-4 text-blue-600 text-sm';
-
-    const formData = Object.fromEntries(new FormData(donationForm));
-
-    // ✅ Choose API endpoint dynamically
-    let endpoint = '/api/pay/pesapal/';
-    if (formData.payment_method === 'mobile_money' && formData.provider === 'mtn') {
-      endpoint = '/api/pay/mtn/';
-    }
-
-    try {
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        paymentMessage.textContent = result.message || 'Payment initiated successfully!';
-        paymentMessage.className = 'text-center mt-4 text-green-600 text-sm';
-        
-        // Optional: redirect to Pesapal iframe
-        if (result.redirect_url) {
-          window.location.href = result.redirect_url;
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            currentSlide = (n + slides.length) % slides.length;
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
         }
-      } else {
-        paymentMessage.textContent = result.error || 'Payment failed. Please try again.';
-        paymentMessage.className = 'text-center mt-4 text-red-600 text-sm';
-      }
-    } catch (error) {
-      console.error(error);
-      paymentMessage.textContent = 'An error occurred. Please check your internet connection.';
-      paymentMessage.className = 'text-center mt-4 text-red-600 text-sm';
-    }
-  });
-});
-</script>
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        function startSlider() {
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        function stopSlider() {
+            clearInterval(slideInterval);
+        }
+
+        // Event Listeners for Slider
+        nextBtn.addEventListener('click', () => {
+            stopSlider();
+            nextSlide();
+            startSlider();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            stopSlider();
+            prevSlide();
+            startSlider();
+        });
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                stopSlider();
+                showSlide(index);
+                startSlider();
+            });
+        });
+
+        // Start the slider
+        startSlider();
+
+        // Pause slider on hover
+        const slider = document.querySelector('.hero-slider');
+        slider.addEventListener('mouseenter', stopSlider);
+        slider.addEventListener('mouseleave', startSlider);
+
+        // Mobile menu
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('active');
+        });
+
+        // ========== DONATION FUNCTIONALITY ==========
+        const donationAmounts = document.querySelectorAll('.donation-amount');
+        const customAmountInput = document.getElementById('custom-amount');
+        const setCustomAmountBtn = document.getElementById('set-custom-amount');
+        const donateButton = document.getElementById('donate-button');
+        const donationAmountFinal = document.getElementById('donation-amount-final');
+        const displayAmount = document.getElementById('display-amount');
+        const paymentMethod = document.getElementById('payment-method');
+        const mobileMoneyFields = document.getElementById('mobile-money-fields');
+        const paymentMessage = document.getElementById('payment-message');
+        let selectedAmount = 5000;
+
+        function formatUGX(amount) {
+            return 'UGX ' + parseInt(amount).toLocaleString('en-UG');
+        }
+
+        function updateDonateButton() {
+            donateButton.textContent = `Donate ${formatUGX(selectedAmount)} Now`;
+        }
+
+        donationAmounts.forEach(amount => {
+            amount.addEventListener('click', function() {
+                donationAmounts.forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+                selectedAmount = this.getAttribute('data-amount');
+                updateDonateButton();
+            });
+        });
+
+        setCustomAmountBtn.addEventListener('click', function() {
+            const customAmount = customAmountInput.value;
+            if (customAmount && customAmount > 0) {
+                selectedAmount = customAmount;
+                donationAmounts.forEach(a => a.classList.remove('active'));
+                updateDonateButton();
+            } else {
+                alert('Please enter a valid amount');
+            }
+        });
+
+        customAmountInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                setCustomAmountBtn.click();
+            }
+        });
+
+        paymentMethod.addEventListener('change', function() {
+            if (this.value === 'mobile_money') {
+                mobileMoneyFields.style.display = 'block';
+            } else {
+                mobileMoneyFields.style.display = 'none';
+            }
+        });
+
+        const modal = document.getElementById('donation-modal');
+        const closeModal = document.querySelector('.close-modal');
+        const donationForm = document.getElementById('donation-form');
+        const submitPaymentBtn = document.getElementById('submit-payment');
+
+        document.querySelectorAll('.btn-donate').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                donationAmountFinal.value = selectedAmount;
+                displayAmount.textContent = formatUGX(selectedAmount);
+                paymentMessage.style.display = 'none';
+                modal.style.display = 'flex';
+            });
+        });
+
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // ========== PAYMENT PROCESSING ==========
+        async function makeApiRequest(endpoint, method = 'POST', data = null) {
+            const url = `${API_BASE_URL}${endpoint}`;
+            console.log(`Making ${method} request to: ${url}`, data);
+            
+            const options = {
+                method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            };
+            
+            if (data) {
+                options.body = JSON.stringify(data);
+            }
+            
+            try {
+                const response = await fetch(url, options);
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const responseData = await response.json();
+                console.log('Response data:', responseData);
+                return responseData;
+            } catch (error) {
+                console.error('API Request Error:', error);
+                throw error;
+            }
+        }
+
+        function showPaymentMessage(message, type) {
+            paymentMessage.textContent = message;
+            paymentMessage.className = `payment-message payment-${type}`;
+            paymentMessage.style.display = 'block';
+        }
+
+        donationForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                amount: selectedAmount,
+                name: document.getElementById('donor-name').value,
+                email: document.getElementById('donor-email').value,
+                phone: document.getElementById('donor-phone').value,
+                payment_method: document.getElementById('payment-method').value
+            };
+
+            // Validation
+            if (!formData.name || !formData.email || !formData.phone || !formData.payment_method) {
+                showPaymentMessage('Please fill in all required fields', 'error');
+                return;
+            }
+
+            // For mobile money, get additional fields
+            if (formData.payment_method === 'mobile_money') {
+                formData.mobile_provider = document.getElementById('mobile-provider').value;
+                formData.mobile_number = document.getElementById('mobile-number').value;
+                
+                if (!formData.mobile_provider || !formData.mobile_number) {
+                    showPaymentMessage('Please select mobile provider and enter your number', 'error');
+                    return;
+                }
+            }
+
+            const originalText = submitPaymentBtn.textContent;
+            submitPaymentBtn.disabled = true;
+            submitPaymentBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            showPaymentMessage('Processing your payment...', 'processing');
+
+            try {
+                console.log('Sending payment data:', formData);
+                
+                // Determine endpoint based on payment method
+                let endpoint;
+                if (formData.payment_method === 'mobile_money') {
+                    endpoint = formData.mobile_provider === 'mtn' ? '/pay/mtn/' : '/pay/airtel/';
+                } else {
+                    endpoint = '/pay/pesapal/';
+                }
+
+                console.log('Using endpoint:', endpoint);
+                
+                const response = await makeApiRequest(endpoint, 'POST', formData);
+                
+                if (response.success) {
+                    if (response.redirect_url) {
+                        // For payment gateways that redirect
+                        showPaymentMessage('Redirecting to payment gateway...', 'processing');
+                        setTimeout(() => {
+                            window.location.href = response.redirect_url;
+                        }, 2000);
+                    } else {
+                        // For mobile money that doesn't redirect
+                        showPaymentMessage('Payment initiated! Please check your phone to complete the transaction.', 'success');
+                        setTimeout(() => {
+                            modal.style.display = 'none';
+                            this.reset();
+                        }, 3000);
+                    }
+                } else {
+                    throw new Error(response.error || 'Payment failed');
+                }
+                
+            } catch (error) {
+                console.error('Payment Error:', error);
+                showPaymentMessage('Error: ' + error.message + '. Please try again or contact support.', 'error');
+            } finally {
+                submitPaymentBtn.disabled = false;
+                submitPaymentBtn.textContent = originalText;
+            }
+        });
+
+        // ========== FORM SUBMISSIONS ==========
+        document.getElementById('volunteer-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your interest in volunteering with YuSmile Uganda! We will contact you soon.');
+            this.reset();
+        });
+
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you as soon as possible.');
+            this.reset();
+        });
+
+        // Initialize
+        updateDonateButton();
+        console.log('✅ Frontend loaded successfully! Backend URL:', API_BASE_URL);
+    </script>
+</body>
+</html>
