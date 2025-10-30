@@ -1042,7 +1042,7 @@
                         </div>
                     </div>
                     <div class="program-card">
-                        <div class="program-img" style="background-image: url('YuSmile11.jpeg');"></div>
+                        <div class="program-img" style="background-image: url('YuSmile12.jpeg');"></div>
                         <div class="program-content">
                             <h3>Healthcare Access Program</h3>
                             <p>Mobile clinics and health education campaigns reaching remote communities across Uganda.</p>
@@ -1474,7 +1474,92 @@
 
     <script>
         // ========== BACKEND CONFIGURATION ==========
-        const API_BASE_URL = 'http://localhost:8000';
+       // ========== BACKEND CONFIGURATION ==========
+const API_BASE_URL = 'http://127.0.0.1:8000/api';
+
+// Update the endpoint mapping in your donation form submit handler:
+donationForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = {
+        amount: selectedAmount,
+        name: document.getElementById('donor-name').value,
+        email: document.getElementById('donor-email').value,
+        phone: document.getElementById('donor-phone').value,
+        payment_method: document.getElementById('payment-method').value
+    };
+
+    // Validation
+    if (!formData.name || !formData.email || !formData.phone || !formData.payment_method) {
+        showPaymentMessage('Please fill in all required fields', 'error');
+        return;
+    }
+
+    // For mobile money, get additional fields
+    if (formData.payment_method === 'mobile_money') {
+        formData.mobile_provider = document.getElementById('mobile-provider').value;
+        formData.mobile_number = document.getElementById('mobile-number').value;
+        
+        if (!formData.mobile_provider || !formData.mobile_number) {
+            showPaymentMessage('Please select mobile provider and enter your number', 'error');
+            return;
+        }
+        
+        // Validate mobile number format
+        if (!/^0[0-9]{9}$/.test(formData.mobile_number)) {
+            showPaymentMessage('Please enter a valid 10-digit Uganda mobile number (e.g., 0758927639)', 'error');
+            return;
+        }
+    }
+
+    const originalText = submitPaymentBtn.textContent;
+    submitPaymentBtn.disabled = true;
+    submitPaymentBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+    showPaymentMessage('Processing your payment...', 'processing');
+
+    try {
+        console.log('Sending payment data:', formData);
+        
+        // Determine endpoint based on payment method - MATCH YOUR BACKEND URLS
+        let endpoint;
+        if (formData.payment_method === 'mobile_money') {
+            // Use the exact endpoint names from your urls.py
+            endpoint = formData.mobile_provider === 'mtn' ? '/pay/mtn/' : '/pay/airtel/';
+        } else {
+            endpoint = '/pay/pesapal/';
+        }
+
+        console.log('Using endpoint:', endpoint);
+        
+        const response = await makeApiRequest(endpoint, 'POST', formData);
+        
+        if (response.success) {
+            if (response.redirect_url) {
+                // For payment gateways that redirect
+                showPaymentMessage('Redirecting to payment gateway...', 'processing');
+                setTimeout(() => {
+                    window.location.href = response.redirect_url;
+                }, 2000);
+            } else {
+                // For mobile money that doesn't redirect
+                showPaymentMessage('✅ Payment initiated! Please check your phone to complete the transaction.', 'success');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    this.reset();
+                }, 3000);
+            }
+        } else {
+            throw new Error(response.error || 'Payment failed');
+        }
+        
+    } catch (error) {
+        console.error('Payment Error:', error);
+        showPaymentMessage('Error: ' + error.message + '. Please try again or contact support.', 'error');
+    } finally {
+        submitPaymentBtn.disabled = false;
+        submitPaymentBtn.textContent = originalText;
+    }
+});
 
         // ========== BASIC FUNCTIONALITY ==========
         // Page Navigation
@@ -1775,4 +1860,5 @@
     </script>
 </body>
 </html>
+
 
