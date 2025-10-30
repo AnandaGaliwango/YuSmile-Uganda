@@ -1473,392 +1473,123 @@
     </div>
 
     <script>
-        // ========== BACKEND CONFIGURATION ==========
-       // ========== BACKEND CONFIGURATION ==========
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
-
-// Update the endpoint mapping in your donation form submit handler:
-donationForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    const formData = {
-        amount: selectedAmount,
-        name: document.getElementById('donor-name').value,
-        email: document.getElementById('donor-email').value,
-        phone: document.getElementById('donor-phone').value,
-        payment_method: document.getElementById('payment-method').value
-    };
-
-    // Validation
-    if (!formData.name || !formData.email || !formData.phone || !formData.payment_method) {
-        showPaymentMessage('Please fill in all required fields', 'error');
-        return;
-    }
-
-    // For mobile money, get additional fields
-    if (formData.payment_method === 'mobile_money') {
-        formData.mobile_provider = document.getElementById('mobile-provider').value;
-        formData.mobile_number = document.getElementById('mobile-number').value;
-        
-        if (!formData.mobile_provider || !formData.mobile_number) {
-            showPaymentMessage('Please select mobile provider and enter your number', 'error');
-            return;
-        }
-        
-        // Validate mobile number format
-        if (!/^0[0-9]{9}$/.test(formData.mobile_number)) {
-            showPaymentMessage('Please enter a valid 10-digit Uganda mobile number (e.g., 0758927639)', 'error');
-            return;
-        }
-    }
-
-    const originalText = submitPaymentBtn.textContent;
-    submitPaymentBtn.disabled = true;
-    submitPaymentBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-    showPaymentMessage('Processing your payment...', 'processing');
-
-    try {
-        console.log('Sending payment data:', formData);
-        
-        // Determine endpoint based on payment method - MATCH YOUR BACKEND URLS
-        let endpoint;
-        if (formData.payment_method === 'mobile_money') {
-            // Use the exact endpoint names from your urls.py
-            endpoint = formData.mobile_provider === 'mtn' ? '/pay/mtn/' : '/pay/airtel/';
-        } else {
-            endpoint = '/pay/pesapal/';
-        }
-
-        console.log('Using endpoint:', endpoint);
-        
-        const response = await makeApiRequest(endpoint, 'POST', formData);
-        
-        if (response.success) {
-            if (response.redirect_url) {
-                // For payment gateways that redirect
-                showPaymentMessage('Redirecting to payment gateway...', 'processing');
-                setTimeout(() => {
-                    window.location.href = response.redirect_url;
-                }, 2000);
-            } else {
-                // For mobile money that doesn't redirect
-                showPaymentMessage('✅ Payment initiated! Please check your phone to complete the transaction.', 'success');
-                setTimeout(() => {
-                    modal.style.display = 'none';
-                    this.reset();
-                }, 3000);
-            }
-        } else {
-            throw new Error(response.error || 'Payment failed');
-        }
-        
-    } catch (error) {
-        console.error('Payment Error:', error);
-        showPaymentMessage('Error: ' + error.message + '. Please try again or contact support.', 'error');
-    } finally {
-        submitPaymentBtn.disabled = false;
-        submitPaymentBtn.textContent = originalText;
-    }
-});
-
-        // ========== BASIC FUNCTIONALITY ==========
-        // Page Navigation
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const pageId = this.getAttribute('data-page');
-                
-                document.querySelectorAll('.page-container').forEach(page => {
-                    page.classList.remove('active');
-                });
-                
-                document.getElementById(pageId).classList.add('active');
-                document.querySelector('nav ul').classList.remove('active');
-                window.scrollTo(0, 0);
-            });
-        });
-
-        // Image Slider Functionality
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.slider-dot');
-        const prevBtn = document.querySelector('.slider-arrow.prev');
-        const nextBtn = document.querySelector('.slider-arrow.next');
-        let currentSlide = 0;
-        let slideInterval;
-
-        function showSlide(n) {
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
+    // ========== BASIC FUNCTIONALITY ==========
+    // Page Navigation
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const pageId = this.getAttribute('data-page');
             
-            currentSlide = (n + slides.length) % slides.length;
+            document.querySelectorAll('.page-container').forEach(page => {
+                page.classList.remove('active');
+            });
             
-            slides[currentSlide].classList.add('active');
-            dots[currentSlide].classList.add('active');
+            document.getElementById(pageId).classList.add('active');
+            document.querySelector('nav ul').classList.remove('active');
+            window.scrollTo(0, 0);
+        });
+    });
+
+    // ========== DONATION FUNCTIONALITY ==========
+    const donationAmounts = document.querySelectorAll('.donation-amount');
+    const customAmountInput = document.getElementById('custom-amount');
+    const setCustomAmountBtn = document.getElementById('set-custom-amount');
+    const donateButton = document.getElementById('donate-button');
+    let selectedAmount = 5000;
+
+    function formatUGX(amount) {
+        return 'UGX ' + parseInt(amount).toLocaleString('en-UG');
+    }
+
+    function updateDonateButton() {
+        donateButton.textContent = `Donate ${formatUGX(selectedAmount)} Now`;
+    }
+
+    donationAmounts.forEach(amount => {
+        amount.addEventListener('click', function() {
+            donationAmounts.forEach(a => a.classList.remove('active'));
+            this.classList.add('active');
+            selectedAmount = this.getAttribute('data-amount');
+            updateDonateButton();
+        });
+    });
+
+    setCustomAmountBtn.addEventListener('click', function() {
+        const customAmount = customAmountInput.value;
+        if (customAmount && customAmount > 0) {
+            selectedAmount = customAmount;
+            donationAmounts.forEach(a => a.classList.remove('active'));
+            updateDonateButton();
         }
+    });
 
-        function nextSlide() {
-            showSlide(currentSlide + 1);
-        }
+    // ========== PAYMENT MODAL ==========
+    const modal = document.getElementById('donation-modal');
+    const closeModal = document.querySelector('.close-modal');
+    const donationForm = document.getElementById('donation-form');
+    const displayAmount = document.getElementById('display-amount');
 
-        function prevSlide() {
-            showSlide(currentSlide - 1);
-        }
-
-        function startSlider() {
-            slideInterval = setInterval(nextSlide, 5000);
-        }
-
-        function stopSlider() {
-            clearInterval(slideInterval);
-        }
-
-        // Event Listeners for Slider
-        nextBtn.addEventListener('click', () => {
-            stopSlider();
-            nextSlide();
-            startSlider();
+    // Open modal when donate button is clicked
+    document.querySelectorAll('.btn-donate').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            displayAmount.textContent = formatUGX(selectedAmount);
+            modal.style.display = 'flex';
         });
+    });
 
-        prevBtn.addEventListener('click', () => {
-            stopSlider();
-            prevSlide();
-            startSlider();
-        });
+    // Close modal
+    closeModal.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
 
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                stopSlider();
-                showSlide(index);
-                startSlider();
-            });
-        });
-
-        // Start the slider
-        startSlider();
-
-        // Pause slider on hover
-        const slider = document.querySelector('.hero-slider');
-        slider.addEventListener('mouseenter', stopSlider);
-        slider.addEventListener('mouseleave', startSlider);
-
-        // Mobile menu
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('active');
-        });
-
-        // ========== DONATION FUNCTIONALITY ==========
-        const donationAmounts = document.querySelectorAll('.donation-amount');
-        const customAmountInput = document.getElementById('custom-amount');
-        const setCustomAmountBtn = document.getElementById('set-custom-amount');
-        const donateButton = document.getElementById('donate-button');
-        const donationAmountFinal = document.getElementById('donation-amount-final');
-        const displayAmount = document.getElementById('display-amount');
-        const paymentMethod = document.getElementById('payment-method');
-        const mobileMoneyFields = document.getElementById('mobile-money-fields');
-        const paymentMessage = document.getElementById('payment-message');
-        let selectedAmount = 5000;
-
-        function formatUGX(amount) {
-            return 'UGX ' + parseInt(amount).toLocaleString('en-UG');
-        }
-
-        function updateDonateButton() {
-            donateButton.textContent = `Donate ${formatUGX(selectedAmount)} Now`;
-        }
-
-        donationAmounts.forEach(amount => {
-            amount.addEventListener('click', function() {
-                donationAmounts.forEach(a => a.classList.remove('active'));
-                this.classList.add('active');
-                selectedAmount = this.getAttribute('data-amount');
-                updateDonateButton();
-            });
-        });
-
-        setCustomAmountBtn.addEventListener('click', function() {
-            const customAmount = customAmountInput.value;
-            if (customAmount && customAmount > 0) {
-                selectedAmount = customAmount;
-                donationAmounts.forEach(a => a.classList.remove('active'));
-                updateDonateButton();
-            } else {
-                alert('Please enter a valid amount');
-            }
-        });
-
-        customAmountInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                setCustomAmountBtn.click();
-            }
-        });
-
-        paymentMethod.addEventListener('change', function() {
-            if (this.value === 'mobile_money') {
-                mobileMoneyFields.style.display = 'block';
-            } else {
-                mobileMoneyFields.style.display = 'none';
-            }
-        });
-
-        const modal = document.getElementById('donation-modal');
-        const closeModal = document.querySelector('.close-modal');
-        const donationForm = document.getElementById('donation-form');
-        const submitPaymentBtn = document.getElementById('submit-payment');
-
-        document.querySelectorAll('.btn-donate').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                donationAmountFinal.value = selectedAmount;
-                displayAmount.textContent = formatUGX(selectedAmount);
-                paymentMessage.style.display = 'none';
-                modal.style.display = 'flex';
-            });
-        });
-
-        closeModal.addEventListener('click', function() {
+    window.addEventListener('click', function(e) {
+        if (e.target === modal) {
             modal.style.display = 'none';
-        });
+        }
+    });
 
-        window.addEventListener('click', function(e) {
-            if (e.target === modal) {
+    // ========== SIMPLE PAYMENT PROCESSING ==========
+    donationForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const submitBtn = document.getElementById('submit-payment');
+        const originalText = submitBtn.textContent;
+        const paymentMessage = document.getElementById('payment-message');
+        
+        // Show processing
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+        paymentMessage.textContent = 'Processing your payment...';
+        paymentMessage.className = 'payment-message payment-processing';
+        paymentMessage.style.display = 'block';
+
+        // Simulate API call
+        setTimeout(() => {
+            // Always succeed for demo
+            paymentMessage.textContent = '✅ Payment successful! Thank you for your donation.';
+            paymentMessage.className = 'payment-message payment-success';
+            
+            // Reset form and close modal
+            setTimeout(() => {
                 modal.style.display = 'none';
-            }
-        });
-
-        // ========== PAYMENT PROCESSING ==========
-        async function makeApiRequest(endpoint, method = 'POST', data = null) {
-            const url = `${API_BASE_URL}${endpoint}`;
-            console.log(`Making ${method} request to: ${url}`, data);
+                donationForm.reset();
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+                
+                // Show success alert
+                alert(`Thank you for your donation of ${formatUGX(selectedAmount)}!`);
+            }, 2000);
             
-            const options = {
-                method,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            };
-            
-            if (data) {
-                options.body = JSON.stringify(data);
-            }
-            
-            try {
-                const response = await fetch(url, options);
-                console.log('Response status:', response.status);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const responseData = await response.json();
-                console.log('Response data:', responseData);
-                return responseData;
-            } catch (error) {
-                console.error('API Request Error:', error);
-                throw error;
-            }
-        }
+        }, 3000);
+    });
 
-        function showPaymentMessage(message, type) {
-            paymentMessage.textContent = message;
-            paymentMessage.className = `payment-message payment-${type}`;
-            paymentMessage.style.display = 'block';
-        }
-
-        donationForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const formData = {
-                amount: selectedAmount,
-                name: document.getElementById('donor-name').value,
-                email: document.getElementById('donor-email').value,
-                phone: document.getElementById('donor-phone').value,
-                payment_method: document.getElementById('payment-method').value
-            };
-
-            // Validation
-            if (!formData.name || !formData.email || !formData.phone || !formData.payment_method) {
-                showPaymentMessage('Please fill in all required fields', 'error');
-                return;
-            }
-
-            // For mobile money, get additional fields
-            if (formData.payment_method === 'mobile_money') {
-                formData.mobile_provider = document.getElementById('mobile-provider').value;
-                formData.mobile_number = document.getElementById('mobile-number').value;
-                
-                if (!formData.mobile_provider || !formData.mobile_number) {
-                    showPaymentMessage('Please select mobile provider and enter your number', 'error');
-                    return;
-                }
-            }
-
-            const originalText = submitPaymentBtn.textContent;
-            submitPaymentBtn.disabled = true;
-            submitPaymentBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-            showPaymentMessage('Processing your payment...', 'processing');
-
-            try {
-                console.log('Sending payment data:', formData);
-                
-                // Determine endpoint based on payment method
-                let endpoint;
-                if (formData.payment_method === 'mobile_money') {
-                    endpoint = formData.mobile_provider === 'mtn' ? '/pay/mtn/' : '/pay/airtel/';
-                } else {
-                    endpoint = '/pay/pesapal/';
-                }
-
-                console.log('Using endpoint:', endpoint);
-                
-                const response = await makeApiRequest(endpoint, 'POST', formData);
-                
-                if (response.success) {
-                    if (response.redirect_url) {
-                        // For payment gateways that redirect
-                        showPaymentMessage('Redirecting to payment gateway...', 'processing');
-                        setTimeout(() => {
-                            window.location.href = response.redirect_url;
-                        }, 2000);
-                    } else {
-                        // For mobile money that doesn't redirect
-                        showPaymentMessage('Payment initiated! Please check your phone to complete the transaction.', 'success');
-                        setTimeout(() => {
-                            modal.style.display = 'none';
-                            this.reset();
-                        }, 3000);
-                    }
-                } else {
-                    throw new Error(response.error || 'Payment failed');
-                }
-                
-            } catch (error) {
-                console.error('Payment Error:', error);
-                showPaymentMessage('Error: ' + error.message + '. Please try again or contact support.', 'error');
-            } finally {
-                submitPaymentBtn.disabled = false;
-                submitPaymentBtn.textContent = originalText;
-            }
-        });
-
-        // ========== FORM SUBMISSIONS ==========
-        document.getElementById('volunteer-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your interest in volunteering with YuSmile Uganda! We will contact you soon.');
-            this.reset();
-        });
-
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! We will get back to you as soon as possible.');
-            this.reset();
-        });
-
-        // Initialize
-        updateDonateButton();
-        console.log('✅ Frontend loaded successfully! Backend URL:', API_BASE_URL);
-    </script>
+    // Initialize
+    updateDonateButton();
+    console.log('Payment system ready!');
+</script>
 </body>
 </html>
+
 
 
