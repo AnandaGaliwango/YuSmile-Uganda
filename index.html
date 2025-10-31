@@ -1473,6 +1473,48 @@
     </div>
 
     <script>
+        // ========== HERO SLIDER FUNCTIONALITY ==========
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let slideInterval;
+
+    function showSlide(n) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        currentSlide = n;
+        slides[currentSlide].classList.add('active');
+    }
+
+    function nextSlide() {
+        let next = currentSlide + 1;
+        if (next >= totalSlides) next = 0;
+        showSlide(next);
+    }
+
+    function startSlider() {
+        if (totalSlides > 0) {
+            slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        }
+    }
+
+    function stopSlider() {
+        clearInterval(slideInterval);
+    }
+
+    // Initialize slider
+    document.addEventListener('DOMContentLoaded', function() {
+        if (slides.length > 0) {
+            showSlide(0);
+            startSlider();
+        }
+    });
+
+    // Pause slider on hover
+    const heroSlider = document.querySelector('.hero-slider');
+    if (heroSlider) {
+        heroSlider.addEventListener('mouseenter', stopSlider);
+        heroSlider.addEventListener('mouseleave', startSlider);
+    }
     // ========== BASIC FUNCTIONALITY ==========
     // Page Navigation
     document.querySelectorAll('.nav-link').forEach(link => {
@@ -1590,6 +1632,7 @@
 </script>
 </body>
 </html>
+
 
 
 
